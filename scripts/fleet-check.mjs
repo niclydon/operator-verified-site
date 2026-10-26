@@ -34,12 +34,13 @@
 //        [--log-index URL|none] [--timeout-ms N] [--now ISO]
 //        [--dry-run] [--bootstrap --bootstrap-output PRIVATE_FILE]
 //        [--allow-draft] [--allow-degraded]
-//        [--evidence FILE]
+//        [--evidence NEW_PRIVATE_FILE]
+// Evidence is create-only and stays outside the served site tree.
 //
 // Environment (flags win): FLEET_RPC_URLS (comma separated), FLEET_LOG_INDEX_URL.
 
-import { readFile, readdir, realpath, writeFile } from 'node:fs/promises'
-import { createHash } from 'node:crypto'
+import { readFile, readdir, realpath, rename, rm, writeFile } from 'node:fs/promises'
+import { createHash, randomBytes } from 'node:crypto'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -81,6 +82,12 @@ export const HUMAN_ID_FORM = 'padded64' // or 'sdk-unpadded'
 
 const SCHEMA = 'ov-fleet-roster:v1'
 const GUARD = /PLACEHOLDER|DRAFT:/
+const SITE_FLEET_COPY = [
+  ['program', 'Program wallet', 'The program wallet.'],
+  ['nova', 'Nova', 'The Nova fleet agent.'],
+  ['aria', 'ARIA', 'The ARIA fleet agent.'],
+  ['cole', 'Cole', 'The Cole fleet agent.'],
+]
 
 // ---------------------------------------------------------------------------
 // Keccak-256 (original Keccak padding, as Ethereum uses). Small and slow by
@@ -310,6 +317,14 @@ export function validateRoster(roster, { bootstrap = false, allowDraft = false }
   }
 }
 
+export function assertSiteFleetCopy(wallets) {
+  if (wallets.length !== SITE_FLEET_COPY.length ||
+      wallets.some((wallet, index) =>
+        [wallet.id, wallet.label, wallet.role].some((value, field) => value !== SITE_FLEET_COPY[index][field]))) {
+    throw new ConfigError('fleet roster does not match the approved four-wallet page copy')
+  }
+}
+
 // ---------------------------------------------------------------------------
 // The check
 // ---------------------------------------------------------------------------
@@ -535,7 +550,7 @@ export function renderCards(results) {
 
 export function renderSummary(results, blockNumber, rpcs = []) {
   const checked = results.find((r) => r.checked_at)
-  const lines = [`<h2>The fleet. <span data-fact="fleet.summary">${esc(summarize(results))}</span></h2>`]
+  const lines = [`<h2>The fleet. <span>${esc(summarize(results))}</span></h2>`]
   if (checked) {
     const hosts = new Set(rpcs.map((url) => new URL(url).hostname.toLowerCase()))
     const source = hosts.size === 2 &&
@@ -551,6 +566,12 @@ export function renderSummary(results, blockNumber, rpcs = []) {
     lines.push('<p class="fleet-when">No check completed at this build.</p>')
   }
   return lines.join('\n')
+}
+
+export function renderProofClaim(results) {
+  return results.every((result) => result.status === 'verified')
+    ? "This check says that four wallets in the operator's private roster resolved to the same registered, verified unique human when the site was built."
+    : ''
 }
 
 export function buildFacts(run, roster) {
@@ -702,6 +723,9 @@ const EXISTING_SNAPSHOT_FILES = Object.freeze({
   'snapshots/2026-10-26-launch/projects/fiador/index.html': 'a5987006727f187e5d1a267926f2bc62a079fc576f90ddc5d6acbf513582f30d',
   'snapshots/2026-10-26-launch/verify/index.html': 'a46537feab117f97f3ccbc30f20afc450182e5a72cca331c4af98d373af24bfb',
 })
+// The new snapshot may gain a deployment ID, but its captured file bytes may
+// not change after this reviewed content set is published.
+const FLEET_SNAPSHOT_CONTENT_HASH = 'b355f12579d8e9d72db22626ce18029f50c8b75229318628830032d0f3bf0d8e'
 
 // The checker appends fleet.* facts to the existing public facts. The old
 // non-fleet document may keep its existing public fragment only at this exact
@@ -760,6 +784,36 @@ export async function scanServedTree(site, secrets, forbiddenIdentifiers, {
   snapshotFiles = EXISTING_SNAPSHOT_FILES,
   nonFleetFactsHash = EXISTING_NON_FLEET_FACTS_SHA256,
 } = {}) {
+  const fleetSnapshot = path.join(site, 'snapshots', '2026-10-26-fleet')
+  let manifest
+  try { manifest = JSON.parse(await readFile(path.join(fleetSnapshot, 'snapshot.json'), 'utf8')) } catch {
+    return 'fleet snapshot manifest missing or invalid'
+  }
+  if (!manifest.files || typeof manifest.files !== 'object' || Array.isArray(manifest.files) ||
+      sha256(JSON.stringify(manifest.files)) !== FLEET_SNAPSHOT_CONTENT_HASH) {
+    return 'fleet snapshot file list differs from the reviewed content set'
+  }
+  const captured = new Set()
+  async function checkSnapshot(dir) {
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+      const file = path.join(dir, entry.name)
+      if (entry.isSymbolicLink()) return 'symbolic link in fleet snapshot'
+      if (entry.isDirectory()) {
+        const refusal = await checkSnapshot(file)
+        if (refusal) return refusal
+      } else if (entry.isFile()) {
+        const relative = path.relative(fleetSnapshot, file).split(path.sep).join('/')
+        if (relative === 'snapshot.json') continue
+        if (!Object.hasOwn(manifest.files, relative)) return 'unlisted file in fleet snapshot'
+        if (sha256(await readFile(file)) !== manifest.files[relative]) return 'fleet snapshot file changed'
+        captured.add(relative)
+      } else return 'non-file entry in fleet snapshot'
+    }
+    return null
+  }
+  const snapshotRefusal = await checkSnapshot(fleetSnapshot)
+  if (snapshotRefusal) return snapshotRefusal
+  if (captured.size !== Object.keys(manifest.files).length) return 'fleet snapshot file missing'
   const contentExtensions = new Set(['.html', '.htm', '.json', '.jsonl', '.md', '.txt', '.csv', '.xml', '.svg', '.webmanifest', '.map'])
   const browserCodeExtensions = new Set(['.js', '.mjs', '.css'])
   async function walk(dir) {
@@ -876,6 +930,7 @@ async function main() {
     throw new ConfigError('cannot read private roster')
   }
   roster = validateRoster(roster, { bootstrap, allowDraft: args.flags.has('allow-draft') })
+  assertSiteFleetCopy(roster.wallets)
   // Check both the path placed in the public tree and its symlink target.
   // Either location could expose a private roster to a static publisher.
   const actualSite = await realpath(site)
@@ -920,16 +975,18 @@ async function main() {
   factsRule(facts)
   const pagePath = path.join(site, 'fleet', 'index.html')
   const factsPath = path.join(site, 'facts.json')
-  let page, factsDoc
+  let page, factsDoc, factsOriginal
   try {
     page = await readFile(pagePath, 'utf8')
-    factsDoc = JSON.parse(await readFile(factsPath, 'utf8'))
+    factsOriginal = await readFile(factsPath, 'utf8')
+    factsDoc = JSON.parse(factsOriginal)
   } catch {
     throw new ConfigError('cannot read fleet/index.html or facts.json under the site directory')
   }
   if (!Array.isArray(factsDoc.facts)) throw new ConfigError('facts.json has no facts array')
   page = replaceRegion(page, 'summary', renderSummary(run.results, run.blockNumber, rpcs))
   page = replaceRegion(page, 'cards', renderCards(run.results))
+  page = replaceRegion(page, 'proof-claim', renderProofClaim(run.results))
   const evidence = {
     record: 'fleet-check',
     attempted_at: run.attemptedAt,
@@ -958,9 +1015,45 @@ async function main() {
   }
 
   if (!args.flags.has('dry-run')) {
-    await writeFile(pagePath, page)
-    await writeFile(factsPath, factsText)
-    if (args.evidence) await writeFile(path.resolve(args.evidence), evidenceText + '\n')
+    const evidencePath = args.evidence ? path.resolve(args.evidence) : null
+    if (evidencePath) {
+      let parent
+      try { parent = await realpath(path.dirname(evidencePath)) } catch {
+        throw new ConfigError('evidence parent directory does not exist; nothing written')
+      }
+      const resolvedEvidence = path.join(parent, path.basename(evidencePath))
+      if (resolvedEvidence === actualSite || resolvedEvidence.startsWith(actualSite + path.sep)) {
+        throw new ConfigError('evidence output must stay outside the public site tree; nothing written')
+      }
+    }
+    const suffix = randomBytes(12).toString('hex')
+    const pageStage = path.join(path.dirname(pagePath), `.${path.basename(pagePath)}.${suffix}.tmp`)
+    const factsStage = path.join(path.dirname(factsPath), `.${path.basename(factsPath)}.${suffix}.tmp`)
+    const originalPage = await readFile(pagePath, 'utf8')
+    let evidenceWritten = false
+    let pageReplaced = false
+    try {
+      await writeFile(pageStage, page, { flag: 'wx', mode: 0o600 })
+      await writeFile(factsStage, factsText, { flag: 'wx', mode: 0o600 })
+      if (evidencePath) {
+        await writeFile(evidencePath, evidenceText + '\n', { flag: 'wx', mode: 0o600 })
+        evidenceWritten = true
+      }
+      await rename(pageStage, pagePath)
+      pageReplaced = true
+      await rename(factsStage, factsPath)
+    } catch {
+      if (pageReplaced) {
+        try { await writeFile(pagePath, originalPage) } catch { /* report possible partial output below */ }
+      }
+      if (evidenceWritten) {
+        try { await rm(evidencePath) } catch { /* report possible partial output below */ }
+      }
+      throw new ConfigError('publication failed; partial output may remain, do not deploy this build')
+    } finally {
+      await rm(pageStage, { force: true })
+      await rm(factsStage, { force: true })
+    }
   }
   console.log(evidenceText)
   const allOk = run.results.every((r) => r.status === 'verified')
@@ -974,10 +1067,10 @@ if (isMain) {
     (code) => process.exit(code),
     (e) => {
       if (e instanceof ConfigError) {
-        console.error(`fleet-check: configuration error: ${e.message}; nothing written`)
+        console.error(`fleet-check: configuration error: ${e.message}`)
         process.exit(2)
       }
-      console.error(`fleet-check: internal error: ${e && e.message}; nothing written`)
+      console.error(`fleet-check: internal error: ${e && e.message}; partial output may remain, do not deploy this build`)
       process.exit(2)
     },
   )

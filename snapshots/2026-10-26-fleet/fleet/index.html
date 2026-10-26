@@ -23,22 +23,8 @@
   var mode = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   document.documentElement.setAttribute('data-mode', mode);
   document.addEventListener('DOMContentLoaded', function(){
-    // Facts wiring: values printed inline are the no-JS fallback; when
-    // facts.json loads, its verified values replace them in place.
-    try {
-      var link = document.querySelector('link[rel="stylesheet"]');
-      var root = link ? link.getAttribute('href').replace(/assets\/style\.css$/, '') : '';
-      fetch(root + 'facts.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(data){
-        if (!data) return;
-        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        function fmt(iso){ var d = new Date(iso + 'T12:00:00'); return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
-        data.facts.forEach(function(f){
-          document.querySelectorAll('[data-fact="' + f.id + '"]').forEach(function(el){ el.textContent = f.value; });
-          document.querySelectorAll('[data-fact-date="' + f.id + '"]').forEach(function(el){ el.textContent = fmt(f.verified_at); });
-        });
-        document.querySelectorAll('[data-fact="generated"]').forEach(function(el){ el.textContent = fmt(String(data.generated_at).slice(0,10)); });
-      }).catch(function(){});
-    } catch(e){}
+    // Fleet status is rendered into this HTML at build time. A separately
+    // cached facts.json must not change the heading without changing cards.
     function applyMode(m){
       document.documentElement.setAttribute('data-mode', m);
       document.querySelectorAll('img[data-dark-src]').forEach(function(im){
@@ -94,7 +80,7 @@ blockquote.threat{margin:0;padding:16px 20px;border-left:3px solid var(--gold);b
 <section style="padding-top:48px">
   <div class="label"><b>&middot;</b> / FLEET</div>
 <!-- fleet-check:begin summary -->
-<h2>The fleet. <span data-fact="fleet.summary">Four wallets, one verified unique human.</span></h2>
+<h2>The fleet. <span>Four wallets, one verified unique human.</span></h2>
 <p class="fleet-when">Checked at build, 2026-10-26 19:05 UTC, against World Chain block 36852949, using Alchemy and Tenderly. This result is a build-time snapshot.</p>
 <!-- fleet-check:end summary -->
   <p>Operator Verified checks whether its program wallet and the wallets used by
@@ -165,9 +151,12 @@ blockquote.threat{margin:0;padding:16px 20px;border-left:3px solid var(--gold);b
 
 <section>
   <div class="label"><b>04</b> / WHAT THIS PROVES, AND WHAT IT DOES NOT</div>
-  <blockquote class="threat"><p style="margin:0">This check says that four wallets
+  <blockquote class="threat"><p style="margin:0"><!-- fleet-check:begin proof-claim -->
+This check says that four wallets
   in the operator's private roster resolved to the same registered, verified
-  unique human when the site was built. AgentBook registration alone does not
+  unique human when the site was built.
+<!-- fleet-check:end proof-claim -->
+  AgentBook registration alone does not
   prove a wallet holder consented: its contract does not require that wallet's
   signature. This page also does not prove what an agent did, that the human
   is present now, or that the human approved any particular action. It does
