@@ -77,3 +77,11 @@ ol.steps li{margin-bottom:10px}
 table.facts{width:100%;border-collapse:collapse;font-size:15px}
 table.facts td,table.facts th{border-bottom:1px solid var(--hairline);padding:8px 6px;text-align:left;vertical-align:top}
 code{font-family:"JetBrains Mono",monospace;font-size:.92em}
+::selection{background:var(--gold-fill);color:#141518}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px}
+.btn:hover{filter:brightness(1.07)}
+.btn.ghost:hover{background:color-mix(in srgb, var(--blue) 10%, transparent);filter:none}
+.toggle{letter-spacing:.02em;font-size:12.5px;white-space:nowrap}
+@media(max-width:920px){.bar-in{gap:12px}.bar nav{gap:14px}}
+@media(max-width:700px){.hero{padding:46px 0 4px}.hero h1{font-size:33px}
+  section{padding:46px 0 4px}}

@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Resources — Operator Verified</title>
 <meta name="description" content="Official World ID, AgentKit, AgentBook, and World Chain material, linked descriptively so every claim can be checked at the source.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Operator Verified">
+<meta property="og:title" content="Resources — Operator Verified">
+<meta property="og:description" content="Official World ID, AgentKit, AgentBook, and World Chain material, linked descriptively so every claim can be checked at the source.">
+<meta property="og:url" content="https://operatorverified.org/resources/">
+<meta property="og:image" content="https://operatorverified.org/assets/lead-lockup-dark.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EDEEF0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
 <link rel="icon" href="../assets/ov-core-light.svg" media="(prefers-color-scheme: light)">
 <link rel="icon" href="../assets/ov-core-dark.svg" media="(prefers-color-scheme: dark)">
 <script>
@@ -30,10 +39,19 @@
         document.querySelectorAll('[data-fact="generated"]').forEach(function(el){ el.textContent = fmt(String(data.generated_at).slice(0,10)); });
       }).catch(function(){});
     } catch(e){}
+    function applyMode(m){
+      document.documentElement.setAttribute('data-mode', m);
+      document.querySelectorAll('img[data-dark-src]').forEach(function(im){
+        im.src = m === 'dark' ? im.getAttribute('data-dark-src') : im.getAttribute('data-light-src');
+      });
+      var b = document.getElementById('mode-toggle');
+      if (b) b.textContent = m === 'dark' ? '☀ Light' : '☾ Dark';
+    }
+    applyMode(document.documentElement.getAttribute('data-mode') || 'light');
     var b = document.getElementById('mode-toggle');
     if (b) b.addEventListener('click', function(){
       var cur = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-mode', cur);
+      applyMode(cur);
       try { localStorage.setItem('ov-mode', cur); } catch(e){}
     });
   });
@@ -47,7 +65,7 @@
     <img class="only-light" src="../assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
     <img class="only-dark" src="../assets/ov-core-dark.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
     <span>Operator&nbsp;Verified</span></a>
-  <nav><a href="../projects/">Projects</a><a href="../verify/">Verify</a><a href="../resources/">Resources</a><a href="../devlog/">Devlog</a><a href="../about/">About</a><button class="toggle" id="mode-toggle" aria-label="Toggle light and dark mode">mode</button></nav>
+  <nav><a href="../projects/">Projects</a><a href="../verify/">Verify</a><a href="../resources/">Resources</a><a href="../devlog/">Devlog</a><a href="../about/">About</a><button class="toggle" id="mode-toggle" aria-label="Switch between light and dark mode">☾ Dark</button></nav>
 </div></header>
 <main class="wrap">
 

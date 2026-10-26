@@ -4,6 +4,33 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Polish pass (post-launch)
+
+A professional-finish pass over the launched site, prompted by
+the author's read of it on a phone:
+
+- The mode toggle is a real control now: it reads "☾ Dark" /
+  "☀ Light" for the mode a tap selects, capitalized, and stays
+  in sync with the active mode.
+- Hero art weight: the plate and lockup images ship as WebP
+  (the PNGs remain the archival masters; the dark lockup PNG
+  still serves as the OG image). The two variants of each hero
+  image became one image whose source follows the mode, so a
+  visit no longer downloads both. Hero art per visit drops from
+  roughly 2.3 MB to roughly 65 KB.
+- Every page gained Open Graph and Twitter card meta and a
+  theme-color per color scheme; a purpose-built OG card render
+  remains the pre-announcement item it always was.
+- A designed 404 page in the site's own chrome replaces the
+  platform default.
+- Small craft items: keyboard focus outlines, a selection
+  tint in the brand gold, hover states on the buttons, tighter
+  header spacing at tablet widths, calmer type and spacing at
+  phone widths, and width/height on the large images so pages
+  no longer shift as art loads.
+- No copy, claim, or fact changed in this pass; `facts.json`
+  is byte-identical to the launch build.
+
 ## 2026-10-26 — Mobile header fix (post-launch)
 
 Minutes after launch, the author loaded the site on a phone and

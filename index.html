@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home — Operator Verified</title>
 <meta name="description" content="An independent open-source program building ways to check that the operator behind an agent was verified as a unique human.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Operator Verified">
+<meta property="og:title" content="Home — Operator Verified">
+<meta property="og:description" content="An independent open-source program building ways to check that the operator behind an agent was verified as a unique human.">
+<meta property="og:url" content="https://operatorverified.org/">
+<meta property="og:image" content="https://operatorverified.org/assets/lead-lockup-dark.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EDEEF0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
 <link rel="icon" href="assets/ov-core-light.svg" media="(prefers-color-scheme: light)">
 <link rel="icon" href="assets/ov-core-dark.svg" media="(prefers-color-scheme: dark)">
 <script>
@@ -30,10 +39,19 @@
         document.querySelectorAll('[data-fact="generated"]').forEach(function(el){ el.textContent = fmt(String(data.generated_at).slice(0,10)); });
       }).catch(function(){});
     } catch(e){}
+    function applyMode(m){
+      document.documentElement.setAttribute('data-mode', m);
+      document.querySelectorAll('img[data-dark-src]').forEach(function(im){
+        im.src = m === 'dark' ? im.getAttribute('data-dark-src') : im.getAttribute('data-light-src');
+      });
+      var b = document.getElementById('mode-toggle');
+      if (b) b.textContent = m === 'dark' ? '☀ Light' : '☾ Dark';
+    }
+    applyMode(document.documentElement.getAttribute('data-mode') || 'light');
     var b = document.getElementById('mode-toggle');
     if (b) b.addEventListener('click', function(){
       var cur = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-mode', cur);
+      applyMode(cur);
       try { localStorage.setItem('ov-mode', cur); } catch(e){}
     });
   });
@@ -47,14 +65,13 @@
     <img class="only-light" src="assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
     <img class="only-dark" src="assets/ov-core-dark.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
     <span>Operator&nbsp;Verified</span></a>
-  <nav><a href="projects/">Projects</a><a href="verify/">Verify</a><a href="resources/">Resources</a><a href="devlog/">Devlog</a><a href="about/">About</a><button class="toggle" id="mode-toggle" aria-label="Toggle light and dark mode">mode</button></nav>
+  <nav><a href="projects/">Projects</a><a href="verify/">Verify</a><a href="resources/">Resources</a><a href="devlog/">Devlog</a><a href="about/">About</a><button class="toggle" id="mode-toggle" aria-label="Switch between light and dark mode">☾ Dark</button></nav>
 </div></header>
 <main class="wrap">
 
 <div class="hero">
   <div>
-    <img class="only-light" src="assets/lead-lockup-light.png" alt="Operator Verified — verified as a unique human">
-    <img class="only-dark" src="assets/lead-lockup-dark.png" alt="Operator Verified — verified as a unique human">
+    <img id="lockup-img" src="assets/lead-lockup-light.webp" data-light-src="assets/lead-lockup-light.webp" data-dark-src="assets/lead-lockup-dark.webp" width="1960" height="560" alt="Operator Verified — verified as a unique human">
     <h1>Agents are starting to act for people in public.</h1>
     <p class="lede">Operator Verified — named for the one claim it stands for,
     <strong>verified as a unique human</strong> — is a small open-source program
@@ -66,8 +83,7 @@
     </div>
   </div>
   <div>
-    <img class="plate only-light" src="assets/plate-lead-light.png" alt="The Operator Verified plate: a brushed steel credential plate, gold O and deep steel blue V overlaid, the words ‘verified as a unique human’ engraved along the base">
-    <img class="plate only-dark" src="assets/plate-lead-dark.png" alt="The Operator Verified plate: a brushed steel credential plate, gold O and deep steel blue V overlaid, the words ‘verified as a unique human’ engraved along the base">
+    <img class="plate" id="plate-img" src="assets/plate-lead-light.webp" data-light-src="assets/plate-lead-light.webp" data-dark-src="assets/plate-lead-dark.webp" width="1000" height="1000" alt="The Operator Verified plate: a brushed steel credential plate, gold O and deep steel blue V overlaid, the words ‘verified as a unique human’ engraved along the base">
   </div>
 </div>
 
