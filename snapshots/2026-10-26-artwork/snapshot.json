@@ -1,10 +1,10 @@
 {
   "snapshot": "2026-10-26-artwork",
   "date": "2026-10-26",
-  "reason": "Prepare approved production plate and lockup artwork after the AgentBook privacy correction",
-  "source_commit": "fa555f471ad44b4c8a2012c05b284a40db644d72",
-  "source_state": "captured from the locally committed artwork candidate before publication",
-  "deployment": "prepared before deployment; see CHANGES.md for any later publication record",
+  "reason": "Record production plate and lockup artwork deployed before the separately published AgentBook privacy correction",
+  "source_commit": "196904d631ed7cee84ee325c50ad04a23d21271e",
+  "source_state": "captured from locally committed site source after the privacy correction was separately published",
+  "deployment": "artwork deployed in 7532bc8; privacy correction separately published in 5abbf32; this snapshot is a later record, not another artwork rollout",
   "files": {
     "404.html": "3d0809531f3d5e2ce2f9e5dfa0614b7ade44ad3df92e6371c3b251daf4dd5d31",
     "about/index.html": "acf863347d3114140f6c99c5f8e78639bb2e35191ddcc2ba7930fe10688673fa",
@@ -31,12 +31,12 @@
     "facts.json": "7dde918bde47d64bf1c8c90cb8346a69538ca9ef7ef379f740bbd84c573226ed",
     "fleet/index.html": "8b492c82a73245d939f5e070da7e9cefa82c69d7b1554cd0c7668cda07143540",
     "index.html": "94b972aa437ee8d6038fd62a3f0884423d7764eed02b20dd2ec1b3f363613485",
-    "note.md": "f2a554ab61b13c6522979b00f07fc0130accd52e64fa3c16e77ea1be986d09bb",
+    "note.md": "d29f525ad8f89b498e2f235b0f75fa70febc07f036fd00592a9af8652f5520bf",
     "projects/fiador/index.html": "3ed5dce9d21f36a061725bb1045b678e0348371d494b78905b4bb26cfa6a42be",
     "projects/index.html": "699946ee7c10090e14c1afa561b89eb8d36c539fa92b5e6738bf65c58c19431d",
     "resources/index.html": "c08800aef620802acd08935c2592153c523b30db6d102841150e3e23f4e0fdf2",
-    "snapshots/index.html": "bb6d0147b16321b8b4d3d53819536d88e3fc537791511ac864c9355fec0da737",
+    "snapshots/index.html": "788c421226e35056d91d917b2db9345e4ce9cab006ea423a7e0a7455851b5133",
     "verify/index.html": "a9c8e57625845c8e49970c5c906f2467ea4ae7aa5e66a1234d9baf2f3e96cd70",
-    "what-changed.json": "8aa94d37f8fef8bea968fcbd08b4aca97661377fe70e221966d7765a0323baf1"
+    "what-changed.json": "76a6317f16066f06584577ab68b6f7fecafdeaa05273a0bf2738a9f5ebf47831"
   }
 }
