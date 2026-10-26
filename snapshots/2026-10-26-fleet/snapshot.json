@@ -2,7 +2,7 @@
   "snapshot": "2026-10-26-fleet",
   "date": "2026-10-26",
   "reason": "Labels-only fleet page and private two-provider AgentBook build check; current site removes the previously published program-wallet fragment",
-  "source_commit": "pending approved site PR",
+  "source_commit": "5da417d12c87767d97d869382a592de64a7c7265",
   "deployment": "pending preview and deployment",
   "files": {
     "404.html": "3d0809531f3d5e2ce2f9e5dfa0614b7ade44ad3df92e6371c3b251daf4dd5d31",
