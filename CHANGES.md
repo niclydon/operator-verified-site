@@ -4,6 +4,23 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Sign in with World ID: machinery built, dark
+
+The site side of Sign in with World ID (issuer auth.world.org)
+is built and deployed but deliberately dark and unlinked: an
+account page at /account/ that no navigation points to, and
+serverless auth endpoints (login, callback, logout, session
+status) that stay inert until the program's OIDC client
+registration exists and its credentials are configured. The
+flow is authorization code with PKCE (S256), client_secret_basic,
+scope "openid" only — no email, no name, and no raw World
+identifier is ever requested or received; the account page
+presents the authentication class World ID reports (Orb class
+means the operator was verified as a unique human) together
+with the authentication time, so an account's verified status
+is never dressed up as a fresh presence proof. Nothing about
+the visible site changed.
+
 ## 2026-10-26 — Fix: image aspect distortion (screenshot pass)
 
 A real-browser screenshot pass at desktop and phone widths
