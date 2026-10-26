@@ -4,6 +4,17 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Production artwork candidate prepared
+
+The approved 2048×2048 plate and 2600×740 lockup replace the interim
+hero renders in a local release candidate based on the privacy correction.
+Both color variants, the PNG lockup masters, and the social-share image are
+updated. Home-page image dimensions now match the new files. A new
+append-only artwork snapshot records the candidate and its unchanged facts.
+This entry records preparation, not publication; a separate record must
+identify any approved production deployment and live check. See
+`docs/narrative/2026-10-26-production-artwork-preparation.md`.
+
 ## 2026-10-26 — Privacy correction: AgentBook linkage
 
 The current About page and README now state the limit of the earlier
