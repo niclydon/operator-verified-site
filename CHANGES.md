@@ -11,6 +11,7 @@ hero renders in a local release candidate based on the privacy correction.
 Both color variants, the PNG lockup masters, and the social-share image are
 updated. Home-page image dimensions now match the new files. A new
 append-only artwork snapshot records the candidate and its unchanged facts.
+Local desktop and phone browser checks passed in light and dark modes.
 This entry records preparation, not publication; a separate record must
 identify any approved production deployment and live check. See
 `docs/narrative/2026-10-26-production-artwork-preparation.md`.

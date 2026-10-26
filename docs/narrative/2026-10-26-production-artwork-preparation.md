@@ -26,10 +26,11 @@ image assets were inspected directly; the snapshot manifest matches
 its 32 captured files; `node --test test/fleet-page.test.mjs` passes all
 six tests, including refusal of a changed artwork file; and the served
 tree privacy scan passes. The facts file matches the privacy snapshot
-byte for byte. A fresh desktop and phone browser pass in light and dark
-modes is still required: the repository's `agent-browser` driver is not
-installed on Furnace. Direct image inspection does not establish page
-layout, mode swapping, or social-card rendering.
+byte for byte. A local Chromium browser pass loaded desktop and phone
+pages in light and dark modes, with no broken images, page errors, or
+horizontal overflow. The About, Fleet, and snapshot index pages loaded
+at phone width. This local pass does not establish a production deployment
+or social-card rendering in a live unfurl.
 
 Nic's exact wording and artwork publication approval is still required
 under `docs/DESIGN.md` before a public pull request or deployment. A
