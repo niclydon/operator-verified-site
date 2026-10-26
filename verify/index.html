@@ -72,8 +72,52 @@
 <section style="padding-top:48px">
   <div class="label"><b>—</b> / VERIFY</div>
   <h2>How verification works</h2>
-  <p>This page teaches checking. It performs none — the tools live with the projects
-  that own them, and are linked from here.</p>
+  <p>This page teaches checking, and it runs one check itself: the live check below,
+  which proves the visitor. The attestation checks live with the projects that own
+  them, and are linked from here.</p>
+</section>
+<section>
+  <div class="label"><b>LIVE</b> / CHECK YOURSELF</div>
+  <h3>Prove you are a unique human</h3>
+  <p>This is the one claim, run on you. Press the button and World App will ask you
+  to prove with your World ID; this site verifies the proof with World and shows
+  the result here. The check grants nothing, creates no account, and stores
+  nothing: the proof is handled in this page and in the verification call, and
+  afterwards the page shows only a short receipt hash.</p>
+  <div class="card" id="ovc-panel">
+    <p id="ovc-intro">The live check is not switched on yet. When it is, the button
+    will appear here.</p>
+    <p><button class="btn" id="ovc-start" hidden>Verify with World ID</button></p>
+    <div id="ovc-qr-wrap" hidden>
+      <p><img id="ovc-qr" width="264" height="264" alt="QR code for the World App check"></p>
+      <p><a id="ovc-open" href="#">Open in World App</a> — on the device that holds your World App.</p>
+    </div>
+    <p id="ovc-log" role="status"></p>
+    <div id="ovc-verdict" hidden></div>
+  </div>
+  <script>
+  (function () {
+    var startBtn = document.getElementById('ovc-start');
+    var intro = document.getElementById('ovc-intro');
+    if (!startBtn) return;
+    fetch('/api/verify/status').then(function (r) { return r.json(); }).then(function (s) {
+      if (s && s.enabled) {
+        startBtn.hidden = false;
+        intro.textContent = 'The live check is on. It takes about a minute with World App.';
+      }
+    }).catch(function () {});
+    var loaded = false;
+    startBtn.addEventListener('click', function () {
+      if (window.OVCheck) { window.OVCheck.start(); return; }
+      if (loaded) return;
+      loaded = true;
+      var sc = document.createElement('script');
+      sc.src = '../assets/verify-client.js';
+      sc.onload = function () { if (window.OVCheck) window.OVCheck.start(); };
+      document.head.appendChild(sc);
+    });
+  })();
+  </script>
 </section>
 <section>
   <div class="label"><b>01</b> / THE ONE CLAIM</div>
