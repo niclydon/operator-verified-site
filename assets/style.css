@@ -31,6 +31,8 @@ header.bar{position:sticky;top:0;z-index:10;backdrop-filter:blur(14px);
 .toggle{margin-left:8px;border:1px solid var(--hairline);background:var(--panel);
   color:var(--muted);border-radius:6px;padding:5px 10px;cursor:pointer;
   font-family:"JetBrains Mono",monospace;font-size:12px}
+@media(max-width:700px){.bar-in{flex-wrap:wrap;padding:10px 16px}
+  .bar nav{margin-left:0;width:100%;gap:14px}}
 img.only-dark{display:none} html[data-mode="dark"] img.only-dark{display:block}
 html[data-mode="dark"] img.only-light{display:none}
 img{max-width:100%}

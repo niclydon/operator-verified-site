@@ -4,6 +4,18 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Mobile header fix (post-launch)
+
+Minutes after launch, the author loaded the site on a phone and
+the header showed its desktop assumption: on narrow screens the
+navigation wrapped into the brand's row and overlapped the
+wordmark. The pre-launch visual pass had checked desktop widths
+only. Fix, in `assets/style.css` only: under 700px the header
+stacks — brand on its own row, navigation on a full-width row
+beneath it. No other file changed; the launch snapshot stays as
+frozen, per the append-only rule, and this fix is recorded here
+rather than folded into it.
+
 ## 2026-10-26 — Launch
 
 The site went live at operatorverified.org on the author's
