@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fiador — Operator Verified</title>
+<meta name="description" content="Fiador: human-backed attestation for Discord bots. What it proves, what it does not prove, and its dated verification record.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Operator Verified">
+<meta property="og:title" content="Fiador — Operator Verified">
+<meta property="og:description" content="Fiador: human-backed attestation for Discord bots. What it proves, what it does not prove, and its dated verification record.">
+<meta property="og:url" content="https://operatorverified.org/projects/fiador/">
+<meta property="og:image" content="https://operatorverified.org/assets/lead-lockup-dark.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EDEEF0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<link rel="icon" href="../../assets/ov-core-light.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../../assets/ov-core-dark.svg" media="(prefers-color-scheme: dark)">
+<script>
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('ov-mode'); } catch(e){}
+  var mode = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-mode', mode);
+  document.addEventListener('DOMContentLoaded', function(){
+    // Facts wiring: values printed inline are the no-JS fallback; when
+    // facts.json loads, its verified values replace them in place.
+    try {
+      var link = document.querySelector('link[rel="stylesheet"]');
+      var root = link ? link.getAttribute('href').replace(/assets\/style\.css$/, '') : '';
+      fetch(root + 'facts.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(data){
+        if (!data) return;
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        function fmt(iso){ var d = new Date(iso + 'T12:00:00'); return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+        data.facts.forEach(function(f){
+          document.querySelectorAll('[data-fact="' + f.id + '"]').forEach(function(el){ el.textContent = f.value; });
+          document.querySelectorAll('[data-fact-date="' + f.id + '"]').forEach(function(el){ el.textContent = fmt(f.verified_at); });
+        });
+        document.querySelectorAll('[data-fact="generated"]').forEach(function(el){ el.textContent = fmt(String(data.generated_at).slice(0,10)); });
+      }).catch(function(){});
+    } catch(e){}
+    function applyMode(m){
+      document.documentElement.setAttribute('data-mode', m);
+      document.querySelectorAll('img[data-dark-src]').forEach(function(im){
+        im.src = m === 'dark' ? im.getAttribute('data-dark-src') : im.getAttribute('data-light-src');
+      });
+      var b = document.getElementById('mode-toggle');
+      if (b) b.textContent = m === 'dark' ? '☀ Light' : '☾ Dark';
+    }
+    applyMode(document.documentElement.getAttribute('data-mode') || 'light');
+    var b = document.getElementById('mode-toggle');
+    if (b) b.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+      applyMode(cur);
+      try { localStorage.setItem('ov-mode', cur); } catch(e){}
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="../../">
+    <img class="only-light" src="../../assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <img class="only-dark" src="../../assets/ov-core-dark.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <span>Operator&nbsp;Verified</span></a>
+  <nav><a href="../../projects/">Projects</a><a href="../../fleet/">Fleet</a><a href="../../verify/">Verify</a><a href="../../resources/">Resources</a><a href="../../devlog/">Devlog</a><a href="../../about/">About</a><button class="toggle" id="mode-toggle" aria-label="Switch between light and dark mode">☾ Dark</button></nav>
+</div></header>
+<main class="wrap">
+
+<section style="padding-top:48px">
+  <div class="label"><b>—</b> / PROJECT</div>
+  <span class="chip live">Repo live · Oct 25, 2026</span>
+  <h2 style="margin-top:12px">Fiador</h2>
+  <p>Fiador is this program's human-backed attestation for Discord bots.
+  <em>Fiador</em>: in Spanish and Portuguese law, the guarantor — the person who
+  stands surety for another. That is the operator's job for their bot: not the actor,
+  the one who answers for the attestation.</p>
+  <p>Naming note: this repository was founded as “human-backed” on October 25, 2026
+  and renamed to Fiador the same day; its founding documents are being updated in a
+  rename pass. Links: <a href="https://github.com/niclydon/fiador">repository</a> ·
+  <a href="https://github.com/niclydon/fiador/blob/main/docs/SPEC.md">spec</a> ·
+  <a href="https://github.com/niclydon/fiador/blob/main/docs/narrative/2026-10-25-founding.md">founding narrative</a></p>
+  <img class="plate" src="../../assets/fiador-banner.webp" width="2240" height="1120" decoding="async" alt="Fiador banner art: a gold-ringed iris over a starfield">
+</section>
+<section>
+  <div class="label"><b>01</b> / WHAT IT PROVES</div>
+  <div class="cards">
+    <div class="card"><h3>Proves</h3><p>A unique human registered the wallet that
+      signed the attestation binding that wallet to a Discord application.</p></div>
+    <div class="card"><h3>Does not prove</h3><p>That the human wrote any particular
+      message, endorses any particular output, or controls the bot at this moment.</p></div>
+  </div>
+</section>
+<section>
+  <div class="label"><b>02</b> / HOW IT WORKS</div>
+  <ol class="steps">
+    <li>The operator registers their agent wallet in AgentBook with their verified
+    World ID, and signs an attestation binding the wallet to their Discord application.</li>
+    <li>The attestation is published where a checker can fetch it. It carries a hash of
+    the operator's human identifier — never the identifier itself.</li>
+    <li>A checker (a self-hosted verifier bot, or the no-install verify page) will
+    verify the signature, check expiry, and resolve the wallet live in AgentBook.</li>
+  </ol>
+</section>
+<section>
+  <div class="label"><b>03</b> / STATUS AND EVIDENCE</div>
+  <p>What exists today: the protocol spec, this design record, and the badge artwork
+  below. What does not exist yet, named plainly: the packaged verifier bot running in a
+  public guild, and a registry listing. The path it will run has already been proven
+  end to end: on October 26, 2026, a World App proof verified through the verification
+  bot and assigned the Verified Human role in a live Discord server, and this site
+  carries a static page explaining the check. The verify package is designed to live
+  in this repo.</p>
+  <h3>Evidence</h3>
+  <p><strong>Substrate prototype, October 25, 2026.</strong> The verification loop was
+  proven end to end against a real AgentBook registration in a private prototype:
+  three granted uses, and the fourth denied when the trial allowance exhausted, as
+  designed. That run used a playground wallet, which is not used in public material.</p>
+  <p><strong>Program wallet.</strong> A dedicated wallet was generated for this program only. Its address is withheld from this page. Its registration is
+  <span data-fact="program.wallet.state">registered (confirmed live)</span>; the founding
+  attestation and any registry listing will use this wallet.</p>
+</section>
+<section>
+  <div class="label"><b>04</b> / BADGE SPECIMENS</div>
+  <div class="specimens"><figure class="specimen">
+      <img class="only-light" src="../../assets/fiador-pill-light-verified.svg" alt="Fiador badge specimen, light variant, Verified">
+      <img class="only-dark" src="../../assets/fiador-pill-dark-verified.svg" alt="Fiador badge specimen, dark variant, Verified">
+      <figcaption>Verified — a static specimen. A served badge reflects a live check; a copied image proves nothing.</figcaption></figure><figure class="specimen">
+      <img class="only-light" src="../../assets/fiador-pill-light-expired.svg" alt="Fiador badge specimen, light variant, Expired">
+      <img class="only-dark" src="../../assets/fiador-pill-dark-expired.svg" alt="Fiador badge specimen, dark variant, Expired">
+      <figcaption>Expired — a static specimen. A served badge reflects a live check; a copied image proves nothing.</figcaption></figure><figure class="specimen">
+      <img class="only-light" src="../../assets/fiador-pill-light-unverified.svg" alt="Fiador badge specimen, light variant, Not verified">
+      <img class="only-dark" src="../../assets/fiador-pill-dark-unverified.svg" alt="Fiador badge specimen, dark variant, Not verified">
+      <figcaption>Not verified — a static specimen. A served badge reflects a live check; a copied image proves nothing.</figcaption></figure></div>
+</section>
+
+</main>
+<footer><div class="wrap"><div class="cols">
+  <div>Created by Nic Lydon. Copyright 2026 Nic Lydon, Apache-2.0.<br>Part of Operator Verified, an independent open-source program with no token.</div>
+  <div>Facts verified <span data-fact="generated">October 26, 2026</span> · <a href="../../snapshots/">Snapshot history</a><br>
+  More by Nic Lydon: <a href="https://www.niclydon.io/nexus">Nexus</a> · <a href="https://www.niclydon.io/aria">ARIA</a> · <a href="https://www.niclydon.io/gadgets">Gadgets</a></div>
+</div>
+<p style="margin-top:16px">Operator Verified is an independent project by Nic Lydon. It is not affiliated with or endorsed by World, Worldcoin, Tools for Humanity, Okta, or Vercel; “World ID” and “AgentKit” are used descriptively to name the systems this software interoperates with.</p>
+</div></footer>
+</body>
+</html>

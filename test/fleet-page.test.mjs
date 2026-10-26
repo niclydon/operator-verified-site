@@ -48,6 +48,8 @@ test('a changed captured page is refused even if the manifest itself still parse
     await cp(fileURLToPath(new URL('../snapshots/2026-10-26-fleet/', import.meta.url)), snapshot, { recursive: true })
     const privacySnapshot = path.join(site, 'snapshots', '2026-10-26-privacy-correction')
     await cp(fileURLToPath(new URL('../snapshots/2026-10-26-privacy-correction/', import.meta.url)), privacySnapshot, { recursive: true })
+    const artworkSnapshot = path.join(site, 'snapshots', '2026-10-26-artwork')
+    await cp(fileURLToPath(new URL('../snapshots/2026-10-26-artwork/', import.meta.url)), artworkSnapshot, { recursive: true })
     assert.equal(await scanServedTree(site, [], []), null)
     const capturedPage = path.join(snapshot, 'fleet', 'index.html')
     await writeFile(capturedPage, (await readFile(capturedPage, 'utf8')) + '\n')
@@ -61,7 +63,7 @@ test('a changed privacy-correction snapshot is refused', async () => {
   const site = await mkdtemp(path.join(tmpdir(), 'ov-privacy-snapshot-'))
   try {
     await mkdir(path.join(site, 'snapshots'))
-    for (const name of ['2026-10-26-fleet', '2026-10-26-privacy-correction']) {
+    for (const name of ['2026-10-26-fleet', '2026-10-26-privacy-correction', '2026-10-26-artwork']) {
       await cp(fileURLToPath(new URL(`../snapshots/${name}/`, import.meta.url)),
         path.join(site, 'snapshots', name), { recursive: true })
     }
@@ -69,6 +71,23 @@ test('a changed privacy-correction snapshot is refused', async () => {
     const capturedPage = path.join(site, 'snapshots', '2026-10-26-privacy-correction', 'about', 'index.html')
     await writeFile(capturedPage, (await readFile(capturedPage, 'utf8')) + '\n')
     assert.equal(await scanServedTree(site, [], []), '2026-10-26-privacy-correction snapshot file changed')
+  } finally {
+    await rm(site, { recursive: true, force: true })
+  }
+})
+
+test('a changed production artwork snapshot is refused', async () => {
+  const site = await mkdtemp(path.join(tmpdir(), 'ov-artwork-snapshot-'))
+  try {
+    await mkdir(path.join(site, 'snapshots'))
+    for (const name of ['2026-10-26-fleet', '2026-10-26-privacy-correction', '2026-10-26-artwork']) {
+      await cp(fileURLToPath(new URL(`../snapshots/${name}/`, import.meta.url)),
+        path.join(site, 'snapshots', name), { recursive: true })
+    }
+    assert.equal(await scanServedTree(site, [], []), null)
+    const capturedArt = path.join(site, 'snapshots', '2026-10-26-artwork', 'assets', 'lead-lockup-dark.webp')
+    await writeFile(capturedArt, Buffer.concat([await readFile(capturedArt), Buffer.from([0])]))
+    assert.equal(await scanServedTree(site, [], []), '2026-10-26-artwork snapshot file changed')
   } finally {
     await rm(site, { recursive: true, force: true })
   }
