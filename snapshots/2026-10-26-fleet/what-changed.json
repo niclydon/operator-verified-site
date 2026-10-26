@@ -1,0 +1,29 @@
+{
+  "added": [
+    "404.html",
+    "account/index.html",
+    "assets/lead-lockup-dark.webp",
+    "assets/lead-lockup-light.webp",
+    "assets/plate-lead-dark.webp",
+    "assets/plate-lead-light.webp",
+    "fleet/index.html",
+    "note.md"
+  ],
+  "modified": [
+    "about/index.html",
+    "assets/style.css",
+    "devlog/2026-10-26-founding/index.html",
+    "devlog/index.html",
+    "facts.json",
+    "index.html",
+    "projects/fiador/index.html",
+    "projects/index.html",
+    "resources/index.html",
+    "snapshots/index.html",
+    "verify/index.html"
+  ],
+  "removed": [
+    "assets/plate-lead-dark.png",
+    "assets/plate-lead-light.png"
+  ]
+}

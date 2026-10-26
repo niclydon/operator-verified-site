@@ -27,6 +27,32 @@ Nic through the coordinator's queue, not directly.
 
 ---
 
+## Revision 5 — fleet privacy (Oct 26, 2026)
+
+Nic chose **fleet labels only** for the new `/fleet/` page. A truncated
+wallet address can be matched to public AgentBook events and reveal other
+wallets registered to the same human. The new fleet page, its new facts, and its
+check evidence therefore show no fleet address or fragment, shared human hash,
+transaction pointer, or exact per-wallet registration date. The full roster
+and pinned comparison hash stay outside this repository and the served site.
+
+The page names the program wallet, Nova, ARIA, and Cole; shows each build-time
+result and the check time; and says plainly that readers cannot independently
+repeat the exact four-wallet lookup without the private roster. Older public
+material already contains a program-wallet fragment, so the fleet page makes
+no anonymity promise. The current Fiador page and facts stop repeating that
+fragment; the frozen launch snapshot and historical design text retain the
+earlier disclosure. This revision supersedes earlier address-display and
+hash-publication directions for `/fleet/` only. It also makes the fleet facts
+an explicit exception to the public-source reproducibility rule in §7: the
+method and contract are public, but the private roster means the exact result
+is operator-reported and cannot be independently repeated from this site.
+Any change to the existing
+material needs its own privacy review. Nic must approve the exact new page
+wording before a public pull request or deployment.
+
+---
+
 ## Revision 2 — the Operator Verified reframe (Oct 25, 2026, late)
 
 This design was first written when the site was a "human-backed"

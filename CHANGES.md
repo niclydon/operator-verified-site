@@ -4,6 +4,19 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Labels-only fleet page
+
+The new `/fleet/` page shows a dated build-time AgentBook check for the
+program wallet, Nova, ARIA, and Cole. The four addresses, fragments,
+shared human hash, and transaction pointers stay out of the new page
+and facts. The operator confirmed his World App approval of the program
+wallet registration. A private Alchemy and Tenderly check returned four
+verified results. Readers cannot reproduce the exact lookup without
+the private roster; the page says so. The current Fiador page and fact
+no longer repeat the program wallet's older public fragment, although
+the original launch snapshot remains frozen. The new snapshot records
+the page and this correction.
+
 ## 2026-10-26 — Correction: Fiador page, what does not exist yet
 
 The section's opening sentence named the verifier bot and the static

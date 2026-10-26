@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The fleet · Operator Verified</title>
+<meta name="description" content="Build-time AgentBook results for the program wallet and three agent wallets. Fleet identifiers stay private; the check time is shown.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Operator Verified">
+<meta property="og:title" content="The fleet · Operator Verified">
+<meta property="og:description" content="Build-time AgentBook results for four privately held fleet wallets, with each result and the check time shown.">
+<meta property="og:url" content="https://operatorverified.org/fleet/">
+<meta property="og:image" content="https://operatorverified.org/assets/lead-lockup-dark.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EDEEF0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<link rel="icon" href="../assets/ov-core-light.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../assets/ov-core-dark.svg" media="(prefers-color-scheme: dark)">
+<script>
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('ov-mode'); } catch(e){}
+  var mode = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-mode', mode);
+  document.addEventListener('DOMContentLoaded', function(){
+    // Fleet status is rendered into this HTML at build time. A separately
+    // cached facts.json must not change the heading without changing cards.
+    function applyMode(m){
+      document.documentElement.setAttribute('data-mode', m);
+      document.querySelectorAll('img[data-dark-src]').forEach(function(im){
+        im.src = m === 'dark' ? im.getAttribute('data-dark-src') : im.getAttribute('data-light-src');
+      });
+      var b = document.getElementById('mode-toggle');
+      if (b) b.textContent = m === 'dark' ? '☀ Light' : '☾ Dark';
+    }
+    applyMode(document.documentElement.getAttribute('data-mode') || 'light');
+    var b = document.getElementById('mode-toggle');
+    if (b) b.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+      applyMode(cur);
+      try { localStorage.setItem('ov-mode', cur); } catch(e){}
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+/* Fleet page additions. Site tokens only; both modes come from the tokens.
+   The builder may move these rules into assets/style.css unchanged. */
+.fleet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.fleet-head h3{margin:0}
+.fleet-badge{display:inline-flex;align-items:center;gap:7px;font-family:"JetBrains Mono",monospace;
+  font-size:11.5px;letter-spacing:.04em;padding:4px 10px 4px 7px;border-radius:999px;border:1px solid var(--chip-outline);
+  color:var(--muted);background:var(--raised);white-space:nowrap}
+.fleet-badge img{display:block}
+html[data-mode="dark"] .fleet-badge img.only-light{display:none}
+html:not([data-mode="dark"]) .fleet-badge img.only-dark{display:none}
+.fleet-badge.ok{border-color:var(--gold);color:var(--gold)}
+.fleet-badge.no{padding-left:10px}
+.fleet-reason{font-size:14.5px}
+.fleet-facts{font-size:14px}
+.fleet-facts th{width:34%;color:var(--muted);font-weight:600}
+.fleet-when{color:var(--muted);font-size:15px}
+.fleet-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+blockquote.threat{margin:0;padding:16px 20px;border-left:3px solid var(--gold);background:var(--panel);
+  border-radius:0 10px 10px 0;color:var(--text)}
+@media(max-width:700px){.fleet-cards{grid-template-columns:1fr}.fleet-facts th{width:40%}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="../">
+    <img class="only-light" src="../assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <img class="only-dark" src="../assets/ov-core-dark.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <span>Operator&nbsp;Verified</span></a>
+  <nav><a href="../projects/">Projects</a><a href="../fleet/" aria-current="page">Fleet</a><a href="../verify/">Verify</a><a href="../resources/">Resources</a><a href="../devlog/">Devlog</a><a href="../about/">About</a><button class="toggle" id="mode-toggle" aria-label="Switch between light and dark mode">☾ Dark</button></nav>
+</div></header>
+<main class="wrap">
+
+<section style="padding-top:48px">
+  <div class="label"><b>&middot;</b> / FLEET</div>
+<!-- fleet-check:begin summary -->
+<h2>The fleet. <span>Four wallets, one verified unique human.</span></h2>
+<p class="fleet-when">Checked at build, 2026-10-26 19:05 UTC, against World Chain block 36852949, using Alchemy and Tenderly. This result is a build-time snapshot.</p>
+<!-- fleet-check:end summary -->
+  <p>Operator Verified checks whether its program wallet and the wallets used by
+  Nova, ARIA, and Cole resolve to the same World ID-backed registration in
+  AgentBook on World Chain. The operator confirmed that he approved the program
+  wallet's registration in World App. The four wallet addresses were also
+  matched to locally held keys before this check. This is a claim about a
+  <strong>verified unique human</strong>, not the person's legal identity.</p>
+  <p>The cards show what the build check found. If a wallet cannot be checked,
+  its card says <strong>not verified</strong> and does not keep an older green
+  result. The check time is shown above.</p>
+</section>
+
+<section>
+  <div class="label"><b>01</b> / THE WALLETS</div>
+  <div class="cards fleet-cards">
+<!-- fleet-check:begin cards -->
+<div class="card fleet-card" data-status="verified">
+  <div class="fleet-head"><h3>Program wallet</h3><span class="fleet-badge ok"><img class="only-light" src="../assets/ov-core-light.svg" width="18" height="18" alt=""><img class="only-dark" src="../assets/ov-core-dark.svg" width="18" height="18" alt="">Backed by a verified unique human</span></div>
+  <p>The program wallet.</p>
+  <table class="facts fleet-facts"><tr><th>Checked</th><td>2026-10-26 19:05 UTC, at build</td></tr></table>
+</div>
+<div class="card fleet-card" data-status="verified">
+  <div class="fleet-head"><h3>Nova</h3><span class="fleet-badge ok"><img class="only-light" src="../assets/ov-core-light.svg" width="18" height="18" alt=""><img class="only-dark" src="../assets/ov-core-dark.svg" width="18" height="18" alt="">Backed by a verified unique human</span></div>
+  <p>The Nova fleet agent.</p>
+  <table class="facts fleet-facts"><tr><th>Checked</th><td>2026-10-26 19:05 UTC, at build</td></tr></table>
+</div>
+<div class="card fleet-card" data-status="verified">
+  <div class="fleet-head"><h3>ARIA</h3><span class="fleet-badge ok"><img class="only-light" src="../assets/ov-core-light.svg" width="18" height="18" alt=""><img class="only-dark" src="../assets/ov-core-dark.svg" width="18" height="18" alt="">Backed by a verified unique human</span></div>
+  <p>The ARIA fleet agent.</p>
+  <table class="facts fleet-facts"><tr><th>Checked</th><td>2026-10-26 19:05 UTC, at build</td></tr></table>
+</div>
+<div class="card fleet-card" data-status="verified">
+  <div class="fleet-head"><h3>Cole</h3><span class="fleet-badge ok"><img class="only-light" src="../assets/ov-core-light.svg" width="18" height="18" alt=""><img class="only-dark" src="../assets/ov-core-dark.svg" width="18" height="18" alt="">Backed by a verified unique human</span></div>
+  <p>The Cole fleet agent.</p>
+  <table class="facts fleet-facts"><tr><th>Checked</th><td>2026-10-26 19:05 UTC, at build</td></tr></table>
+</div>
+<!-- fleet-check:end cards -->
+  </div>
+</section>
+
+<section>
+  <div class="label"><b>02</b> / HOW THE CHECK WORKS</div>
+  <ol class="steps">
+    <li>The build asks AgentBook which pseudonymous human identifier, if any,
+    each privately listed wallet is registered to. It compares a hash of that
+    identifier with a value held in the private roster. Neither identifier nor
+    hash appears on this page.</li>
+    <li>The checker requires matching answers from two World Chain RPC URLs
+    on distinct hostnames. The dated result above describes the configured
+    sources. Different hostnames alone do not prove independent operation.
+    A different human, an unregistered wallet, and a failed read all produce a
+    non-verified card; the reason remains distinct in the build result.</li>
+    <li>The result is checked when the site is built. It is not a live status
+    feed, and this page does not publish exact registration times.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="label"><b>03</b> / WHAT YOU CAN CHECK</div>
+  <p>The <a href="https://github.com/niclydon/operator-verified-site/blob/main/scripts/fleet-check.mjs">build checker</a>
+  and <a href="https://github.com/niclydon/world-program/tree/main/fleet-wiring/F1-fleet-page/build/test">offline tests</a>
+  are public. The wallet roster is private, so a reader cannot repeat this
+  exact four-wallet lookup independently. The page reports the operator's
+  build result; it does not expose the inputs needed to reproduce that result.
+  See <a href="../verify/">how verification works</a> for the broader method.</p>
+</section>
+
+<section>
+  <div class="label"><b>04</b> / WHAT THIS PROVES, AND WHAT IT DOES NOT</div>
+  <blockquote class="threat"><p style="margin:0"><!-- fleet-check:begin proof-claim -->
+This check says that four wallets
+  in the operator's private roster resolved to the same registered, verified
+  unique human when the site was built.
+<!-- fleet-check:end proof-claim -->
+  AgentBook registration alone does not
+  prove a wallet holder consented: its contract does not require that wallet's
+  signature. This page also does not prove what an agent did, that the human
+  is present now, or that the human approved any particular action. It does
+  not verify the person's legal identity.</p></blockquote>
+</section>
+
+<section>
+  <div class="label"><b>05</b> / WHAT STAYS PRIVATE</div>
+  <p>The fleet wallet addresses, address fragments, shared human hash,
+  transaction pointers, and exact registration dates are omitted. Public
+  AgentBook events can connect these values to other wallets. Older public
+  material may already contain clues, so this page does not promise anonymity.
+  Short-lived runner agents and private testing wallets are not listed.</p>
+</section>
+
+</main>
+<footer><div class="wrap"><div class="cols">
+  <div>Created by Nic Lydon. Copyright 2026 Nic Lydon, Apache-2.0.<br>Part of Operator Verified, an independent open-source program with no token.</div>
+  <div>Fleet result checked at build, as dated above · <a href="../snapshots/">Snapshot history</a><br>
+  More by Nic Lydon: <a href="https://www.niclydon.io/nexus">Nexus</a> · <a href="https://www.niclydon.io/aria">ARIA</a> · <a href="https://www.niclydon.io/gadgets">Gadgets</a></div>
+</div>
+<p style="margin-top:16px">Operator Verified is an independent project by Nic Lydon. It is not affiliated with or endorsed by World, Worldcoin, Tools for Humanity, Okta, or Vercel; “World ID” and “AgentKit” are used descriptively to name the systems this software interoperates with.</p>
+</div></footer>
+</body>
+</html>
