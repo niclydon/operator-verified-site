@@ -731,7 +731,7 @@ const EXISTING_SNAPSHOT_FILES = Object.freeze({
 const SNAPSHOT_CONTENT_HASHES = Object.freeze({
   '2026-10-26-fleet': 'b355f12579d8e9d72db22626ce18029f50c8b75229318628830032d0f3bf0d8e',
   '2026-10-26-privacy-correction': '01d571495a423fe03d4cda6c7db6bcb5ba28d5d6efb99f7a97c832aa613de23a',
-  '2026-10-26-artwork': 'cf99c4e7041035b5391c2b8917d15100454c25dccc0068c9ee217b0f7394af0e',
+  '2026-10-26-artwork': '41aeb1b97273ccf424d9b77ebafc8311a437755f4bbb91f5e153bed1af1fc71e',
 })
 
 // The checker appends fleet.* facts to the existing public facts. The old

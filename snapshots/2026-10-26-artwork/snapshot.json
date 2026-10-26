@@ -2,7 +2,7 @@
   "snapshot": "2026-10-26-artwork",
   "date": "2026-10-26",
   "reason": "Prepare approved production plate and lockup artwork after the AgentBook privacy correction",
-  "source_commit": "a5d343e417b362d638a8d64151e87b1b2d4d4901",
+  "source_commit": "fa555f471ad44b4c8a2012c05b284a40db644d72",
   "source_state": "captured from the locally committed artwork candidate before publication",
   "deployment": "prepared before deployment; see CHANGES.md for any later publication record",
   "files": {
@@ -35,7 +35,7 @@
     "projects/fiador/index.html": "3ed5dce9d21f36a061725bb1045b678e0348371d494b78905b4bb26cfa6a42be",
     "projects/index.html": "699946ee7c10090e14c1afa561b89eb8d36c539fa92b5e6738bf65c58c19431d",
     "resources/index.html": "c08800aef620802acd08935c2592153c523b30db6d102841150e3e23f4e0fdf2",
-    "snapshots/index.html": "248fbedab189d059297744643f58ab843662e3c016313d289e2e2d5dacd40e5a",
+    "snapshots/index.html": "bb6d0147b16321b8b4d3d53819536d88e3fc537791511ac864c9355fec0da737",
     "verify/index.html": "a9c8e57625845c8e49970c5c906f2467ea4ae7aa5e66a1234d9baf2f3e96cd70",
     "what-changed.json": "8aa94d37f8fef8bea968fcbd08b4aca97661377fe70e221966d7765a0323baf1"
   }
