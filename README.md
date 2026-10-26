@@ -44,6 +44,11 @@ and deployed on Vercel. Numbers on the site render from
 verified. Frozen copies of the site at each launch state live under
 `snapshots/` on the site itself, starting at launch.
 
+The `/fleet/` page reports build-time AgentBook checks by fleet label.
+Its roster and comparison hash are private, so the exact lookup cannot
+be reproduced from the published site. The dated page describes which
+RPC sources were used and what each result means.
+
 - Design record: `docs/DESIGN.md`
 - Founding narrative: `docs/narrative/2026-10-25-founding-and-first-build.md`
 - Changelog: `CHANGES.md`

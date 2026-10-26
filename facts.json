@@ -1,6 +1,6 @@
 {
   "site": "operator-verified",
-  "generated_at": "2026-10-26T01:29:00-04:00",
+  "generated_at": "2026-10-26T19:05:47Z",
   "facts": [
     {
       "id": "registry.services.count",
@@ -38,7 +38,7 @@
       "source": {
         "type": "status-check",
         "ref": "Program wallet record, Oct 26, 2026",
-        "detail": "Registration executed in the World App and confirmed live (registered: true) on Oct 26, 2026; public form is the truncated address only"
+        "detail": "Registration executed in the World App and confirmed live (registered: true) on Oct 26, 2026; address omitted from the current site"
       },
       "verified_at": "2026-10-26",
       "verified_by": "the author",
@@ -46,15 +46,15 @@
     },
     {
       "id": "program.wallet.public",
-      "label": "Program wallet (truncated)",
-      "value": "0x21BD…A14Bc",
+      "label": "Program wallet address on current site",
+      "value": "withheld",
       "kind": "machine",
       "source": {
         "type": "status-check",
         "ref": "Program wallet record, Oct 25, 2026",
-        "detail": "Truncated form is the only public form"
+        "detail": "The current site omits the address and fragments; a launch snapshot preserves an earlier published fragment"
       },
-      "verified_at": "2026-10-25",
+      "verified_at": "2026-10-26",
       "verified_by": "the author",
       "publish": true
     },
@@ -112,6 +112,102 @@
       },
       "verified_at": "2026-10-26",
       "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "fleet.program",
+      "label": "Program wallet: AgentBook backing",
+      "value": "verified",
+      "kind": "machine",
+      "status": "verified",
+      "failures": [
+        "registration_date_unavailable"
+      ],
+      "checked_at": "2026-10-26T19:05:47Z",
+      "attempted_at": "2026-10-26T19:05:47Z",
+      "source": {
+        "type": "chain-read",
+        "ref": "AgentBook lookupHuman on World Chain (eip155:480)",
+        "detail": "Build-time check by scripts/fleet-check.mjs at block 36852949; not a live check"
+      },
+      "verified_at": "2026-10-26",
+      "verified_by": "the build check (scripts/fleet-check.mjs)",
+      "publish": true
+    },
+    {
+      "id": "fleet.nova",
+      "label": "Nova: AgentBook backing",
+      "value": "verified",
+      "kind": "machine",
+      "status": "verified",
+      "failures": [
+        "registration_date_unavailable"
+      ],
+      "checked_at": "2026-10-26T19:05:47Z",
+      "attempted_at": "2026-10-26T19:05:47Z",
+      "source": {
+        "type": "chain-read",
+        "ref": "AgentBook lookupHuman on World Chain (eip155:480)",
+        "detail": "Build-time check by scripts/fleet-check.mjs at block 36852949; not a live check"
+      },
+      "verified_at": "2026-10-26",
+      "verified_by": "the build check (scripts/fleet-check.mjs)",
+      "publish": true
+    },
+    {
+      "id": "fleet.aria",
+      "label": "ARIA: AgentBook backing",
+      "value": "verified",
+      "kind": "machine",
+      "status": "verified",
+      "failures": [
+        "registration_date_unavailable"
+      ],
+      "checked_at": "2026-10-26T19:05:47Z",
+      "attempted_at": "2026-10-26T19:05:47Z",
+      "source": {
+        "type": "chain-read",
+        "ref": "AgentBook lookupHuman on World Chain (eip155:480)",
+        "detail": "Build-time check by scripts/fleet-check.mjs at block 36852949; not a live check"
+      },
+      "verified_at": "2026-10-26",
+      "verified_by": "the build check (scripts/fleet-check.mjs)",
+      "publish": true
+    },
+    {
+      "id": "fleet.cole",
+      "label": "Cole: AgentBook backing",
+      "value": "verified",
+      "kind": "machine",
+      "status": "verified",
+      "failures": [
+        "registration_date_unavailable"
+      ],
+      "checked_at": "2026-10-26T19:05:47Z",
+      "attempted_at": "2026-10-26T19:05:47Z",
+      "source": {
+        "type": "chain-read",
+        "ref": "AgentBook lookupHuman on World Chain (eip155:480)",
+        "detail": "Build-time check by scripts/fleet-check.mjs at block 36852949; not a live check"
+      },
+      "verified_at": "2026-10-26",
+      "verified_by": "the build check (scripts/fleet-check.mjs)",
+      "publish": true
+    },
+    {
+      "id": "fleet.summary",
+      "label": "Fleet page summary line",
+      "value": "Four wallets, one verified unique human.",
+      "kind": "machine",
+      "status": "verified",
+      "attempted_at": "2026-10-26T19:05:47Z",
+      "source": {
+        "type": "chain-read",
+        "ref": "AgentBook lookupHuman on World Chain (eip155:480)",
+        "detail": "Build-time check by scripts/fleet-check.mjs at block 36852949; not a live check"
+      },
+      "verified_at": "2026-10-26",
+      "verified_by": "the build check (scripts/fleet-check.mjs)",
       "publish": true
     }
   ]

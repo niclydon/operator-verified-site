@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign-in status — Operator Verified</title>
+<meta name="description" content="Sign-in status for Operator Verified: what Sign in with World ID reports about a signed-in visitor, and what it does not prove.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Operator Verified">
+<meta property="og:title" content="Sign-in status — Operator Verified">
+<meta property="og:description" content="Sign-in status for Operator Verified: what Sign in with World ID reports about a signed-in visitor, and what it does not prove.">
+<meta property="og:url" content="https://operatorverified.org/account/">
+<meta property="og:image" content="https://operatorverified.org/assets/lead-lockup-dark.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EDEEF0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<link rel="icon" href="../assets/ov-core-light.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../assets/ov-core-dark.svg" media="(prefers-color-scheme: dark)">
+<script>
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('ov-mode'); } catch(e){}
+  var mode = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-mode', mode);
+  document.addEventListener('DOMContentLoaded', function(){
+    // Facts wiring: values printed inline are the no-JS fallback; when
+    // facts.json loads, its verified values replace them in place.
+    try {
+      var link = document.querySelector('link[rel="stylesheet"]');
+      var root = link ? link.getAttribute('href').replace(/assets\/style\.css$/, '') : '';
+      fetch(root + 'facts.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(data){
+        if (!data) return;
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        function fmt(iso){ var d = new Date(iso + 'T12:00:00'); return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+        data.facts.forEach(function(f){
+          document.querySelectorAll('[data-fact="' + f.id + '"]').forEach(function(el){ el.textContent = f.value; });
+          document.querySelectorAll('[data-fact-date="' + f.id + '"]').forEach(function(el){ el.textContent = fmt(f.verified_at); });
+        });
+        document.querySelectorAll('[data-fact="generated"]').forEach(function(el){ el.textContent = fmt(String(data.generated_at).slice(0,10)); });
+      }).catch(function(){});
+    } catch(e){}
+    function applyMode(m){
+      document.documentElement.setAttribute('data-mode', m);
+      document.querySelectorAll('img[data-dark-src]').forEach(function(im){
+        im.src = m === 'dark' ? im.getAttribute('data-dark-src') : im.getAttribute('data-light-src');
+      });
+      var b = document.getElementById('mode-toggle');
+      if (b) b.textContent = m === 'dark' ? '☀ Light' : '☾ Dark';
+    }
+    applyMode(document.documentElement.getAttribute('data-mode') || 'light');
+    var b = document.getElementById('mode-toggle');
+    if (b) b.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+      applyMode(cur);
+      try { localStorage.setItem('ov-mode', cur); } catch(e){}
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="../">
+    <img class="only-light" src="../assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <img class="only-dark" src="../assets/ov-core-dark.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <span>Operator&nbsp;Verified</span></a>
+  <nav><a href="../projects/">Projects</a><a href="../fleet/">Fleet</a><a href="../verify/">Verify</a><a href="../resources/">Resources</a><a href="../devlog/">Devlog</a><a href="../about/">About</a><button class="toggle" id="mode-toggle" aria-label="Switch between light and dark mode">☾ Dark</button></nav>
+</div></header>
+<main class="wrap">
+
+<section style="padding-top:48px">
+  <div class="label"><b>—</b> / SIGN-IN STATUS</div>
+  <h2>Sign-in status</h2>
+  <p>This page shows what Sign in with World ID reports about a signed-in
+  visitor to this site, in the same terms the rest of the site uses. It exists
+  so the program's own claim can be checked against a real sign-in, in the
+  open.</p>
+  <div id="account-error" class="card" style="display:none;margin-top:18px"></div>
+  <div id="account-status" class="card" style="margin-top:18px">
+    <h3 style="margin-top:0">Checking…</h3>
+    <p>Reading this browser's session with this site.</p>
+  </div>
+  <h3 style="margin-top:26px">What a sign-in here does and does not show</h3>
+  <p>Signing in asks World ID — the issuer at auth.world.org — to confirm the
+  account behind this browser session. This site receives a signed token with
+  the account's authentication class and the time the authentication happened.
+  It receives no name, no email, and no raw World identifier; the one
+  identifier in the token is pairwise, minted for this site alone, and it is
+  kept in the session, never displayed or published.</p>
+  <p>An authentication class of Orb means the account was verified as a unique
+  human at an Orb, which is the claim this program stands for. It is an
+  account's verified status, not a fresh presence proof for this visit: an
+  existing World ID session can issue a new sign-in token without a new proof,
+  so this page shows the authentication time World ID reports alongside the
+  status, and the age of the authentication is part of what is displayed, not
+  something rounded off.</p>
+</section>
+<script>
+(function(){
+  var statusEl = document.getElementById('account-status');
+  var errorEl = document.getElementById('account-error');
+  var errors = {
+    denied: 'Sign-in was cancelled at World ID. Nothing was shared with this site.',
+    idp_error: 'World ID returned an error and the sign-in did not complete. Nothing was shared with this site.',
+    state: 'The sign-in attempt could not be matched to the attempt this browser started, so it was refused. This can happen if the attempt expired (attempts last ten minutes) or the browser blocked the attempt cookie.',
+    exchange: 'This site could not complete the sign-in exchange with World ID. No session was created.',
+    validation: 'The sign-in response from World ID did not validate, so it was refused. No session was created.',
+    not_enabled: 'Sign-in is not enabled on this site yet.'
+  };
+  var params = new URLSearchParams(window.location.search);
+  var err = params.get('error');
+  if (err && errors[err]) {
+    errorEl.innerHTML = '<h3 style="margin-top:0">Sign-in did not complete</h3><p>' + errors[err] + '</p>';
+    errorEl.style.display = 'block';
+  }
+  function fmt(epoch) {
+    if (!epoch) return 'not reported';
+    return new Date(epoch * 1000).toLocaleString(undefined, {dateStyle: 'medium', timeStyle: 'short'});
+  }
+  function render(data) {
+    if (!data.enabled) {
+      statusEl.innerHTML = '<h3 style="margin-top:0">Not enabled yet</h3>' +
+        '<p>Sign-in with World ID is built into this site but is not switched on: ' +
+        'the client registration it depends on is still being completed. Nothing ' +
+        'on this page can sign you in today.</p>';
+      return;
+    }
+    if (!data.signed_in) {
+      statusEl.innerHTML = '<h3 style="margin-top:0">Not signed in</h3>' +
+        '<p>This browser has no session with this site.</p>' +
+        '<p><a class="btn" href="/api/auth/login">Sign in with World ID</a></p>';
+      return;
+    }
+    var heading, sentence;
+    if (data.acr === 'https://world.org/oidc/acr/orb') {
+      heading = 'Signed in — Orb-verified';
+      sentence = 'World ID reports the account behind this session as Orb-verified: ' +
+        'the operator was verified as a unique human at an Orb.';
+    } else if (data.acr === 'https://world.org/oidc/acr/orb-face') {
+      heading = 'Signed in — Orb-verified, with face authentication';
+      sentence = 'World ID reports the account behind this session as Orb-verified, ' +
+        'with face authentication: the operator was verified as a unique human at an Orb.';
+    } else if (data.acr === 'https://world.org/oidc/acr/webauthn-uv') {
+      heading = 'Signed in — passkey';
+      sentence = 'This session authenticated with a World ID passkey. That class does ' +
+        'not by itself assert Orb verification, so this page does not report this ' +
+        'session as verified as a unique human.';
+    } else {
+      heading = 'Signed in';
+      sentence = 'World ID did not report an authentication class this page recognizes, ' +
+        'so no verified status is claimed for this session.';
+    }
+    statusEl.innerHTML = '<h3 style="margin-top:0">' + heading + '</h3>' +
+      '<p>' + sentence + '</p>' +
+      '<p>World ID reports the authentication itself happened at <strong>' + fmt(data.auth_time) + '</strong>. ' +
+      'If that time predates this visit, an existing World ID session issued this sign-in ' +
+      'without a new proof; the status above is the account’s verified status, not a fresh ' +
+      'presence proof for this visit.</p>' +
+      '<p><a class="btn ghost" href="/api/auth/logout">Sign out of this site</a></p>' +
+      '<p style="margin-top:10px">Signing out ends the session on this site only; it does not sign you out of World ID.</p>';
+  }
+  fetch('/api/auth/me', {headers: {'Accept': 'application/json'}})
+    .then(function(r){ return r.json(); })
+    .then(render)
+    .catch(function(){
+      statusEl.innerHTML = '<h3 style="margin-top:0">Status unavailable</h3><p>The session check did not answer. Reload to try again.</p>';
+    });
+})();
+</script>
+
+</main>
+<footer><div class="wrap"><div class="cols">
+  <div>Created by Nic Lydon. Copyright 2026 Nic Lydon, Apache-2.0.<br>Part of Operator Verified, an independent open-source program with no token.</div>
+  <div>Facts verified <span data-fact="generated">October 26, 2026</span> · <a href="../snapshots/">Snapshot history</a><br>
+  More by Nic Lydon: <a href="https://www.niclydon.io/nexus">Nexus</a> · <a href="https://www.niclydon.io/aria">ARIA</a> · <a href="https://www.niclydon.io/gadgets">Gadgets</a></div>
+</div>
+<p style="margin-top:16px">Operator Verified is an independent project by Nic Lydon. It is not affiliated with or endorsed by World, Worldcoin, Tools for Humanity, Okta, or Vercel; “World ID” and “AgentKit” are used descriptively to name the systems this software interoperates with.</p>
+</div></footer>
+</body>
+</html>
