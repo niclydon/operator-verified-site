@@ -4,6 +4,20 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — IDKit verify path (live check on /verify/)
+
+The verify page now runs one check itself: a visitor can prove with
+World ID, and the site verifies the proof with World and shows the
+result on the page. It runs through a new Developer Portal app and
+relying party created for this site, with the proof-of-human
+credential, a per-attempt signal, and a short receipt hash shown
+afterwards. The check grants nothing, creates no account, and
+stores nothing. It ships switched off: it activates when the
+relying party's signing key is placed in the site's environment,
+and the first live proof follows. This is not Sign in with World
+ID; the sign-in build remains staged separately. Design record
+§11.8.
+
 ## 2026-10-26 — Privacy correction: AgentBook linkage
 
 The current About page and README now state the limit of the earlier

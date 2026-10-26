@@ -1,3 +1,4 @@
 preview-server.log
 *.blend
 .DS_Store
+node_modules/
