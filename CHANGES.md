@@ -4,6 +4,20 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Privacy correction: AgentBook linkage
+
+The current About page and README now state the limit of the earlier
+"hash only" privacy language. AgentBook registration events are public
+on World Chain; a disclosed wallet or published hash can be linked to
+the underlying human identifier and other wallets registered to it.
+The fleet page still shows labels only and keeps its roster private.
+This correction does not retract Fiador's previously published hash or
+the program-wallet fragment preserved in historical snapshots. It
+records what the existing on-chain and published evidence can reveal.
+The new append-only privacy-correction snapshot freezes the corrected
+site copy. This entry records its preparation; production publication
+and its live check belong in a separate publication record.
+
 ## 2026-10-26 — Production artwork deployed
 
 The site now serves the approved production set: the plate

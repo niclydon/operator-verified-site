@@ -26,8 +26,11 @@ the agent at this moment. It is not identity verification: it
 establishes that a unique human backs the operator, never who that
 human is.
 
-Public material from this program carries a hash of the human
-identifier only — never the identifier itself.
+Our pages and attestations do not print the raw human identifier.
+AgentBook registrations are public on World Chain: a disclosed wallet
+or published hash can reveal that identifier and other wallets
+registered to it. The fleet page publishes labels, not its wallet
+roster.
 
 ## This program has no token
 
