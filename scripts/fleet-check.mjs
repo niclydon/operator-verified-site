@@ -706,6 +706,7 @@ const EXISTING_PUBLIC_FRAGMENTS = Object.freeze({
   },
   'verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
   'snapshots/2026-10-26-fleet/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
+  'snapshots/2026-10-26-privacy-correction/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
 })
 
 // A private roster value may match a fragment already published on the site.
@@ -713,7 +714,7 @@ const EXISTING_PUBLIC_FRAGMENTS = Object.freeze({
 // active file must still match the reviewed bytes. Any site copy edit needs a
 // fresh privacy review before a private roster can be checked against it.
 const EXISTING_ACTIVE_PRIVATE_FRAGMENT_FILES = Object.freeze({
-  'docs/DESIGN.md': 'fa5aee9d7b0c897d34a354ea3c50d20df5fc26b2b22831b70fdbecbab0ec426d',
+  'docs/DESIGN.md': '3e86bfb66b6011fe71e632ed919d3f03556507ecf7f8b3faa673666bcd45fd65',
 })
 
 // Historical snapshots are append-only. The checker never rewrites them, and
@@ -723,9 +724,12 @@ const EXISTING_SNAPSHOT_FILES = Object.freeze({
   'snapshots/2026-10-26-launch/projects/fiador/index.html': 'a5987006727f187e5d1a267926f2bc62a079fc576f90ddc5d6acbf513582f30d',
   'snapshots/2026-10-26-launch/verify/index.html': 'a46537feab117f97f3ccbc30f20afc450182e5a72cca331c4af98d373af24bfb',
 })
-// The new snapshot may gain a deployment ID, but its captured file bytes may
-// not change after this reviewed content set is published.
-const FLEET_SNAPSHOT_CONTENT_HASH = 'b355f12579d8e9d72db22626ce18029f50c8b75229318628830032d0f3bf0d8e'
+// Deployment metadata may be added later, but the captured file bytes in
+// either reviewed snapshot must stay fixed.
+const SNAPSHOT_CONTENT_HASHES = Object.freeze({
+  '2026-10-26-fleet': 'b355f12579d8e9d72db22626ce18029f50c8b75229318628830032d0f3bf0d8e',
+  '2026-10-26-privacy-correction': '01d571495a423fe03d4cda6c7db6bcb5ba28d5d6efb99f7a97c832aa613de23a',
+})
 
 // The checker appends fleet.* facts to the existing public facts. The old
 // non-fleet document may keep its existing public fragment only at this exact
@@ -784,36 +788,44 @@ export async function scanServedTree(site, secrets, forbiddenIdentifiers, {
   snapshotFiles = EXISTING_SNAPSHOT_FILES,
   nonFleetFactsHash = EXISTING_NON_FLEET_FACTS_SHA256,
 } = {}) {
-  const fleetSnapshot = path.join(site, 'snapshots', '2026-10-26-fleet')
-  let manifest
-  try { manifest = JSON.parse(await readFile(path.join(fleetSnapshot, 'snapshot.json'), 'utf8')) } catch {
-    return 'fleet snapshot manifest missing or invalid'
-  }
-  if (!manifest.files || typeof manifest.files !== 'object' || Array.isArray(manifest.files) ||
-      sha256(JSON.stringify(manifest.files)) !== FLEET_SNAPSHOT_CONTENT_HASH) {
-    return 'fleet snapshot file list differs from the reviewed content set'
-  }
-  const captured = new Set()
-  async function checkSnapshot(dir) {
-    for (const entry of await readdir(dir, { withFileTypes: true })) {
-      const file = path.join(dir, entry.name)
-      if (entry.isSymbolicLink()) return 'symbolic link in fleet snapshot'
-      if (entry.isDirectory()) {
-        const refusal = await checkSnapshot(file)
-        if (refusal) return refusal
-      } else if (entry.isFile()) {
-        const relative = path.relative(fleetSnapshot, file).split(path.sep).join('/')
-        if (relative === 'snapshot.json') continue
-        if (!Object.hasOwn(manifest.files, relative)) return 'unlisted file in fleet snapshot'
-        if (sha256(await readFile(file)) !== manifest.files[relative]) return 'fleet snapshot file changed'
-        captured.add(relative)
-      } else return 'non-file entry in fleet snapshot'
+  async function checkSnapshot(name, expectedContentHash) {
+    const snapshot = path.join(site, 'snapshots', name)
+    let manifest
+    try { manifest = JSON.parse(await readFile(path.join(snapshot, 'snapshot.json'), 'utf8')) } catch {
+      return `${name} snapshot manifest missing or invalid`
     }
+    if (manifest.snapshot !== name || !manifest.files ||
+        typeof manifest.files !== 'object' || Array.isArray(manifest.files) ||
+        sha256(JSON.stringify(manifest.files)) !== expectedContentHash) {
+      return `${name} snapshot file list differs from the reviewed content set`
+    }
+    const captured = new Set()
+    async function walkSnapshot(dir) {
+      for (const entry of await readdir(dir, { withFileTypes: true })) {
+        const file = path.join(dir, entry.name)
+        if (entry.isSymbolicLink()) return `symbolic link in ${name} snapshot`
+        if (entry.isDirectory()) {
+          const refusal = await walkSnapshot(file)
+          if (refusal) return refusal
+        } else if (entry.isFile()) {
+          const relative = path.relative(snapshot, file).split(path.sep).join('/')
+          if (relative === 'snapshot.json') continue
+          if (!Object.hasOwn(manifest.files, relative)) return `unlisted file in ${name} snapshot`
+          if (sha256(await readFile(file)) !== manifest.files[relative]) return `${name} snapshot file changed`
+          captured.add(relative)
+        } else return `non-file entry in ${name} snapshot`
+      }
+      return null
+    }
+    const refusal = await walkSnapshot(snapshot)
+    if (refusal) return refusal
+    if (captured.size !== Object.keys(manifest.files).length) return `${name} snapshot file missing`
     return null
   }
-  const snapshotRefusal = await checkSnapshot(fleetSnapshot)
-  if (snapshotRefusal) return snapshotRefusal
-  if (captured.size !== Object.keys(manifest.files).length) return 'fleet snapshot file missing'
+  for (const [name, expectedContentHash] of Object.entries(SNAPSHOT_CONTENT_HASHES)) {
+    const refusal = await checkSnapshot(name, expectedContentHash)
+    if (refusal) return refusal
+  }
   const contentExtensions = new Set(['.html', '.htm', '.json', '.jsonl', '.md', '.txt', '.csv', '.xml', '.svg', '.webmanifest', '.map'])
   const browserCodeExtensions = new Set(['.js', '.mjs', '.css'])
   async function walk(dir) {

@@ -47,6 +47,9 @@ hash-publication directions for `/fleet/` only. It also makes the fleet facts
 an explicit exception to the public-source reproducibility rule in §7: the
 method and contract are public, but the private roster means the exact result
 is operator-reported and cannot be independently repeated from this site.
+Fiador's published human hash can also be matched against public AgentBook
+events. Labels-only limits what this site adds to the linkable on-chain data;
+it does not make existing wallet registrations unlinkable.
 Any change to the existing
 material needs its own privacy review. Nic must approve the exact new page
 wording before a public pull request or deployment.
