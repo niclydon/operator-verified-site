@@ -4,6 +4,34 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Launch
+
+The site went live at operatorverified.org on the author's
+approval, in one pass:
+
+- Preview banner removed from every page (the builder now emits
+  the banner only when one is configured; local builds keep their
+  local-preview banner by default).
+- Devlog post 1, "Verified, renamed, and founded in the open,"
+  published: draft flag cleared, listed as published in the devlog
+  index, and moved to its publication-date path
+  (`devlog/2026-10-26-founding/`).
+- First snapshot cut: `snapshots/2026-10-26-launch/` freezes the
+  launched tree with a `snapshot.json` manifest of file hashes;
+  the snapshots index lists it with its reason.
+- `facts.json`: the canonical-domain fact updated to its launched
+  state (pointed at this deployment; verified October 26, 2026);
+  facts generation date moved to launch day. No other fact
+  changed; the program-wallet registration fact still reads
+  "prepared, not yet executed," because it still is.
+- Domain: operatorverified.org attached to the Vercel project as
+  canonical; operatorverified.com, operator-verified.com, and
+  operator-verified.org redirect to it.
+- Before the banner came off, the deployed preview passed a
+  visual check in both color modes and the launch tree passed
+  the same boundary scan as the founding tree (identifiers,
+  private paths, internal codenames: zero hits).
+
 ## 2026-10-25 — Founding: design record and first build
 
 The Operator Verified site was designed, identity-settled, and

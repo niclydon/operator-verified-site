@@ -1,0 +1,118 @@
+{
+  "site": "operator-verified",
+  "generated_at": "2026-10-26T01:29:00-04:00",
+  "facts": [
+    {
+      "id": "registry.services.count",
+      "label": "Services in the AgentBook registry linked from the official ecosystem page",
+      "value": 5,
+      "kind": "machine",
+      "source": {
+        "type": "web",
+        "ref": "https://github.com/andy-t-wang/agentbook",
+        "detail": "Counted live during the Oct 25, 2026 research pass"
+      },
+      "verified_at": "2026-10-25",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "program.founded",
+      "label": "Program founding",
+      "value": "October 25, 2026",
+      "kind": "ruling",
+      "source": {
+        "type": "operator-ruling",
+        "ref": "Program portfolio, Oct 25, 2026",
+        "detail": "World Program established and first repo founded the same day"
+      },
+      "verified_at": "2026-10-25",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "program.wallet.state",
+      "label": "Dedicated program wallet AgentBook registration",
+      "value": "prepared, not yet executed",
+      "kind": "machine",
+      "source": {
+        "type": "status-check",
+        "ref": "Program wallet record, Oct 25, 2026",
+        "detail": "Dedicated wallet generated for this program; public form is the truncated address only"
+      },
+      "verified_at": "2026-10-25",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "program.wallet.public",
+      "label": "Program wallet (truncated)",
+      "value": "0x21BD…A14Bc",
+      "kind": "machine",
+      "source": {
+        "type": "status-check",
+        "ref": "Program wallet record, Oct 25, 2026",
+        "detail": "Truncated form is the only public form"
+      },
+      "verified_at": "2026-10-25",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "fiador.repo",
+      "label": "Fiador repository",
+      "value": "github.com/niclydon/fiador",
+      "kind": "machine",
+      "source": {
+        "type": "web",
+        "ref": "https://github.com/niclydon/fiador",
+        "detail": "Public; founded Oct 25, 2026 as human-backed, renamed the same day"
+      },
+      "verified_at": "2026-10-25",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "program.licence",
+      "label": "Program licence",
+      "value": "Apache-2.0",
+      "kind": "ruling",
+      "source": {
+        "type": "operator-ruling",
+        "ref": "Program portfolio decisions log, Oct 25, 2026",
+        "detail": "Program licence default"
+      },
+      "verified_at": "2026-10-25",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "program.token",
+      "label": "Token position",
+      "value": "This program has no token",
+      "kind": "ruling",
+      "source": {
+        "type": "operator-ruling",
+        "ref": "Program direction, Oct 25, 2026",
+        "detail": "Stated publicly on purpose as a trust position"
+      },
+      "verified_at": "2026-10-25",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "site.domain",
+      "label": "Canonical domain",
+      "value": "operatorverified.org",
+      "kind": "ruling",
+      "source": {
+        "type": "operator-ruling",
+        "ref": "Domain registration record, Oct 25, 2026",
+        "detail": "Registered via Cloudflare Registrar; pointed at this site's Vercel deployment at launch, Oct 26, 2026"
+      },
+      "verified_at": "2026-10-26",
+      "verified_by": "the author",
+      "publish": true
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snapshots — Operator Verified</title>
+<meta name="description" content="Snapshot history for the Operator Verified site: frozen copies at each launch state, append-only.">
+<link rel="icon" href="../assets/ov-core-light.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../assets/ov-core-dark.svg" media="(prefers-color-scheme: dark)">
+<script>
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('ov-mode'); } catch(e){}
+  var mode = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-mode', mode);
+  document.addEventListener('DOMContentLoaded', function(){
+    // Facts wiring: values printed inline are the no-JS fallback; when
+    // facts.json loads, its verified values replace them in place.
+    try {
+      var link = document.querySelector('link[rel="stylesheet"]');
+      var root = link ? link.getAttribute('href').replace(/assets\/style\.css$/, '') : '';
+      fetch(root + 'facts.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(data){
+        if (!data) return;
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        function fmt(iso){ var d = new Date(iso + 'T12:00:00'); return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+        data.facts.forEach(function(f){
+          document.querySelectorAll('[data-fact="' + f.id + '"]').forEach(function(el){ el.textContent = f.value; });
+          document.querySelectorAll('[data-fact-date="' + f.id + '"]').forEach(function(el){ el.textContent = fmt(f.verified_at); });
+        });
+        document.querySelectorAll('[data-fact="generated"]').forEach(function(el){ el.textContent = fmt(String(data.generated_at).slice(0,10)); });
+      }).catch(function(){});
+    } catch(e){}
+    var b = document.getElementById('mode-toggle');
+    if (b) b.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-mode', cur);
+      try { localStorage.setItem('ov-mode', cur); } catch(e){}
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="../">
+    <img class="only-light" src="../assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <img class="only-dark" src="../assets/ov-core-dark.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <span>Operator&nbsp;Verified</span></a>
+  <nav><a href="../projects/">Projects</a><a href="../verify/">Verify</a><a href="../resources/">Resources</a><a href="../devlog/">Devlog</a><a href="../about/">About</a><button class="toggle" id="mode-toggle" aria-label="Toggle light and dark mode">mode</button></nav>
+</div></header>
+<main class="wrap">
+
+<section style="padding-top:48px">
+  <div class="label"><b>—</b> / SNAPSHOTS</div>
+  <h2>Snapshot history</h2>
+  <p>Snapshots freeze the site and its facts file exactly as published, each with a
+  note on why. Snapshots are append-only: corrections arrive as newer snapshots,
+  never as silent edits to frozen ones.</p>
+  <div class="card" style="margin-top:18px">
+    <h3 style="margin-top:0">2026-10-26 — Launch</h3>
+    <p>The site as first published at operatorverified.org: nine pages, devlog post 1,
+    and the facts file as verified at launch. Frozen copy:
+    <a href="2026-10-26-launch/">snapshots/2026-10-26-launch/</a>, with a
+    snapshot.json manifest of file hashes in the same directory.</p>
+  </div>
+</section>
+
+</main>
+<footer><div class="wrap"><div class="cols">
+  <div>Created by Nic Lydon. Copyright 2026 Nic Lydon, Apache-2.0.<br>Part of Operator Verified, an independent open-source program with no token.</div>
+  <div>Facts verified <span data-fact="generated">October 25, 2026</span> · <a href="../snapshots/">Snapshot history</a><br>
+  More by Nic Lydon: <a href="https://www.niclydon.io/nexus">Nexus</a> · <a href="https://www.niclydon.io/aria">ARIA</a> · <a href="https://www.niclydon.io/gadgets">Gadgets</a></div>
+</div>
+<p style="margin-top:16px">Operator Verified is an independent project by Nic Lydon. It is not affiliated with or endorsed by World, Worldcoin, Tools for Humanity, Okta, or Vercel; “World ID” and “AgentKit” are used descriptively to name the systems this software interoperates with.</p>
+</div></footer>
+</body>
+</html>

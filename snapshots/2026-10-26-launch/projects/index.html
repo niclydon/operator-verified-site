@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects — Operator Verified</title>
+<meta name="description" content="The Operator Verified project index: Fiador (human-backed attestation for Discord bots) and the other program projects in design.">
+<link rel="icon" href="../assets/ov-core-light.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../assets/ov-core-dark.svg" media="(prefers-color-scheme: dark)">
+<script>
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('ov-mode'); } catch(e){}
+  var mode = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-mode', mode);
+  document.addEventListener('DOMContentLoaded', function(){
+    // Facts wiring: values printed inline are the no-JS fallback; when
+    // facts.json loads, its verified values replace them in place.
+    try {
+      var link = document.querySelector('link[rel="stylesheet"]');
+      var root = link ? link.getAttribute('href').replace(/assets\/style\.css$/, '') : '';
+      fetch(root + 'facts.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(data){
+        if (!data) return;
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        function fmt(iso){ var d = new Date(iso + 'T12:00:00'); return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+        data.facts.forEach(function(f){
+          document.querySelectorAll('[data-fact="' + f.id + '"]').forEach(function(el){ el.textContent = f.value; });
+          document.querySelectorAll('[data-fact-date="' + f.id + '"]').forEach(function(el){ el.textContent = fmt(f.verified_at); });
+        });
+        document.querySelectorAll('[data-fact="generated"]').forEach(function(el){ el.textContent = fmt(String(data.generated_at).slice(0,10)); });
+      }).catch(function(){});
+    } catch(e){}
+    var b = document.getElementById('mode-toggle');
+    if (b) b.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-mode', cur);
+      try { localStorage.setItem('ov-mode', cur); } catch(e){}
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="../">
+    <img class="only-light" src="../assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <img class="only-dark" src="../assets/ov-core-dark.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <span>Operator&nbsp;Verified</span></a>
+  <nav><a href="../projects/">Projects</a><a href="../verify/">Verify</a><a href="../resources/">Resources</a><a href="../devlog/">Devlog</a><a href="../about/">About</a><button class="toggle" id="mode-toggle" aria-label="Toggle light and dark mode">mode</button></nav>
+</div></header>
+<main class="wrap">
+
+<section style="padding-top:48px">
+  <div class="label"><b>—</b> / PROJECTS</div>
+  <h2>Projects</h2>
+  <p>Each project carries its own name and its own repository. Operator Verified —
+  the umbrella named for its claim, verified as a unique human — is the site and
+  devlog these projects link from, not a brand stamped on each repo. States and
+  dates are the program's own record.</p>
+  <div class="cards">
+    <div class="card"><span class="chip live">Repo live · Oct 25, 2026</span>
+      <h3 style="margin-top:10px">Fiador</h3>
+      <p>Fiador: human-backed attestation for Discord bots, with the verify core
+      and badge service as a package inside it. The program's first project;
+      its demo is in build.</p>
+      <p><a href="fiador/">Project page</a> · <a href="https://github.com/niclydon/fiador">Repository</a></p></div>
+    <div class="card"><span class="chip spec">Spec written · Oct 25, 2026</span>
+      <h3 style="margin-top:10px">Presence approval inbox</h3>
+      <p>Presence proofs gating sensitive agent actions, with a canonical, hash-bound
+      approval record. In design; nothing public yet beyond this card.</p></div>
+    <div class="card"><span class="chip spec">Spec written · Oct 25, 2026</span>
+      <h3 style="margin-top:10px">Provenance seal</h3>
+      <p>Signed content hashes for agent-written work, with a public verify page per seal.
+      In design; nothing public yet beyond this card.</p></div>
+    <div class="card"><span class="chip spec">Spec written · Oct 25, 2026</span>
+      <h3 style="margin-top:10px">Callback-verified executive assistant</h3>
+      <p>An AI assistant's outbound calls and messages carry a verification link, so the
+      person contacted can check who stands behind it. In design.</p></div>
+    <div class="card"><span class="chip">Folded into Fiador</span>
+      <h3 style="margin-top:10px">Verify core</h3>
+      <p>The shared AgentBook verification library and dynamic badge service. It lives as
+      a separate package inside the Fiador repo and extracts when a second project
+      consumes it.</p></div>
+  </div>
+  <h3 style="margin-top:34px">Later waves</h3>
+  <p>Agent-to-agent introduction protocol · Fleet identity surfaces ·
+  One-human-one-spot RSVP and group travel coordinator mini apps ·
+  Attribute concierge and the presence-verified meeting loop ·
+  Perks co-op and registry campaign. Parked until their waves start; they get pages
+  when they produce public material.</p>
+</section>
+
+</main>
+<footer><div class="wrap"><div class="cols">
+  <div>Created by Nic Lydon. Copyright 2026 Nic Lydon, Apache-2.0.<br>Part of Operator Verified, an independent open-source program with no token.</div>
+  <div>Facts verified <span data-fact="generated">October 25, 2026</span> · <a href="../snapshots/">Snapshot history</a><br>
+  More by Nic Lydon: <a href="https://www.niclydon.io/nexus">Nexus</a> · <a href="https://www.niclydon.io/aria">ARIA</a> · <a href="https://www.niclydon.io/gadgets">Gadgets</a></div>
+</div>
+<p style="margin-top:16px">Operator Verified is an independent project by Nic Lydon. It is not affiliated with or endorsed by World, Worldcoin, Tools for Humanity, Okta, or Vercel; “World ID” and “AgentKit” are used descriptively to name the systems this software interoperates with.</p>
+</div></footer>
+</body>
+</html>

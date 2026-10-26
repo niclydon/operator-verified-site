@@ -1,0 +1,33 @@
+{
+  "snapshot": "2026-10-26-launch",
+  "date": "2026-10-26",
+  "reason": "Launch: first publication of the Operator Verified site at operatorverified.org, with devlog post 1 published and the facts file as verified at launch.",
+  "base_commit": "fc5d82b (founding) plus the launch changes in the launch commit",
+  "files": {
+    "about/index.html": "16b7aa74591577ae6473c42f708f432db816641fc1ac327672b0c03ce9e60a17",
+    "assets/fiador-banner.webp": "1c2e62ced326eed45da161be001272db5b7b414513f9450e2453679db7ce3c47",
+    "assets/fiador-icon.webp": "3f6ba2728f944ee99ec6fe61749ec1eb72c34cfce92b776c7613246e3c6fdbee",
+    "assets/fiador-pill-dark-expired.svg": "be18a58abdd0355e74f13f7091171de28766d808186e83a0efe75d870ca1d5ab",
+    "assets/fiador-pill-dark-unverified.svg": "c6b0c498814c0b585a44ec09111d17eeb39990e60c4fd5c2b95d3b41ea1a8d8c",
+    "assets/fiador-pill-dark-verified.svg": "e1e83ecc61a2a01f993ce2ef33a1b149fe331b5af7157754f2315a543c0f02ce",
+    "assets/fiador-pill-light-expired.svg": "853ccb85897f4497f49f07a9365c3db9c43267b5706b32d143b0cb0af542c7b1",
+    "assets/fiador-pill-light-unverified.svg": "e6ff8222a30098d3cf6deb6ba7d60bb4ed34bd7ab9f68893d0dbc3f7f61bcb82",
+    "assets/fiador-pill-light-verified.svg": "c69ff682ae3fcd46bf75e14a16ae9db35cd669d2d70aec77c96f390eacf0f184",
+    "assets/lead-lockup-dark.png": "659bfc86dc1309af1e856422ab69e65a51bcf360b2e074775576f024fdcb19d2",
+    "assets/lead-lockup-light.png": "89aa6c6a5d9f2360d9aec4e6f351c875fdeb9d667d942ae03f73739c164b701c",
+    "assets/ov-core-dark.svg": "41c05b8db688f24c9a00a914d489dd159ca44eacc347a925d722150d48d0f471",
+    "assets/ov-core-light.svg": "33222c1e53e48a83241e9fdc081d725de1d182f06736b1d525fc21eb7ebf38cb",
+    "assets/plate-lead-dark.png": "cbab502abd1ac02e8aa9878cbee2ede3f15b89e3f7e36a091ced17933b6b62c5",
+    "assets/plate-lead-light.png": "df017f2cd13aedfc18a087cbf6b11415807d6fadcbafd369a2a6cb8d47b15e53",
+    "assets/style.css": "ac1715de5a8c1271d3064248b0475eb5f6e4cc59e13f216ce68d49edda6c6542",
+    "devlog/2026-10-26-founding/index.html": "bd86b23f99a3dd3cb4cdd141270ce3f72a350fec29a344e79f5430a5b6372997",
+    "devlog/index.html": "36a073b078d69929066735b00a37e9a2f38bf39d06ff8c830688677ecf192e5d",
+    "facts.json": "4473c026fa26146321dae8479abcce5374d8135ee32d207481f2e31fbe9a8db3",
+    "index.html": "42189939ffe7f767d3b290d1ce5f00f93c8413034cd8dad9b8cc51324490f369",
+    "projects/fiador/index.html": "a5987006727f187e5d1a267926f2bc62a079fc576f90ddc5d6acbf513582f30d",
+    "projects/index.html": "6f8342fb2fe135323ceecbacf7351c6977ece70803c525393e8c57d257915eab",
+    "resources/index.html": "79188ecdba5feb1157369e5635d0202e55537fb0fabb3df0eb6e721071cb1e72",
+    "snapshots/index.html": "9179d913ab15008949f54e596c1559e2ce11832f6259e66d3560865966aaac6d",
+    "verify/index.html": "a46537feab117f97f3ccbc30f20afc450182e5a72cca331c4af98d373af24bfb"
+  }
+}

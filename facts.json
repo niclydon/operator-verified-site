@@ -1,6 +1,6 @@
 {
   "site": "operator-verified",
-  "generated_at": "2026-10-25T23:45:00-04:00",
+  "generated_at": "2026-10-26T01:29:00-04:00",
   "facts": [
     {
       "id": "registry.services.count",
@@ -102,15 +102,15 @@
     },
     {
       "id": "site.domain",
-      "label": "Canonical domain (registered; launch pending)",
+      "label": "Canonical domain",
       "value": "operatorverified.org",
       "kind": "ruling",
       "source": {
         "type": "operator-ruling",
         "ref": "Domain registration record, Oct 25, 2026",
-        "detail": "Registered via Cloudflare Registrar; not yet pointed at a deployment"
+        "detail": "Registered via Cloudflare Registrar; pointed at this site's Vercel deployment at launch, Oct 26, 2026"
       },
-      "verified_at": "2026-10-25",
+      "verified_at": "2026-10-26",
       "verified_by": "the author",
       "publish": true
     }

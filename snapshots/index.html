@@ -42,7 +42,6 @@
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-<div class="preview">PREVIEW DEPLOYMENT — pending launch approval. Not the production site.</div>
 <header class="bar"><div class="bar-in">
   <a class="brand" href="../">
     <img class="only-light" src="../assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
@@ -55,9 +54,16 @@
 <section style="padding-top:48px">
   <div class="label"><b>—</b> / SNAPSHOTS</div>
   <h2>Snapshot history</h2>
-  <p>No snapshots yet. The first snapshot is cut at launch, freezing the site and its
-  facts file exactly as published, with a note on why. Snapshots are append-only:
-  corrections arrive as newer snapshots, never as silent edits to frozen ones.</p>
+  <p>Snapshots freeze the site and its facts file exactly as published, each with a
+  note on why. Snapshots are append-only: corrections arrive as newer snapshots,
+  never as silent edits to frozen ones.</p>
+  <div class="card" style="margin-top:18px">
+    <h3 style="margin-top:0">2026-10-26 — Launch</h3>
+    <p>The site as first published at operatorverified.org: nine pages, devlog post 1,
+    and the facts file as verified at launch. Frozen copy:
+    <a href="2026-10-26-launch/">snapshots/2026-10-26-launch/</a>, with a
+    snapshot.json manifest of file hashes in the same directory.</p>
+  </div>
 </section>
 
 </main>
