@@ -4,6 +4,25 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Fix: image aspect distortion (screenshot pass)
+
+A real-browser screenshot pass at desktop and phone widths
+found that every raster image carrying width/height attributes
+(the home lockup and plate, the Fiador banner) was rendering
+at its full attribute height regardless of display width: the
+square plate measured 454x1000 on desktop and 342x1000 at
+390px; the Fiador banner 342x1120 at phone width. Cause: the
+polish pass added the dimension attributes to prevent layout
+shift, but the stylesheet set only max-width, so the height
+attribute acted as a fixed height. Fix: `height:auto` on the
+image rule; the attributes now supply the aspect ratio, as
+intended. SVG marks and badges were unaffected. The pass also
+reconciled the builder with the approved founding-post edit
+(ff5bd37): the Fiador status paragraph is now in the builder's
+post text (the rebuild reproduces the approved page exactly),
+and the shared footer's no-JS fallback date matches the
+current facts generation date on every page.
+
 ## 2026-10-26 — Correction: program wallet registration state
 
 The program wallet's AgentBook registration was executed in

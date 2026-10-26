@@ -35,7 +35,7 @@ header.bar{position:sticky;top:0;z-index:10;backdrop-filter:blur(14px);
   .bar nav{margin-left:0;width:100%;gap:14px}}
 img.only-dark{display:none} html[data-mode="dark"] img.only-dark{display:block}
 html[data-mode="dark"] img.only-light{display:none}
-img{max-width:100%}
+img{max-width:100%;height:auto}
 .hero{padding:72px 0 8px;display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
 @media(max-width:860px){.hero{grid-template-columns:1fr}}
 .hero h1{font-size:40px;line-height:1.18;margin:18px 0 14px;font-weight:800;letter-spacing:-.01em}
