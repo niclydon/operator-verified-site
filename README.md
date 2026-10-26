@@ -12,9 +12,10 @@ carries its own name and repository:
 - **Fiador** — human-backed attestation for Discord bots.
   Spec, badges, and the verify package live in
   [github.com/niclydon/fiador](https://github.com/niclydon/fiador).
-- A **presence approval inbox**, a **provenance seal**, and a
-  **callback-verified executive assistant** are in design; their
-  pages appear here when they produce public material.
+- A **presence approval inbox** and a **provenance seal** are in
+  design; their pages appear here when they produce public material.
+- The **callback-verified executive assistant** has a written design
+  but is parked; no build is underway.
 
 ## The claim, stated exactly
 
@@ -37,11 +38,11 @@ anything offered under these names as a token is not ours.
 
 A static site (plain HTML/CSS, no build framework, no analytics,
 no cookies beyond a light/dark preference stored on the reader's
-own device), deployed to Vercel as a preview pending launch approval
-(production domain not yet attached). Numbers on the site render from
+own device), live at [operatorverified.org](https://operatorverified.org/)
+and deployed on Vercel. Numbers on the site render from
 `facts.json`; each fact carries its source and the date it was
-verified. Frozen copies of the site at each launch state will live
-under `snapshots/` on the site itself, starting at launch.
+verified. Frozen copies of the site at each launch state live under
+`snapshots/` on the site itself, starting at launch.
 
 - Design record: `docs/DESIGN.md`
 - Founding narrative: `docs/narrative/2026-10-25-founding-and-first-build.md`
