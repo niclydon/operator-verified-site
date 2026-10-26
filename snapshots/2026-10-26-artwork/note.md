@@ -1,5 +1,5 @@
-# Production artwork candidate — 2026-10-26
+# Production artwork record — 2026-10-26
 
-This prepared copy follows the AgentBook privacy correction. It carries the approved 2048×2048 plate and 2600×740 lockup in light and dark modes, with matching home-page image dimensions. The dark lockup PNG is also the social-share image. The source artwork came from the local site commit `1e2016931850eb3a170dc868329c72cf43b9a4ee`.
+The approved 2048×2048 plate and 2600×740 lockup were deployed in site commit `7532bc8a692094a5ce8d67ad3ea75cb7a26d3039`, before the AgentBook privacy correction. This later snapshot captures the same six production image files and matching home-page dimensions in the separately published privacy-corrected site copy. The dark lockup PNG is also the social-share image.
 
-The facts file and AgentBook privacy wording are unchanged from the privacy-correction copy. The fleet facts still report the earlier dated build-time lookup, not a fresh chain check. Earlier snapshots remain frozen. This snapshot records local preparation only; any publication needs its own approval and live record.
+The facts file and AgentBook privacy wording match the privacy-correction snapshot. The fleet facts still report the earlier dated build-time lookup, not a fresh chain check. The privacy correction was not included in the earlier artwork deployment. Earlier snapshots remain frozen.

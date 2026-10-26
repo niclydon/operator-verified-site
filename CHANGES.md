@@ -4,17 +4,27 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
-## 2026-10-26 — Production artwork candidate prepared
+## 2026-10-26 — Production artwork deployment documented
 
-The approved 2048×2048 plate and 2600×740 lockup replace the interim
-hero renders in a local release candidate based on the privacy correction.
-Both color variants, the PNG lockup masters, and the social-share image are
-updated. Home-page image dimensions now match the new files. A new
-append-only artwork snapshot records the candidate and its unchanged facts.
-Local desktop and phone browser checks passed in light and dark modes.
-This entry records preparation, not publication; a separate record must
-identify any approved production deployment and live check. See
-`docs/narrative/2026-10-26-production-artwork-preparation.md`.
+The approved 2048×2048 plate and 2600×740 lockup were deployed in
+site commit `7532bc8` before the AgentBook privacy correction. A later
+production fetch matched the light lockup WebP to that commit and found
+the new home-page image dimensions. Local desktop and phone browser
+checks loaded both color modes without broken images or page errors.
+The new append-only artwork snapshot records those deployed images in
+the later, separately published privacy-corrected site copy, with unchanged facts.
+It does not place the privacy correction in the earlier artwork
+deployment. See `docs/narrative/2026-10-26-production-artwork-record.md`.
+
+## 2026-10-26 — AgentBook privacy correction published
+
+Nic approved production publication of the reviewed AgentBook privacy
+correction. Pull request #3 merged as `5abbf323` and its production
+deployment reached READY. At about 23:22 UTC, the public About page,
+snapshot history, privacy snapshot manifest, and fleet page each
+returned HTTP 200 and matched the reviewed source bytes. This is a
+publication check of those pages, not a new AgentBook lookup. See
+`docs/narrative/2026-10-26-agentbook-privacy-publication.md`.
 
 ## 2026-10-26 — Privacy correction: AgentBook linkage
 
@@ -29,6 +39,17 @@ records what the existing on-chain and published evidence can reveal.
 The new append-only privacy-correction snapshot freezes the corrected
 site copy. This entry records its preparation; production publication
 and its live check belong in a separate publication record.
+
+## 2026-10-26 — Production artwork deployed
+
+The site now serves the approved production set: the plate
+rendered at 2048×2048 and the lockup at 2600×740 replace the
+interim 1000×1000 and 1960×560 renders, and the social-share image
+is the production lockup. Hero WebP editions are regenerated from
+the new masters (plate 141 KB dark, 99 KB light). Verified before
+deploy in a real browser at phone and desktop widths in both
+modes: no distortion, mode swap correct, gold reads as metallic
+gold in light mode.
 
 ## 2026-10-26 — Labels-only fleet page
 

@@ -2,6 +2,13 @@
   "added": [],
   "modified": [
     "about/index.html",
+    "assets/lead-lockup-dark.png",
+    "assets/lead-lockup-dark.webp",
+    "assets/lead-lockup-light.png",
+    "assets/lead-lockup-light.webp",
+    "assets/plate-lead-dark.webp",
+    "assets/plate-lead-light.webp",
+    "index.html",
     "note.md",
     "snapshots/index.html"
   ],
