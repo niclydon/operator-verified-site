@@ -4,6 +4,17 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Correction: Fiador page, what does not exist yet
+
+The section's opening sentence named the verifier bot and the static
+verify page as not existing. Both have existed since this morning:
+the verification path ran end to end through the verification bot in
+a live Discord server, and the verify explainer page is live on this
+site. The sentence now names only what is still missing, the
+packaged verifier bot running in a public guild and a registry
+listing, and records the end-to-end run. Wording approved by the
+operator as exact text before publication.
+
 ## 2026-10-26 — Sign in with World ID: machinery built, dark
 
 The site side of Sign in with World ID (issuer auth.world.org)
