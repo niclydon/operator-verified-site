@@ -15,13 +15,13 @@ published hash and the program-wallet fragment in the frozen launch
 snapshot are existing disclosures, not erased by this correction.
 Historical snapshots remain byte-for-byte unchanged.
 
-The `2026-10-26-privacy-correction` snapshot is a proposed append-only
-copy of the corrected served site, with its facts file, a file-hash
+The `2026-10-26-privacy-correction` snapshot was prepared as an append-only
+copy of the corrected site, with its facts file, a file-hash
 manifest, and a generated list of differences from the fleet snapshot.
 It does not represent a fresh AgentBook lookup. The fleet facts retain
 their October 26 build-time check and the same private-roster limit.
 
-At preparation time this correction was local only. Its exact public
-wording requires the operator's approval before a public pull request
-or deployment; a later publication record should state the deployed
-revision and live check rather than treating this candidate as live.
+At preparation time this correction was local only. The exact public
+wording required the operator's approval before a public pull request
+or deployment. A separate publication record should state the deployed
+revision and live check.

@@ -2,9 +2,9 @@
   "snapshot": "2026-10-26-privacy-correction",
   "date": "2026-10-26",
   "reason": "Correct About-page explanation of linkability through public AgentBook registrations; fleet labels-only boundary remains",
-  "source_commit": "cb429133a0d13599d469d674e771c09b7f9f80d6",
-  "source_state": "local candidate based on the published source commit; operator wording approval and deployment pending",
-  "deployment": "pending operator approval, preview, and production deployment",
+  "source_commit": "5a72c11e95452d65626daf1dbf85c42660929541",
+  "source_state": "captured from the locally committed candidate before publication",
+  "deployment": "prepared before deployment; see CHANGES.md for any later publication record",
   "files": {
     "404.html": "3d0809531f3d5e2ce2f9e5dfa0614b7ade44ad3df92e6371c3b251daf4dd5d31",
     "about/index.html": "acf863347d3114140f6c99c5f8e78639bb2e35191ddcc2ba7930fe10688673fa",

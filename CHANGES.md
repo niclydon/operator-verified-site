@@ -15,8 +15,8 @@ This correction does not retract Fiador's previously published hash or
 the program-wallet fragment preserved in historical snapshots. It
 records what the existing on-chain and published evidence can reveal.
 The new append-only privacy-correction snapshot freezes the corrected
-site copy. Publication awaits the operator's approval of its exact
-public wording.
+site copy. This entry records its preparation; production publication
+and its live check belong in a separate publication record.
 
 ## 2026-10-26 — Labels-only fleet page
 
