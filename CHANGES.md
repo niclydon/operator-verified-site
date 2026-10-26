@@ -18,6 +18,17 @@ The new append-only privacy-correction snapshot freezes the corrected
 site copy. This entry records its preparation; production publication
 and its live check belong in a separate publication record.
 
+## 2026-10-26 — Production artwork deployed
+
+The site now serves the approved production set: the plate
+rendered at 2048×2048 and the lockup at 2600×740 replace the
+interim 1000×1000 and 1960×560 renders, and the social-share image
+is the production lockup. Hero WebP editions are regenerated from
+the new masters (plate 141 KB dark, 99 KB light). Verified before
+deploy in a real browser at phone and desktop widths in both
+modes: no distortion, mode swap correct, gold reads as metallic
+gold in light mode.
+
 ## 2026-10-26 — Labels-only fleet page
 
 The new `/fleet/` page shows a dated build-time AgentBook check for the
