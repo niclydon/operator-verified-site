@@ -33,14 +33,14 @@
     {
       "id": "program.wallet.state",
       "label": "Dedicated program wallet AgentBook registration",
-      "value": "prepared, not yet executed",
+      "value": "registered (confirmed live)",
       "kind": "machine",
       "source": {
         "type": "status-check",
-        "ref": "Program wallet record, Oct 25, 2026",
-        "detail": "Dedicated wallet generated for this program; public form is the truncated address only"
+        "ref": "Program wallet record, Oct 26, 2026",
+        "detail": "Registration executed in the World App and confirmed live (registered: true) on Oct 26, 2026; public form is the truncated address only"
       },
-      "verified_at": "2026-10-25",
+      "verified_at": "2026-10-26",
       "verified_by": "the author",
       "publish": true
     },

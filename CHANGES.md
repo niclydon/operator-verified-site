@@ -4,6 +4,21 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Correction: program wallet registration state
+
+The program wallet's AgentBook registration was executed in
+the World App and confirmed live (registered: true) on
+October 26, 2026, in the same hours as this site's launch.
+The launch build still carried the earlier state, "prepared,
+not yet executed," so the site misstated the fact for its
+first hours. The fact
+now reads "registered (confirmed live)" (verified October 26,
+2026), in `facts.json` and in the Fiador page's program-wallet
+paragraph. The launch narrative's statement of the earlier
+state stands as the record of what was true when it was
+written; this entry is the correction, per the rule that
+corrections arrive as new entries, never as silent edits.
+
 ## 2026-10-26 — Polish pass (post-launch)
 
 A professional-finish pass over the launched site, prompted by
