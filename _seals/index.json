@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "seals": {
+    "devlog/2026-10-26-founding/index.html": {
+      "content_hash": "sha256:83418556a0ca917d4a92af8f59ab1e6ac673cc31ee456c1740767c4fb990dc00",
+      "seal_file": "_seals/devlog/2026-10-26-founding/index.html.json",
+      "supersedes": null
+    }
+  }
+}
