@@ -63,7 +63,36 @@ async function verifyWithWorld(result) {
     body: JSON.stringify(result),
   });
   const body = await resp.json().catch(() => ({}));
-  return { ok: resp.ok && body.success !== false, status: resp.status, body };
+  return { ok: resp.ok && body?.success === true, status: resp.status, body };
+}
+
+function isProofOfHumanResult(result, action) {
+  if (result.action !== action || result.session_id != null) return false;
+  if (result.environment != null && result.environment !== "production") return false;
+  if (!Array.isArray(result.responses) || result.responses.length !== 1) return false;
+  const proof = result.responses[0];
+  if (!proof || typeof proof !== "object" || typeof proof.nullifier !== "string" || !proof.nullifier) return false;
+  if (result.protocol_version === "3.0") return proof.identifier === "orb";
+  if (result.protocol_version === "4.0") {
+    return proof.identifier === "proof_of_human" && proof.issuer_schema_id === 1;
+  }
+  return false;
+}
+
+function isVerifiedProofOfHuman(outcome, result, action) {
+  if (!outcome.ok || !isProofOfHumanResult(result, action)) return false;
+  const body = outcome.body;
+  if (!body || typeof body !== "object") return false;
+  if (!Array.isArray(body.results) || body.results.length !== 1) return false;
+  const verified = body.results[0];
+  const submitted = result.responses[0];
+  if (!verified || verified.success !== true) return false;
+  if (body.action != null && body.action !== action) return false;
+  if (body.environment != null && body.environment !== "production") return false;
+  if (verified.identifier != null && verified.identifier !== submitted.identifier) return false;
+  if (verified.nullifier != null && verified.nullifier !== submitted.nullifier) return false;
+  if (body.nullifier != null && body.nullifier !== submitted.nullifier) return false;
+  return true;
 }
 
 function firstNullifier(result) {
@@ -84,15 +113,6 @@ function receiptFor(result) {
   return crypto.createHash("sha256").update(n).digest("hex").slice(0, 16);
 }
 
-function identifiersOf(result) {
-  if (!Array.isArray(result.responses)) return [];
-  const seen = [];
-  for (const r of result.responses) {
-    if (r.identifier && !seen.includes(r.identifier)) seen.push(r.identifier);
-  }
-  return seen;
-}
-
 function sendJson(res, statusCode, obj) {
   res.statusCode = statusCode;
   res.setHeader("Content-Type", "application/json");
@@ -105,7 +125,8 @@ module.exports = {
   signContext,
   readJsonBody,
   verifyWithWorld,
+  isProofOfHumanResult,
+  isVerifiedProofOfHuman,
   receiptFor,
-  identifiersOf,
   sendJson,
 };

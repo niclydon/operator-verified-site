@@ -9,8 +9,9 @@ const {
   config,
   readJsonBody,
   verifyWithWorld,
+  isProofOfHumanResult,
+  isVerifiedProofOfHuman,
   receiptFor,
-  identifiersOf,
   sendJson,
 } = require("../_lib/idkit");
 
@@ -36,12 +37,8 @@ module.exports = async (req, res) => {
     sendJson(res, 400, { verified: false, error: "missing_result" });
     return;
   }
-  if (result.environment && result.environment !== "production") {
-    sendJson(res, 200, { verified: false, error: "environment_mismatch" });
-    return;
-  }
-  if (result.action && result.action !== cfg.action) {
-    sendJson(res, 200, { verified: false, error: "action_mismatch" });
+  if (!isProofOfHumanResult(result, cfg.action)) {
+    sendJson(res, 200, { verified: false, error: "proof_type_mismatch" });
     return;
   }
   let outcome;
@@ -51,14 +48,13 @@ module.exports = async (req, res) => {
     sendJson(res, 200, { verified: false, error: "verify_unreachable" });
     return;
   }
-  if (!outcome.ok) {
+  if (!isVerifiedProofOfHuman(outcome, result, cfg.action)) {
     sendJson(res, 200, { verified: false, error: "portal_rejected" });
     return;
   }
   sendJson(res, 200, {
     verified: true,
     receipt: receiptFor(result),
-    identifiers: identifiersOf(result),
     user_presence_completed: outcome.body?.user_presence_completed === true,
   });
 };
