@@ -4,6 +4,27 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-27 — Production verification guard snapshot
+
+The site published tighter server-side World ID proof checks in commit
+`5a8b855` and then the separately approved artwork record in commit
+`b6a1e2e`. Both production deployments reached READY. A production
+request to `/verify/` matched the latter source, and the guarded endpoint
+rejected a synthetic wrong-credential request. No completed World App
+proof has been observed, so these checks do not establish a successful
+phone flow or who submitted a valid proof.
+
+The new append-only snapshot freezes the pages and assets served from
+the latter commit, alongside its new history entry. Its archived
+`/verify/` view intentionally differs from the served page: it adds a
+prominent archive warning and removes the earlier interactive check.
+The original browser bundle remains as an inert record. The historical
+wording overstates what the result establishes and incorrectly says the
+full nullifier never left the proof. Corrected wording will be a later,
+visible change. Fact values are unchanged from the artwork snapshot;
+only the facts generation time moved forward. See
+`docs/narrative/2026-10-27-production-verify-guard-record.md`.
+
 ## 2026-10-26 — Production artwork deployment documented
 
 The approved 2048×2048 plate and 2600×740 lockup were deployed in
