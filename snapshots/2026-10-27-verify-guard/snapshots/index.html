@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snapshots — Operator Verified</title>
+<meta name="description" content="Snapshot history for the Operator Verified site: frozen copies at each launch state, append-only.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Operator Verified">
+<meta property="og:title" content="Snapshots — Operator Verified">
+<meta property="og:description" content="Snapshot history for the Operator Verified site: frozen copies at each launch state, append-only.">
+<meta property="og:url" content="https://operatorverified.org/snapshots/">
+<meta property="og:image" content="https://operatorverified.org/assets/lead-lockup-dark.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EDEEF0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<link rel="icon" href="../assets/ov-core-light.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../assets/ov-core-dark.svg" media="(prefers-color-scheme: dark)">
+<script>
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('ov-mode'); } catch(e){}
+  var mode = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-mode', mode);
+  document.addEventListener('DOMContentLoaded', function(){
+    // Facts wiring: values printed inline are the no-JS fallback; when
+    // facts.json loads, its verified values replace them in place.
+    try {
+      var link = document.querySelector('link[rel="stylesheet"]');
+      var root = link ? link.getAttribute('href').replace(/assets\/style\.css$/, '') : '';
+      fetch(root + 'facts.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(data){
+        if (!data) return;
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        function fmt(iso){ var d = new Date(iso + 'T12:00:00'); return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+        data.facts.forEach(function(f){
+          document.querySelectorAll('[data-fact="' + f.id + '"]').forEach(function(el){ el.textContent = f.value; });
+          document.querySelectorAll('[data-fact-date="' + f.id + '"]').forEach(function(el){ el.textContent = fmt(f.verified_at); });
+        });
+        document.querySelectorAll('[data-fact="generated"]').forEach(function(el){ el.textContent = fmt(String(data.generated_at).slice(0,10)); });
+      }).catch(function(){});
+    } catch(e){}
+    function applyMode(m){
+      document.documentElement.setAttribute('data-mode', m);
+      document.querySelectorAll('img[data-dark-src]').forEach(function(im){
+        im.src = m === 'dark' ? im.getAttribute('data-dark-src') : im.getAttribute('data-light-src');
+      });
+      var b = document.getElementById('mode-toggle');
+      if (b) b.textContent = m === 'dark' ? '☀ Light' : '☾ Dark';
+    }
+    applyMode(document.documentElement.getAttribute('data-mode') || 'light');
+    var b = document.getElementById('mode-toggle');
+    if (b) b.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+      applyMode(cur);
+      try { localStorage.setItem('ov-mode', cur); } catch(e){}
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="../">
+    <img class="only-light" src="../assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <img class="only-dark" src="../assets/ov-core-dark.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <span>Operator&nbsp;Verified</span></a>
+  <nav><a href="../projects/">Projects</a><a href="../fleet/">Fleet</a><a href="../verify/">Verify</a><a href="../resources/">Resources</a><a href="../devlog/">Devlog</a><a href="../about/">About</a><button class="toggle" id="mode-toggle" aria-label="Switch between light and dark mode">☾ Dark</button></nav>
+</div></header>
+<main class="wrap">
+
+<section style="padding-top:48px">
+  <div class="label"><b>—</b> / SNAPSHOTS</div>
+  <h2>Snapshot history</h2>
+  <p>Snapshots preserve dated site states and their facts files, each with a
+  note on why. Snapshots are append-only: corrections arrive as newer snapshots,
+  never as silent edits to frozen ones.</p>
+  <div class="card" style="margin-top:18px">
+    <h3 style="margin-top:0">2026-10-27 — Verification guard record</h3>
+    <p>The site published tighter server-side World ID proof checks in commit
+    <code>5a8b855</code>, then published the separately approved artwork record
+    in commit <code>b6a1e2e</code>. A synthetic wrong-credential request was
+    rejected, but no completed World App proof has been observed. The archived
+    verification page labels its historical wording and disables the earlier
+    interactive check; its browser bundle remains as an inert record. The
+    historical claims about the present visitor and nullifier handling are
+    under correction.
+    Frozen copy: <a href="/snapshots/2026-10-27-verify-guard/">snapshots/2026-10-27-verify-guard/</a>,
+    with a snapshot.json manifest and a note in the same directory.</p>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3 style="margin-top:0">2026-10-26 — Production artwork record</h3>
+    <p>The approved plate and lockup were deployed in site commit
+    <code>7532bc8</code> before the AgentBook privacy correction. This later
+    snapshot captures those same images in the separately published,
+    privacy-corrected site copy; it does not imply that the correction was part of the artwork
+    deployment. The facts file is unchanged. Frozen copy:
+    <a href="/snapshots/2026-10-26-artwork/">snapshots/2026-10-26-artwork/</a>,
+    with a snapshot.json manifest and a note in the same directory.</p>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3 style="margin-top:0">2026-10-26 — Privacy correction</h3>
+    <p>The About page now explains that public AgentBook registrations can link a
+    disclosed wallet or published hash to a human identifier and other wallets.
+    The fleet page still shows labels only. Earlier snapshots remain frozen.
+    Frozen copy: <a href="/snapshots/2026-10-26-privacy-correction/">snapshots/2026-10-26-privacy-correction/</a>,
+    with a snapshot.json manifest and a note in the same directory.</p>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3 style="margin-top:0">2026-10-26 — Fleet page</h3>
+    <p>The first labels-only fleet page, with four build-time AgentBook results
+    and a dated check. The current site no longer repeats the program wallet's
+    previously published address fragment; the frozen launch copy remains in
+    the history. Frozen copy:
+    <a href="/snapshots/2026-10-26-fleet/">snapshots/2026-10-26-fleet/</a>, with a
+    snapshot.json manifest and a note in the same directory.</p>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3 style="margin-top:0">2026-10-26 — Launch</h3>
+    <p>The site as first published at operatorverified.org: nine pages, devlog post 1,
+    and the facts file as verified at launch. Frozen copy:
+    <a href="/snapshots/2026-10-26-launch/">snapshots/2026-10-26-launch/</a>, with a
+    snapshot.json manifest of file hashes in the same directory.</p>
+  </div>
+</section>
+
+</main>
+<footer><div class="wrap"><div class="cols">
+  <div>Created by Nic Lydon. Copyright 2026 Nic Lydon, Apache-2.0.<br>Part of Operator Verified, an independent open-source program with no token.</div>
+  <div>Facts verified <span data-fact="generated">October 26, 2026</span> · <a href="../snapshots/">Snapshot history</a><br>
+  More by Nic Lydon: <a href="https://www.niclydon.io/nexus">Nexus</a> · <a href="https://www.niclydon.io/aria">ARIA</a> · <a href="https://www.niclydon.io/gadgets">Gadgets</a></div>
+</div>
+<p style="margin-top:16px">Operator Verified is an independent project by Nic Lydon. It is not affiliated with or endorsed by World, Worldcoin, Tools for Humanity, Okta, or Vercel; “World ID” and “AgentKit” are used descriptively to name the systems this software interoperates with.</p>
+</div></footer>
+</body>
+</html>

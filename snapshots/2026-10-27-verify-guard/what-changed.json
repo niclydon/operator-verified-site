@@ -1,0 +1,19 @@
+{
+  "added": [
+    "assets/verify-client.js"
+  ],
+  "modified": [
+    "assets/style.css",
+    "facts.json",
+    "note.md",
+    "snapshots/index.html",
+    "verify/index.html"
+  ],
+  "removed": [],
+  "archive_divergence": {
+    "path": "verify/index.html",
+    "source_sha256": "51bdfeb4a3f15ff62f7640fba07b058a8cafa2cff471ac683c91e7922ad9b337",
+    "archived_sha256": "5410cea07f8598599c7654343df12f38ec0e4b1ce36eaf9e5c2793cfc192f385",
+    "change": "Direct archive warning and historical labels added; proof controls and loader removed; original browser bundle retained without being loaded"
+  }
+}

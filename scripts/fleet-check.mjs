@@ -708,6 +708,8 @@ const EXISTING_PUBLIC_FRAGMENTS = Object.freeze({
   'snapshots/2026-10-26-fleet/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
   'snapshots/2026-10-26-privacy-correction/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
   'snapshots/2026-10-26-artwork/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
+  // The same synthetic example is frozen here after a private four-wallet comparison.
+  'snapshots/2026-10-27-verify-guard/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
 })
 
 // A private roster value may match a fragment already published on the site.
@@ -732,6 +734,14 @@ const SNAPSHOT_CONTENT_HASHES = Object.freeze({
   '2026-10-26-fleet': 'b355f12579d8e9d72db22626ce18029f50c8b75229318628830032d0f3bf0d8e',
   '2026-10-26-privacy-correction': 'd295f20a9ae5baa0c8c6bc24b7efbf5e5e1237ff383abeccd1bcb1f51c984d9d',
   '2026-10-26-artwork': '2763630600f0aa5cb4677e2b555379eaa3951e72f2296bdee506657b4c4ece73',
+  '2026-10-27-verify-guard': 'bea76c7773b395ddab442e62ea30917baa60f2592dc1b480c91e25cac7dc5c66',
+})
+
+// Content hashes alone do not cover snapshot.json provenance fields. Pin the
+// reviewed source and archival-view description, while deployment metadata may
+// be updated with later publication evidence.
+const SNAPSHOT_PROVENANCE_HASHES = Object.freeze({
+  '2026-10-27-verify-guard': 'd1bbb0bd040b205114928a5ae429588e766f7011162f335478385ad4a6a6ddf6',
 })
 
 // The checker appends fleet.* facts to the existing public facts. The old
@@ -801,6 +811,19 @@ export async function scanServedTree(site, secrets, forbiddenIdentifiers, {
         typeof manifest.files !== 'object' || Array.isArray(manifest.files) ||
         sha256(JSON.stringify(manifest.files)) !== expectedContentHash) {
       return `${name} snapshot file list differs from the reviewed content set`
+    }
+    if (Object.hasOwn(SNAPSHOT_PROVENANCE_HASHES, name)) {
+      const provenance = {
+        snapshot: manifest.snapshot,
+        date: manifest.date,
+        reason: manifest.reason,
+        source_commit: manifest.source_commit,
+        source_state: manifest.source_state,
+        archival_view: manifest.archival_view,
+      }
+      if (sha256(JSON.stringify(provenance)) !== SNAPSHOT_PROVENANCE_HASHES[name]) {
+        return `${name} snapshot provenance changed`
+      }
     }
     const captured = new Set()
     async function walkSnapshot(dir) {
