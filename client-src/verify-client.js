@@ -72,7 +72,7 @@ async function start() {
     if (!completion.success) {
       const code = String(completion.error || "");
       if (/reject|cancel|declin/i.test(code)) {
-        setStatus("The check was cancelled in World App. Nothing was recorded.");
+        setStatus("Cancelled in World App. This site received no completed response.");
       } else if (/timeout|timed_out/i.test(code)) {
         setStatus("The check timed out before World App answered. You can run it again.");
       } else {
@@ -87,13 +87,9 @@ async function start() {
     if (qrWrap) qrWrap.hidden = true;
     if (verdictData.verified) {
       setStatus("");
-      const receipt = verdictData.receipt
-        ? `<p>Receipt: <code>${verdictData.receipt}</code> — the first characters of a hash of this proof's nullifier. The full nullifier never left your proof; this page stored nothing.</p>`
-        : "";
       showVerdict(
-        `<h3>Verified as a unique human</h3>` +
-          `<p>World verified the proof this page received. It establishes that the person who proved holds a World ID credential issued to one unique human. It does not identify that person, and this check granted nothing and created no account.</p>` +
-          receipt
+        `<h3>World accepted the response</h3>` +
+          `<p>World confirmed a valid World ID credential for one unique human. Because the response can be sent again, this result cannot identify who is at the screen. No account or access was created.</p>`
       );
     } else if (verdictData.error === "portal_rejected") {
       setStatus("World did not verify this proof. The check is complete; the result is not verified.");
