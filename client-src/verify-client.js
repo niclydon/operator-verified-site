@@ -47,6 +47,7 @@ async function start() {
   const verdict = el("ovc-verdict");
   if (verdict) verdict.hidden = true;
   if (startBtn) startBtn.disabled = true;
+  let stage = "preparing";
   try {
     setStatus("Preparing the check…");
     const ctx = await api("/api/verify/context");
@@ -66,13 +67,14 @@ async function start() {
     const openLink = el("ovc-open");
     if (openLink) openLink.href = request.connectorURI;
     if (qrWrap) qrWrap.hidden = false;
+    stage = "waiting";
     setStatus("Waiting for World App. Scan the code, or open the link on the device that holds your World App.");
 
     const completion = await request.pollUntilCompletion({ pollInterval: 2000, timeout: 360000 });
     if (!completion.success) {
       const code = String(completion.error || "");
       if (/reject|cancel|declin/i.test(code)) {
-        setStatus("The check was cancelled in World App. Nothing was recorded.");
+        setStatus("Cancelled in World App. This site received no completed response.");
       } else if (/timeout|timed_out/i.test(code)) {
         setStatus("The check timed out before World App answered. You can run it again.");
       } else {
@@ -82,26 +84,27 @@ async function start() {
       return;
     }
 
-    setStatus("Proof received. Verifying it with World…");
+    stage = "checking";
+    setStatus("Checking the response with World…");
     const verdictData = await api("/api/verify/check", { result: completion.result });
     if (qrWrap) qrWrap.hidden = true;
     if (verdictData.verified) {
       setStatus("");
-      const receipt = verdictData.receipt
-        ? `<p>Receipt: <code>${verdictData.receipt}</code> — the first characters of a hash of this proof's nullifier. The full nullifier never left your proof; this page stored nothing.</p>`
-        : "";
       showVerdict(
-        `<h3>Verified as a unique human</h3>` +
-          `<p>World verified the proof this page received. It establishes that the person who proved holds a World ID credential issued to one unique human. It does not identify that person, and this check granted nothing and created no account.</p>` +
-          receipt
+        `<h3>World accepted the response</h3>` +
+          `<p>World confirmed a valid World ID credential for one unique human. This result cannot tell who submitted the response or whether that person is here now. No account or access was created.</p>`
       );
     } else if (verdictData.error === "portal_rejected") {
-      setStatus("World did not verify this proof. The check is complete; the result is not verified.");
+      setStatus("This response did not pass the check.");
     } else {
-      setStatus("The proof could not be checked just now. A check that fails to run is never shown as a failed proof; you can run it again.");
+      setStatus("We could not confirm the result. No result is shown.");
     }
   } catch (err) {
-    setStatus("The check could not start. It may not be enabled yet, or the connection failed; you can try again.");
+    setStatus(stage === "checking"
+      ? "We could not confirm the result. No result is shown."
+      : stage === "waiting"
+        ? "This page did not receive a completed response from World App. No result is shown."
+        : "The check could not start. Please try again.");
     if (qrWrap) qrWrap.hidden = true;
   } finally {
     if (startBtn) startBtn.disabled = false;

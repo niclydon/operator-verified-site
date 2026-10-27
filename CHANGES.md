@@ -4,6 +4,17 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-27 — World ID check copy clarified
+
+The `/verify/` page now describes its optional World ID check in plain
+language. It states that a successful result cannot identify who sent
+the response or establish who is present, and it no longer displays the
+short receipt hash. Cancellation, rejection, and unclear results have
+shorter, distinct messages. Revision 6 of `docs/DESIGN.md` records this
+tool and its limits while preserving the original explainer-only design
+as history. The public wording was approved for the draft release.
+No completed World App check had been observed when this record was written.
+
 ## 2026-10-27 — Production verification guard snapshot
 
 The site published tighter server-side World ID proof checks in commit

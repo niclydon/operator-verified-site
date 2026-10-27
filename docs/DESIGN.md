@@ -27,6 +27,31 @@ Nic through the coordinator's queue, not directly.
 
 ---
 
+## Revision 6 — optional World ID check on `/verify/` (Oct 27, 2026)
+
+The site now has an optional World ID check in a labelled block on its
+`/verify/` explainer. This records the implementation already deployed on
+Oct 26 and supersedes the original no-check rule in §2 and §2.3 for this
+one block. It does not move Fiador's AgentBook attestation checker to
+this site or change the purpose of the other explanation sections.
+
+The page remains readable without JavaScript, an account, or a wallet.
+The button appears only when the server reports that the check is enabled.
+A visitor can then use World App; the site sends the completed response
+to its server and World for verification and displays World's result.
+The site does not persist the response, create an account, grant access,
+or claim to identify the person at the screen. A response can be copied
+or submitted later, and this demo has no one-use or session binding.
+The browser no longer displays the API's shortened nullifier receipt.
+An unavailable or unclear result is never shown as a successful check.
+
+This amendment records the tool and its limits, not a successful live
+World App attempt. The original §2 and §2.3 text remains as dated
+history. Further tools on this domain still need their own design note,
+adversarial claim review, and Nic's approval of exact public wording.
+
+---
+
 ## Revision 5 — fleet privacy (Oct 26, 2026)
 
 Nic chose **fleet labels only** for the new `/fleet/` page. A truncated
