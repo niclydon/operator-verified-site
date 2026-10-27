@@ -93,26 +93,43 @@ module.exports = async (req, res) => {
     contentId = `${surface}/articles/${q.get("article")}`;
   }
 
-  const send = (status, svg) => {
+  const send = async (status, svg) => {
+    res.setHeader("Cache-Control", "public, max-age=120, s-maxage=300, stale-while-revalidate=86400");
+    // Default to PNG: image proxies (dev.to's in particular) cannot
+    // rasterise SVG reliably, and a badge that renders as a broken
+    // image is worse than no badge. ?format=svg returns the vector
+    // for surfaces that embed it directly.
+    if (q.get("format") !== "svg") {
+      try {
+        const { Resvg } = await import("@resvg/resvg-js");
+        const png = new Resvg(svg, { fitTo: { mode: "width", value: 1120 } }).render().asPng();
+        res.statusCode = status;
+        res.setHeader("Content-Type", "image/png");
+        res.end(png);
+        return;
+      } catch {
+        // Rasteriser unavailable: fall through to the vector rather
+        // than failing the badge outright.
+      }
+    }
     res.statusCode = status;
     res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
-    res.setHeader("Cache-Control", "public, max-age=120, s-maxage=300, stale-while-revalidate=86400");
     res.end(svg);
   };
 
   if (!contentId) {
-    send(400, badgeSvg({ theme, title: "No content named", line1: "NO SEAL", line2: "Name a sealed item to draw its badge" }));
+    await send(400, badgeSvg({ theme, title: "No content named", line1: "NO SEAL", line2: "Name a sealed item to draw its badge" }));
     return;
   }
   const index = await loadIndex();
   const entry = index?.seals?.[contentId];
   if (!entry) {
-    send(404, badgeSvg({ theme, title: "No seal found for this content", line1: "NO SEAL FOUND", line2: "This content carries no provenance seal" }));
+    await send(404, badgeSvg({ theme, title: "No seal found for this content", line1: "NO SEAL FOUND", line2: "This content carries no provenance seal" }));
     return;
   }
   const record = await loadRecord(entry.seal_file);
   if (!record) {
-    send(502, badgeSvg({ theme, title: "Seal record unavailable", line1: "SEAL UNREADABLE", line2: "The seal record could not be read just now" }));
+    await send(502, badgeSvg({ theme, title: "Seal record unavailable", line1: "SEAL UNREADABLE", line2: "The seal record could not be read just now" }));
     return;
   }
   const anchor = record.timestamps?.anchor ?? null;
@@ -121,5 +138,5 @@ module.exports = async (req, res) => {
   const line2 = anchor
     ? `Anchored on World Chain${when ? ` · ${when}` : ""}`
     : "Sealed · anchor pending";
-  send(200, badgeSvg({ theme, title: `Provenance seal: ${line1}. ${line2}`, line1, line2 }));
+  await send(200, badgeSvg({ theme, title: `Provenance seal: ${line1}. ${line2}`, line1, line2 }));
 };
