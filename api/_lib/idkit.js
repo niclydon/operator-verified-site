@@ -66,12 +66,19 @@ async function verifyWithWorld(result) {
   return { ok: resp.ok && body?.success === true, status: resp.status, body };
 }
 
+function nullifierValue(value) {
+  if (typeof value !== "string" ||
+      !/^(?:0x[0-9a-fA-F]{1,64}|[0-9]{1,78})$/.test(value)) return null;
+  const number = BigInt(value);
+  return number < (1n << 256n) ? number : null;
+}
+
 function isProofOfHumanResult(result, action) {
   if (result.action !== action || result.session_id != null) return false;
   if (result.environment != null && result.environment !== "production") return false;
   if (!Array.isArray(result.responses) || result.responses.length !== 1) return false;
   const proof = result.responses[0];
-  if (!proof || typeof proof !== "object" || typeof proof.nullifier !== "string" || !proof.nullifier) return false;
+  if (!proof || typeof proof !== "object" || nullifierValue(proof.nullifier) === null) return false;
   if (result.protocol_version === "3.0") return proof.identifier === "orb";
   if (result.protocol_version === "4.0") {
     return proof.identifier === "proof_of_human" && proof.issuer_schema_id === 1;
@@ -90,8 +97,10 @@ function isVerifiedProofOfHuman(outcome, result, action) {
   if (body.action != null && body.action !== action) return false;
   if (body.environment != null && body.environment !== "production") return false;
   if (verified.identifier != null && verified.identifier !== submitted.identifier) return false;
-  if (verified.nullifier != null && verified.nullifier !== submitted.nullifier) return false;
-  if (body.nullifier != null && body.nullifier !== submitted.nullifier) return false;
+  const submittedNullifier = nullifierValue(submitted.nullifier);
+  if (submittedNullifier === null) return false;
+  if (verified.nullifier != null && nullifierValue(verified.nullifier) !== submittedNullifier) return false;
+  if (body.nullifier != null && nullifierValue(body.nullifier) !== submittedNullifier) return false;
   return true;
 }
 

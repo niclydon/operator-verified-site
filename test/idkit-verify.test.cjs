@@ -9,6 +9,7 @@ const check = require("../api/verify/check");
 
 const ACTION = "operator-verified-check";
 const NULLIFIER = "0x" + "a".repeat(64);
+const DECIMAL_NULLIFIER = BigInt(NULLIFIER).toString(10);
 const proof = {
   protocol_version: "4.0",
   nonce: "0xabc123",
@@ -21,6 +22,10 @@ const proof = {
     expires_at_min: 49012345,
     proof: ["0x1", "0x2", "0x3", "0x4", "0x5"],
   }],
+};
+const decimalProof = {
+  ...proof,
+  responses: [{ ...proof.responses[0], nullifier: DECIMAL_NULLIFIER }],
 };
 const success = {
   success: true,
@@ -40,6 +45,7 @@ function response() {
 
 test("only a single action-bound proof-of-human credential is eligible", () => {
   assert.equal(isProofOfHumanResult(proof, ACTION), true);
+  assert.equal(isProofOfHumanResult(decimalProof, ACTION), true);
   const legacy = {
     ...proof,
     protocol_version: "3.0",
@@ -54,6 +60,7 @@ test("only a single action-bound proof-of-human credential is eligible", () => {
     { ...proof, responses: [...proof.responses, proof.responses[0]] },
     { ...proof, responses: [{ ...proof.responses[0], identifier: "selfie", issuer_schema_id: 11 }] },
     { ...proof, responses: [{ ...proof.responses[0], issuer_schema_id: 9303 }] },
+    { ...proof, responses: [{ ...proof.responses[0], nullifier: "not-a-field" }] },
   ];
   for (const candidate of refused) {
     assert.equal(isProofOfHumanResult(candidate, ACTION), false);
@@ -62,6 +69,8 @@ test("only a single action-bound proof-of-human credential is eligible", () => {
 
 test("World must confirm the submitted credential and nullifier", () => {
   assert.equal(isVerifiedProofOfHuman({ ok: true, body: success }, proof, ACTION), true);
+  assert.equal(isVerifiedProofOfHuman({ ok: true, body: success }, decimalProof, ACTION), true);
+  assert.equal(isVerifiedProofOfHuman({ ok: true, body: { ...success, nullifier: NULLIFIER } }, decimalProof, ACTION), true);
   const refused = [
     {},
     { success: true },
@@ -76,6 +85,10 @@ test("World must confirm the submitted credential and nullifier", () => {
   for (const body of refused) {
     assert.equal(isVerifiedProofOfHuman({ ok: true, body }, proof, ACTION), false);
   }
+  assert.equal(isVerifiedProofOfHuman({ ok: true, body: {
+    ...success,
+    results: [{ ...success.results[0], nullifier: "0xb" }],
+  } }, decimalProof, ACTION), false);
 });
 
 test("check endpoint forwards the complete proof but returns only a verified receipt", async () => {
@@ -89,16 +102,16 @@ test("check endpoint forwards the complete proof but returns only a verified rec
   };
   try {
     const res = response();
-    await check({ method: "POST", body: { result: proof } }, res);
-    assert.deepEqual(forwarded, proof);
+    await check({ method: "POST", body: { result: decimalProof } }, res);
+    assert.deepEqual(forwarded, decimalProof);
     assert.equal(res.statusCode, 200);
     assert.equal(res.body.verified, true);
-    assert.equal(res.body.receipt, crypto.createHash("sha256").update(NULLIFIER).digest("hex").slice(0, 16));
+    assert.equal(res.body.receipt, crypto.createHash("sha256").update(DECIMAL_NULLIFIER).digest("hex").slice(0, 16));
     assert.equal(JSON.stringify(res.body).includes(NULLIFIER), false);
 
     global.fetch = async () => ({ ok: true, status: 200, json: async () => ({}) });
     const incomplete = response();
-    await check({ method: "POST", body: { result: proof } }, incomplete);
+    await check({ method: "POST", body: { result: decimalProof } }, incomplete);
     assert.deepEqual(incomplete.body, { verified: false, error: "portal_rejected" });
 
     let called = false;
