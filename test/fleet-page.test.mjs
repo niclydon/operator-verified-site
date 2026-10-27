@@ -14,6 +14,8 @@ const approved = [
   { id: 'aria', label: 'ARIA', role: 'The ARIA fleet agent.' },
   { id: 'cole', label: 'Cole', role: 'The Cole fleet agent.' },
 ]
+const SNAPSHOT_NAMES = ['2026-10-26-fleet', '2026-10-26-privacy-correction',
+  '2026-10-26-artwork', '2026-10-27-verify-guard', '2026-10-27-world-id-copy']
 
 test('the fixed four-wallet copy refuses a missing, renamed, or extra roster entry', () => {
   assert.doesNotThrow(() => assertSiteFleetCopy(approved))
@@ -53,6 +55,8 @@ test('a changed captured page is refused even if the manifest itself still parse
     await cp(fileURLToPath(new URL('../snapshots/2026-10-26-artwork/', import.meta.url)), artworkSnapshot, { recursive: true })
     const guardSnapshot = path.join(site, 'snapshots', '2026-10-27-verify-guard')
     await cp(fileURLToPath(new URL('../snapshots/2026-10-27-verify-guard/', import.meta.url)), guardSnapshot, { recursive: true })
+    const copySnapshot = path.join(site, 'snapshots', '2026-10-27-world-id-copy')
+    await cp(fileURLToPath(new URL('../snapshots/2026-10-27-world-id-copy/', import.meta.url)), copySnapshot, { recursive: true })
     assert.equal(await scanServedTree(site, [], []), null)
     const capturedPage = path.join(snapshot, 'fleet', 'index.html')
     await writeFile(capturedPage, (await readFile(capturedPage, 'utf8')) + '\n')
@@ -66,7 +70,7 @@ test('a changed privacy-correction snapshot is refused', async () => {
   const site = await mkdtemp(path.join(tmpdir(), 'ov-privacy-snapshot-'))
   try {
     await mkdir(path.join(site, 'snapshots'))
-    for (const name of ['2026-10-26-fleet', '2026-10-26-privacy-correction', '2026-10-26-artwork', '2026-10-27-verify-guard']) {
+    for (const name of SNAPSHOT_NAMES) {
       await cp(fileURLToPath(new URL(`../snapshots/${name}/`, import.meta.url)),
         path.join(site, 'snapshots', name), { recursive: true })
     }
@@ -83,7 +87,7 @@ test('a changed production artwork snapshot is refused', async () => {
   const site = await mkdtemp(path.join(tmpdir(), 'ov-artwork-snapshot-'))
   try {
     await mkdir(path.join(site, 'snapshots'))
-    for (const name of ['2026-10-26-fleet', '2026-10-26-privacy-correction', '2026-10-26-artwork', '2026-10-27-verify-guard']) {
+    for (const name of SNAPSHOT_NAMES) {
       await cp(fileURLToPath(new URL(`../snapshots/${name}/`, import.meta.url)),
         path.join(site, 'snapshots', name), { recursive: true })
     }
@@ -100,7 +104,7 @@ test('a changed verification guard snapshot is refused', async () => {
   const site = await mkdtemp(path.join(tmpdir(), 'ov-guard-snapshot-'))
   try {
     await mkdir(path.join(site, 'snapshots'))
-    for (const name of ['2026-10-26-fleet', '2026-10-26-privacy-correction', '2026-10-26-artwork', '2026-10-27-verify-guard']) {
+    for (const name of SNAPSHOT_NAMES) {
       await cp(fileURLToPath(new URL(`../snapshots/${name}/`, import.meta.url)),
         path.join(site, 'snapshots', name), { recursive: true })
     }
@@ -132,11 +136,26 @@ test('the archived verification page cannot start a proof check', async () => {
   assert.equal(manifest.files['assets/verify-client.js'], sourceBundleHash)
 })
 
+test('the new archived World ID explanation keeps the released copy without an active check', async () => {
+  const snapshot = fileURLToPath(new URL('../snapshots/2026-10-27-world-id-copy/', import.meta.url))
+  const archived = await readFile(path.join(snapshot, 'verify', 'index.html'), 'utf8')
+  const manifest = JSON.parse(await readFile(path.join(snapshot, 'snapshot.json'), 'utf8'))
+  const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
+  assert.match(archived, /Archived page — World ID check disabled/)
+  assert.match(archived, /cannot tell who submitted a valid response/)
+  assert.doesNotMatch(archived, /ovc-start|ovc-qr|\/api\/verify\/status|verify-client\.js/)
+  assert.equal(manifest.source_commit, 'a0c2eb9dc0bd60241da7307ae3090fd1ec2c0c00')
+  assert.equal(manifest.archival_view.source_sha256, 'bc7b373a6c80f661946363316d472455d2b915b58327fdfea652c7048cfc791f')
+  assert.equal(manifest.archival_view.archived_sha256, sha256(archived))
+  assert.equal(manifest.files['assets/verify-client.js'],
+    sha256(await readFile(path.join(snapshot, 'assets', 'verify-client.js'))))
+})
+
 test('changed verification guard provenance is refused', async () => {
   const site = await mkdtemp(path.join(tmpdir(), 'ov-guard-provenance-'))
   try {
     await mkdir(path.join(site, 'snapshots'))
-    for (const name of ['2026-10-26-fleet', '2026-10-26-privacy-correction', '2026-10-26-artwork', '2026-10-27-verify-guard']) {
+    for (const name of SNAPSHOT_NAMES) {
       await cp(fileURLToPath(new URL(`../snapshots/${name}/`, import.meta.url)),
         path.join(site, 'snapshots', name), { recursive: true })
     }

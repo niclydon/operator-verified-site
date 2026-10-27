@@ -1,0 +1,16 @@
+{
+  "added": [],
+  "modified": [
+    "assets/verify-client.js",
+    "note.md",
+    "snapshots/index.html",
+    "verify/index.html"
+  ],
+  "removed": [],
+  "archive_divergence": {
+    "path": "verify/index.html",
+    "source_sha256": "bc7b373a6c80f661946363316d472455d2b915b58327fdfea652c7048cfc791f",
+    "archived_sha256": "03f0b197545fbc34f536a7489bc5129ad7ce54468ddfd5ebf7d9625d481c5e6a",
+    "change": "Archive notice and labels added; button, QR code, status request, and loader removed; browser bundle retained without being loaded"
+  }
+}

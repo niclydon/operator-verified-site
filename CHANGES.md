@@ -4,6 +4,17 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-27 — World ID check wording published
+
+The approved shorter `/verify/` wording merged as `a0c2eb9`;
+Vercel reported the production deployment READY. The live page,
+browser file, and facts file matched that commit byte for byte.
+No completed World App interaction was tested.
+
+The new append-only snapshot captures the release with the archived
+check disabled. Earlier snapshots are unchanged. See
+`snapshots/2026-10-27-world-id-copy/note.md`.
+
 ## 2026-10-27 — World ID check copy clarified
 
 The `/verify/` page now describes its optional World ID check in plain
