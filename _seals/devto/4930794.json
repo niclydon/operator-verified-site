@@ -1,0 +1,41 @@
+{
+  "seal_version": "w3-seal/1",
+  "c14n": "w3-text-v1",
+  "content_hash": "sha256:43555f35e390028079071d44a22966fe0d4af2c835e46f6b45acecc48a8aae1f",
+  "content": {
+    "surface": "dev.to",
+    "content_id": "dev.to/articles/4930794",
+    "canonical_url": "https://dev.to/niclydon/verified-renamed-and-founded-in-the-open-49im",
+    "title_hash": "sha256:da3e6743a82687d9424b59c11c79f23f6d3f11c0b565003d544982fb83e7297c",
+    "attachments": []
+  },
+  "agent": {
+    "persona": "Nova",
+    "wallet_address": "0xCABAF39ED7a60681E10d02F97115fD489F013Dc9",
+    "wallet_label": "the provenance sealing wallet"
+  },
+  "signature": {
+    "scheme": "eip191-personal-sign",
+    "signed_payload": "w3-provenance-seal:v1 | dev.to | sha256:43555f35e390028079071d44a22966fe0d4af2c835e46f6b45acecc48a8aae1f | sha256:24da686d64119bee575469f4765ac3cb688afaac55e868d2f988fb581debd046",
+    "value": "0x18e13da54d84de1c9a0233a6b0ca48ba1d50e974e49a24a51c7eb3b8e1d2a0b616b830e5129f103cd8f87d218de9b485500c2aeb28a86c4af817f702f5e7c73f1c"
+  },
+  "timestamps": {
+    "sealed_at": "2026-10-27T22:43:10Z",
+    "sealed_at_basis": "signer-claimed",
+    "anchor": {
+      "chain": "eip155:480",
+      "tx_hash": "0xc31cd3051429214fc35e8323d6b40888037945728a5e1316bcbf0d743d8f08da",
+      "block_number": 36902677,
+      "block_timestamp": "2026-10-27T22:43:13Z",
+      "anchored_hash": "sha256:43555f35e390028079071d44a22966fe0d4af2c835e46f6b45acecc48a8aae1f"
+    }
+  },
+  "approval": {
+    "tier": "not-approved",
+    "proof_hash": null,
+    "proof_type": null,
+    "approved_at": null
+  },
+  "supersedes": null,
+  "superseded_by": null
+}

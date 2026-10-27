@@ -5,6 +5,11 @@
       "content_hash": "sha256:83418556a0ca917d4a92af8f59ab1e6ac673cc31ee456c1740767c4fb990dc00",
       "seal_file": "_seals/devlog/2026-10-26-founding/index.html.json",
       "supersedes": null
+    },
+    "dev.to/articles/4930794": {
+      "content_hash": "sha256:43555f35e390028079071d44a22966fe0d4af2c835e46f6b45acecc48a8aae1f",
+      "seal_file": "_seals/devto/4930794.json",
+      "supersedes": null
     }
   }
 }
