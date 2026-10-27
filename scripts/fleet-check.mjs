@@ -710,6 +710,7 @@ const EXISTING_PUBLIC_FRAGMENTS = Object.freeze({
   'snapshots/2026-10-26-artwork/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
   // The same synthetic example is frozen here after a private four-wallet comparison.
   'snapshots/2026-10-27-verify-guard/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
+  'snapshots/2026-10-27-world-id-copy/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
 })
 
 // A private roster value may match a fragment already published on the site.
@@ -735,6 +736,7 @@ const SNAPSHOT_CONTENT_HASHES = Object.freeze({
   '2026-10-26-privacy-correction': 'd295f20a9ae5baa0c8c6bc24b7efbf5e5e1237ff383abeccd1bcb1f51c984d9d',
   '2026-10-26-artwork': '2763630600f0aa5cb4677e2b555379eaa3951e72f2296bdee506657b4c4ece73',
   '2026-10-27-verify-guard': 'bea76c7773b395ddab442e62ea30917baa60f2592dc1b480c91e25cac7dc5c66',
+  '2026-10-27-world-id-copy': 'bfb024238b3585078e5acd0dd6bdc4a149d17133f70e5d0acfe4c25c0b32380f',
 })
 
 // Content hashes alone do not cover snapshot.json provenance fields. Pin the
@@ -742,6 +744,7 @@ const SNAPSHOT_CONTENT_HASHES = Object.freeze({
 // be updated with later publication evidence.
 const SNAPSHOT_PROVENANCE_HASHES = Object.freeze({
   '2026-10-27-verify-guard': 'd1bbb0bd040b205114928a5ae429588e766f7011162f335478385ad4a6a6ddf6',
+  '2026-10-27-world-id-copy': 'c9ddf37d9b286c3d1a10d86fe595e63ceec075dbcc741e2123614d845aff4550',
 })
 
 // The checker appends fleet.* facts to the existing public facts. The old
