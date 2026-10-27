@@ -717,7 +717,7 @@ const EXISTING_PUBLIC_FRAGMENTS = Object.freeze({
 // active file must still match the reviewed bytes. Any site copy edit needs a
 // fresh privacy review before a private roster can be checked against it.
 const EXISTING_ACTIVE_PRIVATE_FRAGMENT_FILES = Object.freeze({
-  'docs/DESIGN.md': '3e86bfb66b6011fe71e632ed919d3f03556507ecf7f8b3faa673666bcd45fd65',
+  'docs/DESIGN.md': '91cf8fac2d7c6658070c9af85f3a38101a13fe28c349c057655bbc6af480efc4',
   'snapshots/2026-10-26-artwork/verify/index.html': 'a9c8e57625845c8e49970c5c906f2467ea4ae7aa5e66a1234d9baf2f3e96cd70',
 })
 

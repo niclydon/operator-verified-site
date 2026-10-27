@@ -47,6 +47,7 @@ async function start() {
   const verdict = el("ovc-verdict");
   if (verdict) verdict.hidden = true;
   if (startBtn) startBtn.disabled = true;
+  let stage = "preparing";
   try {
     setStatus("Preparing the check…");
     const ctx = await api("/api/verify/context");
@@ -66,6 +67,7 @@ async function start() {
     const openLink = el("ovc-open");
     if (openLink) openLink.href = request.connectorURI;
     if (qrWrap) qrWrap.hidden = false;
+    stage = "waiting";
     setStatus("Waiting for World App. Scan the code, or open the link on the device that holds your World App.");
 
     const completion = await request.pollUntilCompletion({ pollInterval: 2000, timeout: 360000 });
@@ -82,22 +84,27 @@ async function start() {
       return;
     }
 
-    setStatus("Proof received. Verifying it with World…");
+    stage = "checking";
+    setStatus("Checking the response with World…");
     const verdictData = await api("/api/verify/check", { result: completion.result });
     if (qrWrap) qrWrap.hidden = true;
     if (verdictData.verified) {
       setStatus("");
       showVerdict(
         `<h3>World accepted the response</h3>` +
-          `<p>World confirmed a valid World ID credential for one unique human. Because the response can be sent again, this result cannot identify who is at the screen. No account or access was created.</p>`
+          `<p>World confirmed a valid World ID credential for one unique human. This result cannot tell who submitted the response or whether that person is here now. No account or access was created.</p>`
       );
     } else if (verdictData.error === "portal_rejected") {
-      setStatus("World did not verify this proof. The check is complete; the result is not verified.");
+      setStatus("This response did not pass the check.");
     } else {
-      setStatus("The proof could not be checked just now. A check that fails to run is never shown as a failed proof; you can run it again.");
+      setStatus("We could not confirm the result. No result is shown.");
     }
   } catch (err) {
-    setStatus("The check could not start. It may not be enabled yet, or the connection failed; you can try again.");
+    setStatus(stage === "checking"
+      ? "We could not confirm the result. No result is shown."
+      : stage === "waiting"
+        ? "This page did not receive a completed response from World App. No result is shown."
+        : "The check could not start. Please try again.");
     if (qrWrap) qrWrap.hidden = true;
   } finally {
     if (startBtn) startBtn.disabled = false;

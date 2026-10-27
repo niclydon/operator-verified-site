@@ -73,18 +73,17 @@
   <div class="label"><b>—</b> / VERIFY</div>
   <h2>How verification works</h2>
   <p>This page explains what our projects check and what their results mean.
-  The other checks are linked below. You can try World ID here.</p>
+  The other checks are described below. You can try World ID here.</p>
 </section>
 <section>
-  <div class="label"><b>LIVE</b> / WORLD ID CHECK</div>
+  <div class="label"><b>—</b> / WORLD ID CHECK</div>
   <h3>Try World ID</h3>
   <p>Open World App to complete the check. This site sends the response to
   World and shows whether World accepts it.</p>
-  <p>A valid response can be sent again, so this page cannot tell who is here
-  now. This site does not save the response, create an account, or grant access.</p>
+  <p>This page cannot tell who submitted a valid response or whether that person
+  is here now. This site does not save the response, create an account, or grant access.</p>
   <div class="card" id="ovc-panel">
-    <p id="ovc-intro">The live check is not switched on yet. When it is, the button
-    will appear here.</p>
+    <p id="ovc-intro">The World ID check is unavailable right now.</p>
     <p><button class="btn" id="ovc-start" hidden>Verify with World ID</button></p>
     <div id="ovc-qr-wrap" hidden>
       <p><img id="ovc-qr" width="264" height="264" alt="QR code for the World App check"></p>
@@ -101,7 +100,7 @@
     fetch('/api/verify/status').then(function (r) { return r.json(); }).then(function (s) {
       if (s && s.enabled) {
         startBtn.hidden = false;
-        intro.textContent = 'The live check is on. It takes about a minute with World App.';
+        intro.textContent = 'The check is ready. It takes about a minute with World App.';
       }
     }).catch(function () {});
     var loaded = false;
