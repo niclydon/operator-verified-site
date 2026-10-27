@@ -707,6 +707,7 @@ const EXISTING_PUBLIC_FRAGMENTS = Object.freeze({
   'verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
   'snapshots/2026-10-26-fleet/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
   'snapshots/2026-10-26-privacy-correction/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
+  'snapshots/2026-10-26-artwork/verify/index.html': { 'b8c96004dab24b15a828566e68966395faa6f9c8cdfaf245929cc61ba1a91ac6': 1 },
 })
 
 // A private roster value may match a fragment already published on the site.
@@ -715,6 +716,7 @@ const EXISTING_PUBLIC_FRAGMENTS = Object.freeze({
 // fresh privacy review before a private roster can be checked against it.
 const EXISTING_ACTIVE_PRIVATE_FRAGMENT_FILES = Object.freeze({
   'docs/DESIGN.md': '3e86bfb66b6011fe71e632ed919d3f03556507ecf7f8b3faa673666bcd45fd65',
+  'snapshots/2026-10-26-artwork/verify/index.html': 'a9c8e57625845c8e49970c5c906f2467ea4ae7aa5e66a1234d9baf2f3e96cd70',
 })
 
 // Historical snapshots are append-only. The checker never rewrites them, and
@@ -725,10 +727,11 @@ const EXISTING_SNAPSHOT_FILES = Object.freeze({
   'snapshots/2026-10-26-launch/verify/index.html': 'a46537feab117f97f3ccbc30f20afc450182e5a72cca331c4af98d373af24bfb',
 })
 // Deployment metadata may be added later, but the captured file bytes in
-// either reviewed snapshot must stay fixed.
+// these reviewed snapshots must stay fixed.
 const SNAPSHOT_CONTENT_HASHES = Object.freeze({
   '2026-10-26-fleet': 'b355f12579d8e9d72db22626ce18029f50c8b75229318628830032d0f3bf0d8e',
   '2026-10-26-privacy-correction': 'd295f20a9ae5baa0c8c6bc24b7efbf5e5e1237ff383abeccd1bcb1f51c984d9d',
+  '2026-10-26-artwork': '2763630600f0aa5cb4677e2b555379eaa3951e72f2296bdee506657b4c4ece73',
 })
 
 // The checker appends fleet.* facts to the existing public facts. The old

@@ -72,9 +72,19 @@
 <section style="padding-top:48px">
   <div class="label"><b>—</b> / SNAPSHOTS</div>
   <h2>Snapshot history</h2>
-  <p>Snapshots freeze the site and its facts file exactly as published, each with a
+  <p>Snapshots preserve dated site states and their facts files, each with a
   note on why. Snapshots are append-only: corrections arrive as newer snapshots,
   never as silent edits to frozen ones.</p>
+  <div class="card" style="margin-top:18px">
+    <h3 style="margin-top:0">2026-10-26 — Production artwork record</h3>
+    <p>The approved plate and lockup were deployed in site commit
+    <code>7532bc8</code> before the AgentBook privacy correction. This later
+    snapshot captures those same images in the separately published,
+    privacy-corrected site copy; it does not imply that the correction was part of the artwork
+    deployment. The facts file is unchanged. Frozen copy:
+    <a href="/snapshots/2026-10-26-artwork/">snapshots/2026-10-26-artwork/</a>,
+    with a snapshot.json manifest and a note in the same directory.</p>
+  </div>
   <div class="card" style="margin-top:18px">
     <h3 style="margin-top:0">2026-10-26 — Privacy correction</h3>
     <p>The About page now explains that public AgentBook registrations can link a

@@ -4,6 +4,18 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-10-26 — Production artwork deployment documented
+
+The approved 2048×2048 plate and 2600×740 lockup were deployed in
+site commit `7532bc8` before the AgentBook privacy correction. A later
+production fetch matched the light lockup WebP to that commit and found
+the new home-page image dimensions. Local desktop and phone browser
+checks loaded both color modes without broken images or page errors.
+The new append-only artwork snapshot records those deployed images in
+the later, separately published privacy-corrected site copy, with unchanged facts.
+It does not place the privacy correction in the earlier artwork
+deployment. See `docs/narrative/2026-10-26-production-artwork-record.md`.
+
 ## 2026-10-26 — IDKit verify path (live check on /verify/)
 
 The verify page now runs one check itself: a visitor can prove with
@@ -17,6 +29,16 @@ relying party's signing key is placed in the site's environment,
 and the first live proof follows. This is not Sign in with World
 ID; the sign-in build remains staged separately. Design record
 §11.8.
+
+## 2026-10-26 — AgentBook privacy correction published
+
+Nic approved production publication of the reviewed AgentBook privacy
+correction. Pull request #3 merged as `5abbf323` and its production
+deployment reached READY. At about 23:22 UTC, the public About page,
+snapshot history, privacy snapshot manifest, and fleet page each
+returned HTTP 200 and matched the reviewed source bytes. This is a
+publication check of those pages, not a new AgentBook lookup. See
+`docs/narrative/2026-10-26-agentbook-privacy-publication.md`.
 
 ## 2026-10-26 — Privacy correction: AgentBook linkage
 
