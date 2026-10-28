@@ -16,17 +16,17 @@
   },
   "signature": {
     "scheme": "eip191-personal-sign",
-    "signed_payload": "w3-provenance-seal:v1 | dev.to | sha256:d536eba365913fbe69c5a9b990be823e9f23a2011e49edc6b57c189b5e239dd3 | sha256:be3fbdbbeb1867cf81e81500fa3d05707cfdff802d73590fc9149bb436978872",
-    "value": "0x8d155b4633feb69ee6f49d4cb9ab3f67e24d5e44e31ba685fbcca24f2b880b626175f0187ae6643e86704d796f865975c3a2b6dcd0d305b7f8c74782541376be1b"
+    "signed_payload": "w3-provenance-seal:v1 | dev.to | sha256:d536eba365913fbe69c5a9b990be823e9f23a2011e49edc6b57c189b5e239dd3 | sha256:3136e55f6aa0f887cd038fa60e6efe361f16763b26e616e5ca9cdd1f4bf5b06f",
+    "value": "0xa4ddb2cc8b3b2396b80e9094ed908b40e974ef0cbd0b212f46940026c43a2dae25e5e8b92a1955a1d18f80f24421f8cb1bc86580db5b61d601bad10f46dea1fd1b"
   },
   "timestamps": {
-    "sealed_at": "2026-10-28T00:09:23Z",
+    "sealed_at": "2026-10-28T00:03:15Z",
     "sealed_at_basis": "signer-claimed",
     "anchor": {
       "chain": "eip155:480",
-      "tx_hash": "0x57dfb4c9c17932a632c2a1a35a8183b6822b0e14f030216542a9edb680c05c92",
-      "block_number": 36905263,
-      "block_timestamp": "2026-10-28T00:09:25Z",
+      "tx_hash": "0xfaee1047ab9a8434191afdcdf70a7fff3a2008b1d82da96e730304bde813e4da",
+      "block_number": 36905079,
+      "block_timestamp": "2026-10-28T00:03:17Z",
       "anchored_hash": "sha256:d536eba365913fbe69c5a9b990be823e9f23a2011e49edc6b57c189b5e239dd3"
     }
   },
@@ -36,6 +36,6 @@
     "proof_type": null,
     "approved_at": null
   },
-  "supersedes": "sha256:d536eba365913fbe69c5a9b990be823e9f23a2011e49edc6b57c189b5e239dd3",
+  "supersedes": "sha256:e063b30ee002ec83aba8744636b4c44afddfeecefd151bfda23b1589a1e1ccc8",
   "superseded_by": null
 }

@@ -9,7 +9,7 @@
     "dev.to/articles/4930794": {
       "content_hash": "sha256:d536eba365913fbe69c5a9b990be823e9f23a2011e49edc6b57c189b5e239dd3",
       "seal_file": "_seals/devto/4930794.json",
-      "supersedes": "sha256:d536eba365913fbe69c5a9b990be823e9f23a2011e49edc6b57c189b5e239dd3"
+      "supersedes": "sha256:e063b30ee002ec83aba8744636b4c44afddfeecefd151bfda23b1589a1e1ccc8"
     }
   }
 }
