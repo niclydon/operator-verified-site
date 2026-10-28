@@ -20,6 +20,16 @@
 
 const ORIGIN = "https://operatorverified.org";
 
+const fs = require("node:fs");
+const path = require("node:path");
+// The serverless runtime ships no fonts the rasteriser can use, and
+// an SVG badge rendered there loses every glyph. Bundle DejaVu Sans
+// (freely licensed) beside the handler and hand it to the rasteriser
+// explicitly. Present since the PNG fix; see the badge commit.
+const FONT_FILES = ["DejaVuSans.ttf", "DejaVuSans-Bold.ttf"].map((f) =>
+  path.join(__dirname, "_fonts", f),
+);
+
 let cache = { at: 0, index: null, records: new Map() };
 const CACHE_MS = 60_000;
 
@@ -102,7 +112,15 @@ module.exports = async (req, res) => {
     if (q.get("format") !== "svg") {
       try {
         const { Resvg } = await import("@resvg/resvg-js");
-        const png = new Resvg(svg, { fitTo: { mode: "width", value: 1120 } }).render().asPng();
+        const png = new Resvg(svg, {
+          fitTo: { mode: "width", value: 1120 },
+          font: {
+            fontFiles: FONT_FILES.filter((f) => fs.existsSync(f)),
+            loadSystemFonts: false,
+            defaultFontFamily: "DejaVu Sans",
+            sansSerifFamily: "DejaVu Sans",
+          },
+        }).render().asPng();
         res.statusCode = status;
         res.setHeader("Content-Type", "image/png");
         res.end(png);
