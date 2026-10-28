@@ -84,13 +84,15 @@
   original words, whose fingerprint was anchored on World Chain at a block time
   nobody can move after the fact. It simply does not describe the edited text, and
   no editing of the text can make it do so.</p>
-  <h3>What the badge cannot know</h3>
-  <p>The badge at the foot of a post is drawn from the seal record when the page is
-  read. It never reads the page itself, so on an edited post it still shows the
-  original seal, looking entirely normal. That is stated here rather than hidden,
-  because it is the honest shape of the system: the badge is a claim, and a claim
-  is only worth what the check behind it is worth. The badge always links to the
-  check.</p>
+  <h3>The badge, two ways</h3>
+  <p>Where a seal travels as a picture — the only form some platforms allow — the
+  badge is drawn from the seal record and never reads the page, so on an edited
+  post it still shows the original seal, looking entirely normal. That limit is
+  stated rather than hidden: a picture is a claim, and a claim is only worth what
+  the check behind it is worth. On this site the badge is not a picture. It is a
+  small program that runs the check itself, in your browser, as you read — the
+  same computation the verify page performs, carried out where you can watch it
+  happen.</p>
   <h3>What the check reports</h3>
   <p>Tap the badge and the verify page fetches this post from its canonical address,
   recomputes the fingerprint from the words it actually finds, and compares it
@@ -100,7 +102,7 @@
   the sealed words. Failures are reported one by one, by name — there are eight
   of them — and never collapsed into a vague invalid.</p>
   <h3>This post is the exhibit</h3>
-  <p>This article was sealed as published here, badge and passage included.
+  <p>This article was sealed with its badge and the passage below included.
   It is a promise of precisely the kind an operator might later wish he had not
   made, which is what makes it the right exhibit:</p>
   <p><s>One promise, made here in writing: every post published on this site from the
@@ -108,11 +110,12 @@
   the founding post included, with no exceptions quietly carved out later.</s></p>
   <p>The plan for this post, stated in advance: after sealing, that passage is
   struck through and the post is republished with no new seal. If it appears struck
-  through as you read this, the edit has already happened — and that single visible
-  change is the entire difference between the page you are reading and the page
-  that was sealed. The badge below still shows the original seal. The verify page
-  behind it reports the failure. Both are telling the truth about different
-  things, and the difference between them is the whole design.</p>
+  through as you read this, the edit has already happened, and the page no longer
+  matches the sealed page — the strikethrough is the deliberate difference, joined
+  since by the live badge below and the passages that describe it, each counting
+  exactly the same way. The badge has run the check in your browser and reports
+  the change itself; the verify page behind it gives the full report, check by
+  check. The seal did not stop the edit. It made the edit impossible to hide.</p>
   <h3>What still works</h3>
   <p>The original seal still verifies against the original text: the record and its
   chain anchor remain public, and this site's history holds both versions. Honest
@@ -121,7 +124,35 @@
   earlier than its block, or remove the trail without the verify page reporting
   that no seal was found. The seal does not stop the operator from changing his
   mind. It stops him from changing the record.</p>
-  <p style="text-align:center;margin:30px 0 10px"><a href="/seal/?id=devlog/2026-10-27-the-seal-that-fails/index.html"><img src="/api/seal-badge?id=devlog/2026-10-27-the-seal-that-fails/index.html&amp;layout=strip" alt="Provenance seal for this post, anchored on World Chain" style="width:560px;max-width:100%;height:auto"></a></p>
+  <div style="text-align:center;margin:30px 0 10px"><div class="seal-live-badge" data-seal-id="devlog/2026-10-27-the-seal-that-fails/index.html"><noscript><a href="/seal/?id=devlog/2026-10-27-the-seal-that-fails/index.html"><img src="/api/seal-badge?id=devlog/2026-10-27-the-seal-that-fails/index.html&amp;layout=strip" alt="Provenance seal for this post, anchored on World Chain" style="width:560px;max-width:100%;height:auto"></a></noscript></div></div>
+  <script type="importmap">
+{
+  "imports": {
+    "@noble/curves/secp256k1.js": "/seal/vendor/@noble/curves/esm/secp256k1.js",
+    "@noble/hashes/sha2.js": "/seal/vendor/@noble/hashes/esm/sha2.js",
+    "@noble/hashes/sha3.js": "/seal/vendor/@noble/hashes/esm/sha3.js",
+    "@noble/curves/bls12-381": "/seal/vendor/@noble/curves/esm/bls12-381.js",
+    "@noble/curves/ed25519": "/seal/vendor/@noble/curves/esm/ed25519.js",
+    "@noble/curves/ed448": "/seal/vendor/@noble/curves/esm/ed448.js",
+    "@noble/curves/secp256k1": "/seal/vendor/@noble/curves/esm/secp256k1.js",
+    "@noble/hashes/blake2": "/seal/vendor/@noble/hashes/esm/blake2.js",
+    "@noble/hashes/blake3": "/seal/vendor/@noble/hashes/esm/blake3.js",
+    "@noble/hashes/crypto": "/seal/vendor/@noble/hashes/esm/crypto.js",
+    "@noble/hashes/hkdf": "/seal/vendor/@noble/hashes/esm/hkdf.js",
+    "@noble/hashes/hmac": "/seal/vendor/@noble/hashes/esm/hmac.js",
+    "@noble/hashes/legacy": "/seal/vendor/@noble/hashes/esm/legacy.js",
+    "@noble/hashes/pbkdf2": "/seal/vendor/@noble/hashes/esm/pbkdf2.js",
+    "@noble/hashes/scrypt": "/seal/vendor/@noble/hashes/esm/scrypt.js",
+    "@noble/hashes/sha2": "/seal/vendor/@noble/hashes/esm/sha2.js",
+    "@noble/hashes/sha3": "/seal/vendor/@noble/hashes/esm/sha3.js",
+    "@noble/hashes/sha3-addons": "/seal/vendor/@noble/hashes/esm/sha3-addons.js",
+    "@noble/hashes/utils": "/seal/vendor/@noble/hashes/esm/utils.js",
+    "@noble/hashes/": "/seal/vendor/@noble/hashes/esm/",
+    "@noble/curves/": "/seal/vendor/@noble/curves/esm/"
+  }
+}
+  </script>
+  <script type="module" src="/seal/badge.js"></script>
 </section>
 
 </main>
