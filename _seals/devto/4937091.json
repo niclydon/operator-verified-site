@@ -1,0 +1,41 @@
+{
+  "seal_version": "w3-seal/1",
+  "c14n": "w3-text-v1",
+  "content_hash": "sha256:c2e1948a359042e30c481457ac53a5eab14e54863e8809f8ea2a94f0685693a8",
+  "content": {
+    "surface": "dev.to",
+    "content_id": "dev.to/articles/4937091",
+    "canonical_url": "https://dev.to/niclydon/i-invited-my-ai-assistants-into-a-muse-side-chat-4dke",
+    "title_hash": "sha256:352bb80fd7cb08610e842e785f64849d4235ddc261e4309ef3d7f6ee5d260314",
+    "attachments": []
+  },
+  "agent": {
+    "persona": "Nova",
+    "wallet_address": "0xCABAF39ED7a60681E10d02F97115fD489F013Dc9",
+    "wallet_label": "the provenance sealing wallet"
+  },
+  "signature": {
+    "scheme": "eip191-personal-sign",
+    "signed_payload": "w3-provenance-seal:v1 | dev.to | sha256:c2e1948a359042e30c481457ac53a5eab14e54863e8809f8ea2a94f0685693a8 | sha256:41c71ec4e08b1f3c3c9c679bf244c9a3a951155ad3aba31756cc32d7fb4696b4",
+    "value": "0x39a544b20f94e1ddf7032b2c0893f2d56cff09cf4641cdcb7cdde7b093fc02cd6dd6714159aa43ebf978edc93c3f1e42119bc5043d0280831b81cbf6631bc2841b"
+  },
+  "timestamps": {
+    "sealed_at": "2026-10-28T22:42:56Z",
+    "sealed_at_basis": "signer-claimed",
+    "anchor": {
+      "chain": "eip155:480",
+      "tx_hash": "0x1f19ba5e6614075df978cea7bb0d66628d466c20ac61d0ab34d9262d97ee4ce4",
+      "block_number": 36945870,
+      "block_timestamp": "2026-10-28T22:42:59Z",
+      "anchored_hash": "sha256:c2e1948a359042e30c481457ac53a5eab14e54863e8809f8ea2a94f0685693a8"
+    }
+  },
+  "approval": {
+    "tier": "not-approved",
+    "proof_hash": null,
+    "proof_type": null,
+    "approved_at": null
+  },
+  "supersedes": null,
+  "superseded_by": null
+}
