@@ -78,6 +78,27 @@ const THEMES = {
 
 function badgeSvg({ theme, title, line1, line2, line2strip, layout }) {
   const t = THEMES[theme] ?? THEMES.dark;
+  if (layout === "mark") {
+    // The hash-less mark for proxied surfaces (dev.to): their image
+    // cache snapshots the badge at article-update time, before the
+    // new edition's seal can exist, so any edition-specific fact in
+    // the picture is stale on arrival. The mark carries none: no
+    // fingerprint, no date. The current seal lives one tap away on
+    // the verify page, which reads the live index.
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="860" height="88" viewBox="0 0 860 88" role="img" aria-label="${esc(title)}">
+  <defs>
+    <clipPath id="cut"><polygon points="12,0 848,0 860,12 860,76 848,88 12,88 0,76 0,12"/></clipPath>
+  </defs>
+  <g clip-path="url(#cut)">
+    <rect width="860" height="88" fill="${t.bg}"/>
+    <rect width="860" height="88" fill="none" stroke="${t.border}" stroke-width="3"/>
+    <path d="M30 26 L42 38 L60 18" fill="none" stroke="${t.mark}" stroke-width="6" stroke-linecap="square" transform="translate(0,8)"/>
+    <text x="82" y="54" font-family="Verdana, Geneva, sans-serif" font-size="21" letter-spacing="3" fill="${t.label}">OPERATOR VERIFIED</text>
+    <text x="486" y="55" font-family="Verdana, Geneva, sans-serif" font-size="25" font-weight="bold" fill="${t.main}">SEALED</text>
+    <text x="640" y="54" font-family="Verdana, Geneva, sans-serif" font-size="20" fill="${t.sub}">· World Chain</text>
+  </g>
+</svg>`;
+  }
   if (layout === "strip") {
     // Wide single-line strip for article footers: hosts like dev.to
     // stretch article images to the text column, so a footer mark
@@ -177,5 +198,5 @@ module.exports = async (req, res) => {
   const line2strip = anchor
     ? `World Chain${when ? ` · ${when}` : ""}`
     : line2;
-  await send(200, badgeSvg({ theme, title: `Provenance seal: ${line1}. ${line2}`, line1, line2, line2strip, layout: q.get("layout") === "strip" ? "strip" : "pill" }));
+  await send(200, badgeSvg({ theme, title: `Provenance seal: ${line1}. ${line2}`, line1, line2, line2strip, layout: ["strip", "mark"].includes(q.get("layout")) ? q.get("layout") : "pill" }));
 };
