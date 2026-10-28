@@ -7,9 +7,9 @@
       "supersedes": null
     },
     "dev.to/articles/4930794": {
-      "content_hash": "sha256:c5661e5e09b5fe7d15276c991bc438fc47d0929009020a2b6e21b035e363a456",
+      "content_hash": "sha256:fd68b80f969eb393953a40a9523363bacfa2ef7023d82772b217bdf1a46adaa5",
       "seal_file": "_seals/devto/4930794.json",
-      "supersedes": "sha256:d536eba365913fbe69c5a9b990be823e9f23a2011e49edc6b57c189b5e239dd3"
+      "supersedes": "sha256:c5661e5e09b5fe7d15276c991bc438fc47d0929009020a2b6e21b035e363a456"
     }
   }
 }
