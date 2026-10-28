@@ -12,9 +12,9 @@
       "supersedes": "sha256:b8f415107e2ae63b95749d61c12bb24796aeca558644a17f6ebdef4ab915ca3e"
     },
     "devlog/2026-10-27-the-seal-that-fails/index.html": {
-      "content_hash": "sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b",
+      "content_hash": "sha256:5120c2944c5e480b1ba001ab39326d220c2341a631966bd91934ca6dc0a09206",
       "seal_file": "_seals/devlog/2026-10-27-the-seal-that-fails/index.html.json",
-      "supersedes": null
+      "supersedes": "sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "seal_version": "w3-seal/1",
   "c14n": "w3-text-v1",
-  "content_hash": "sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b",
+  "content_hash": "sha256:5120c2944c5e480b1ba001ab39326d220c2341a631966bd91934ca6dc0a09206",
   "content": {
     "surface": "personal-website",
     "content_id": "devlog/2026-10-27-the-seal-that-fails/index.html",
@@ -16,18 +16,18 @@
   },
   "signature": {
     "scheme": "eip191-personal-sign",
-    "signed_payload": "w3-provenance-seal:v1 | personal-website | sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b | sha256:00537c8ea1f3b64291cb9eda2b9f242f99fe0aa06150aa7a6e0370d99094f3eb",
-    "value": "0x78ff868a69cf478bad19f1dfc15f3ae26f73ebece07af407fb4c9456d98b8ee238a9a7644f8e558d83da54014dfacea77f5104b02c8c1aa6e4238c60d2684cf21c"
+    "signed_payload": "w3-provenance-seal:v1 | personal-website | sha256:5120c2944c5e480b1ba001ab39326d220c2341a631966bd91934ca6dc0a09206 | sha256:79d0a73a92d4708b70c8cf7ae5cfc344d44ceecbb4c1f903499fdd2a364cc9cf",
+    "value": "0x68fdc3bfa25759a35ea67f8d11c66791bf2d8ac83ba138129ae0610cfd53939563783ff0bd2e7e0cb0ce0d9333012983338677d2ef287a14d76f924c3661fa6d1b"
   },
   "timestamps": {
-    "sealed_at": "2026-10-28T02:07:20Z",
+    "sealed_at": "2026-10-28T02:08:59Z",
     "sealed_at_basis": "signer-claimed",
     "anchor": {
       "chain": "eip155:480",
-      "tx_hash": "0xb34bedbb5b21143ffb8502423435d3a8b02bcf0ac7d09398696d4fce31d6abec",
-      "block_number": 36908802,
-      "block_timestamp": "2026-10-28T02:07:23Z",
-      "anchored_hash": "sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b"
+      "tx_hash": "0x7dcbe393578cd8ce7128376f8dc55aac733460213ac215f1485b0b6662d51ef1",
+      "block_number": 36908851,
+      "block_timestamp": "2026-10-28T02:09:01Z",
+      "anchored_hash": "sha256:5120c2944c5e480b1ba001ab39326d220c2341a631966bd91934ca6dc0a09206"
     }
   },
   "approval": {
@@ -36,6 +36,6 @@
     "proof_type": null,
     "approved_at": null
   },
-  "supersedes": null,
+  "supersedes": "sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b",
   "superseded_by": null
 }
