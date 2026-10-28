@@ -1,7 +1,7 @@
 {
   "seal_version": "w3-seal/1",
   "c14n": "w3-text-v1",
-  "content_hash": "sha256:e063b30ee002ec83aba8744636b4c44afddfeecefd151bfda23b1589a1e1ccc8",
+  "content_hash": "sha256:d536eba365913fbe69c5a9b990be823e9f23a2011e49edc6b57c189b5e239dd3",
   "content": {
     "surface": "dev.to",
     "content_id": "dev.to/articles/4930794",
@@ -16,18 +16,18 @@
   },
   "signature": {
     "scheme": "eip191-personal-sign",
-    "signed_payload": "w3-provenance-seal:v1 | dev.to | sha256:e063b30ee002ec83aba8744636b4c44afddfeecefd151bfda23b1589a1e1ccc8 | sha256:1d879169ca949447aa16d7fb8b23dc46d0505404e97cae744137a6809fcc3207",
-    "value": "0x5883123e31656c49b49ef6d96d24bb80fe26d48a878efa1cf619eaf3fc51459b3eeca40c86816b2c61c86da7373385ca0292d490a4f70f7c5574cdc95552e4231c"
+    "signed_payload": "w3-provenance-seal:v1 | dev.to | sha256:d536eba365913fbe69c5a9b990be823e9f23a2011e49edc6b57c189b5e239dd3 | sha256:3136e55f6aa0f887cd038fa60e6efe361f16763b26e616e5ca9cdd1f4bf5b06f",
+    "value": "0xa4ddb2cc8b3b2396b80e9094ed908b40e974ef0cbd0b212f46940026c43a2dae25e5e8b92a1955a1d18f80f24421f8cb1bc86580db5b61d601bad10f46dea1fd1b"
   },
   "timestamps": {
-    "sealed_at": "2026-10-27T23:48:09Z",
+    "sealed_at": "2026-10-28T00:03:15Z",
     "sealed_at_basis": "signer-claimed",
     "anchor": {
       "chain": "eip155:480",
-      "tx_hash": "0x17db606d438a9024bad07a25d508ec3260fb7c054a333c03499a8bf3e62bf612",
-      "block_number": 36904626,
-      "block_timestamp": "2026-10-27T23:48:11Z",
-      "anchored_hash": "sha256:e063b30ee002ec83aba8744636b4c44afddfeecefd151bfda23b1589a1e1ccc8"
+      "tx_hash": "0xfaee1047ab9a8434191afdcdf70a7fff3a2008b1d82da96e730304bde813e4da",
+      "block_number": 36905079,
+      "block_timestamp": "2026-10-28T00:03:17Z",
+      "anchored_hash": "sha256:d536eba365913fbe69c5a9b990be823e9f23a2011e49edc6b57c189b5e239dd3"
     }
   },
   "approval": {
@@ -36,6 +36,6 @@
     "proof_type": null,
     "approved_at": null
   },
-  "supersedes": "sha256:2792fea03e01c9715462ba0d33ba1b82925c16c21c42bf8208ab72566f8a3679",
+  "supersedes": "sha256:e063b30ee002ec83aba8744636b4c44afddfeecefd151bfda23b1589a1e1ccc8",
   "superseded_by": null
 }
