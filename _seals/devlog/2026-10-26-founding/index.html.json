@@ -1,7 +1,7 @@
 {
   "seal_version": "w3-seal/1",
   "c14n": "w3-text-v1",
-  "content_hash": "sha256:83418556a0ca917d4a92af8f59ab1e6ac673cc31ee456c1740767c4fb990dc00",
+  "content_hash": "sha256:b65309780639c0f61f91f67033614ee14d5943571b41cc0d1a7d0a5ff80d924c",
   "content": {
     "surface": "personal-website",
     "content_id": "devlog/2026-10-26-founding/index.html",
@@ -16,18 +16,18 @@
   },
   "signature": {
     "scheme": "eip191-personal-sign",
-    "signed_payload": "w3-provenance-seal:v1 | personal-website | sha256:83418556a0ca917d4a92af8f59ab1e6ac673cc31ee456c1740767c4fb990dc00 | sha256:95adab58bf09299dca59ea853f4571a72601e1ac39000a23c014fe0b7c3d1a41",
-    "value": "0x9823a28b41fdd049fc1fb29209d8c9951c0fef3a0775e7304ff56d4540590da5167fc0bccac2ff2a85dfde853b147106cce056ed881d8b6336a8b5af564189d61b"
+    "signed_payload": "w3-provenance-seal:v1 | personal-website | sha256:b65309780639c0f61f91f67033614ee14d5943571b41cc0d1a7d0a5ff80d924c | sha256:c1d546753d150ac39deebf4694a7f1aae68a7e46348af5697cf7d9b300b4bc18",
+    "value": "0x0881824d0b8ffcc8999e3edb6095a07ea97bca2de1cd1d039b84cf8b9a265a1107008e4911be24871a206952a1e256578f3167beba0cb8c7e1155c898d4a86e71c"
   },
   "timestamps": {
-    "sealed_at": "2026-10-27T21:28:26Z",
+    "sealed_at": "2026-10-28T01:58:19Z",
     "sealed_at_basis": "signer-claimed",
     "anchor": {
       "chain": "eip155:480",
-      "tx_hash": "0x4b4776c9fd24fc36a98db84af6429e1b4715be888bff37af9d5e1c196f4148b3",
-      "block_number": 36900435,
-      "block_timestamp": "2026-10-27T21:28:29Z",
-      "anchored_hash": "sha256:83418556a0ca917d4a92af8f59ab1e6ac673cc31ee456c1740767c4fb990dc00"
+      "tx_hash": "0x1c9b330a4c23c61d7f4e39f304b3d46147eb3ec9121d91c67c91937a5c64e742",
+      "block_number": 36908531,
+      "block_timestamp": "2026-10-28T01:58:21Z",
+      "anchored_hash": "sha256:b65309780639c0f61f91f67033614ee14d5943571b41cc0d1a7d0a5ff80d924c"
     }
   },
   "approval": {
@@ -36,6 +36,6 @@
     "proof_type": null,
     "approved_at": null
   },
-  "supersedes": null,
+  "supersedes": "sha256:83418556a0ca917d4a92af8f59ab1e6ac673cc31ee456c1740767c4fb990dc00",
   "superseded_by": null
 }
