@@ -10,6 +10,11 @@
       "content_hash": "sha256:f959c6c9526201d10ff9e636c0693e27be0659a0a77dbbef1202aba0585e8fdf",
       "seal_file": "_seals/devto/4930794.json",
       "supersedes": "sha256:b8f415107e2ae63b95749d61c12bb24796aeca558644a17f6ebdef4ab915ca3e"
+    },
+    "devlog/2026-10-27-the-seal-that-fails/index.html": {
+      "content_hash": "sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b",
+      "seal_file": "_seals/devlog/2026-10-27-the-seal-that-fails/index.html.json",
+      "supersedes": null
     }
   }
 }

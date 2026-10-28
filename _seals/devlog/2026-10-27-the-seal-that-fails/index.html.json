@@ -1,0 +1,41 @@
+{
+  "seal_version": "w3-seal/1",
+  "c14n": "w3-text-v1",
+  "content_hash": "sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b",
+  "content": {
+    "surface": "personal-website",
+    "content_id": "devlog/2026-10-27-the-seal-that-fails/index.html",
+    "canonical_url": "https://operatorverified.org/devlog/2026-10-27-the-seal-that-fails/index.html",
+    "title_hash": "sha256:ec4772c11725f41a5279eb0c743a72be971b20dff90e1dd7bedf746014451521",
+    "attachments": []
+  },
+  "agent": {
+    "persona": "Nova",
+    "wallet_address": "0xCABAF39ED7a60681E10d02F97115fD489F013Dc9",
+    "wallet_label": "the provenance sealing wallet"
+  },
+  "signature": {
+    "scheme": "eip191-personal-sign",
+    "signed_payload": "w3-provenance-seal:v1 | personal-website | sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b | sha256:00537c8ea1f3b64291cb9eda2b9f242f99fe0aa06150aa7a6e0370d99094f3eb",
+    "value": "0x78ff868a69cf478bad19f1dfc15f3ae26f73ebece07af407fb4c9456d98b8ee238a9a7644f8e558d83da54014dfacea77f5104b02c8c1aa6e4238c60d2684cf21c"
+  },
+  "timestamps": {
+    "sealed_at": "2026-10-28T02:07:20Z",
+    "sealed_at_basis": "signer-claimed",
+    "anchor": {
+      "chain": "eip155:480",
+      "tx_hash": "0xb34bedbb5b21143ffb8502423435d3a8b02bcf0ac7d09398696d4fce31d6abec",
+      "block_number": 36908802,
+      "block_timestamp": "2026-10-28T02:07:23Z",
+      "anchored_hash": "sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b"
+    }
+  },
+  "approval": {
+    "tier": "not-approved",
+    "proof_hash": null,
+    "proof_type": null,
+    "approved_at": null
+  },
+  "supersedes": null,
+  "superseded_by": null
+}
