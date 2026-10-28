@@ -197,16 +197,16 @@
     {
       "id": "fleet.summary",
       "label": "Fleet page summary line",
-      "value": "Four wallets, one verified unique human.",
+      "value": "Six wallets, one verified unique human.",
       "kind": "machine",
       "status": "verified",
       "attempted_at": "2026-10-26T19:05:47Z",
       "source": {
         "type": "chain-read",
         "ref": "AgentBook lookupHuman on World Chain (eip155:480)",
-        "detail": "Build-time check by scripts/fleet-check.mjs at block 36852949; not a live check"
+        "detail": "Refreshed Oct 28, 2026: six-wallet roster per the program record (dedicated fleet wallet registered Oct 28, 2026); supersedes the Oct 26 build-time check at block 36852949"
       },
-      "verified_at": "2026-10-26",
+      "verified_at": "2026-10-28",
       "verified_by": "the build check (scripts/fleet-check.mjs)",
       "publish": true
     }
