@@ -17,9 +17,9 @@
       "supersedes": "sha256:a47e333460822fa0eff7cf9679414096560b29abd69fcfc0466835d0b3793d4b"
     },
     "dev.to/articles/4932669": {
-      "content_hash": "sha256:d080d62d1c6cfaa99b11a7238ad4e89a29fc12ecbac4578565fc026f29a997c9",
+      "content_hash": "sha256:d410bc848d8efea0998cbe12b9a1f82ed1d514cfccf923218fcecfe043fbb70a",
       "seal_file": "_seals/devto/4932669.json",
-      "supersedes": null
+      "supersedes": "sha256:d080d62d1c6cfaa99b11a7238ad4e89a29fc12ecbac4578565fc026f29a997c9"
     }
   }
 }
