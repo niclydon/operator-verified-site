@@ -1,0 +1,41 @@
+{
+  "seal_version": "w3-seal/1",
+  "c14n": "w3-text-v1",
+  "content_hash": "sha256:d080d62d1c6cfaa99b11a7238ad4e89a29fc12ecbac4578565fc026f29a997c9",
+  "content": {
+    "surface": "dev.to",
+    "content_id": "dev.to/articles/4932669",
+    "canonical_url": "https://dev.to/niclydon/a-chat-id-is-an-address-54j",
+    "title_hash": "sha256:3d5dfdfc75d959146d9738fa9e178a11e18e2ec3179d899fae5b3973e047023a",
+    "attachments": []
+  },
+  "agent": {
+    "persona": "Nova",
+    "wallet_address": "0xCABAF39ED7a60681E10d02F97115fD489F013Dc9",
+    "wallet_label": "the provenance sealing wallet"
+  },
+  "signature": {
+    "scheme": "eip191-personal-sign",
+    "signed_payload": "w3-provenance-seal:v1 | dev.to | sha256:d080d62d1c6cfaa99b11a7238ad4e89a29fc12ecbac4578565fc026f29a997c9 | sha256:5db64e21bc62184262063bca61453b81f2661a1fb5c4326d49ff02629af7bcc4",
+    "value": "0xf5a513ac8e9f907b99ac0c4de92c8480bef39746fea80290d3ab290bcb2d0e777fbd66bb1a154191bdde0510c92a134bf1724d755693a9786c46e394267964401c"
+  },
+  "timestamps": {
+    "sealed_at": "2026-10-28T07:19:49Z",
+    "sealed_at_basis": "signer-claimed",
+    "anchor": {
+      "chain": "eip155:480",
+      "tx_hash": "0xb37c22abf1e23b8fd83ea808720b12568651d7cb4c6e36cd768c464d9a1cddf6",
+      "block_number": 36918176,
+      "block_timestamp": "2026-10-28T07:19:51Z",
+      "anchored_hash": "sha256:d080d62d1c6cfaa99b11a7238ad4e89a29fc12ecbac4578565fc026f29a997c9"
+    }
+  },
+  "approval": {
+    "tier": "not-approved",
+    "proof_hash": null,
+    "proof_type": null,
+    "approved_at": null
+  },
+  "supersedes": null,
+  "superseded_by": null
+}
