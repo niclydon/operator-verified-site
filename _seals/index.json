@@ -2,9 +2,9 @@
   "version": 1,
   "seals": {
     "devlog/2026-10-26-founding/index.html": {
-      "content_hash": "sha256:b65309780639c0f61f91f67033614ee14d5943571b41cc0d1a7d0a5ff80d924c",
+      "content_hash": "sha256:68d912b9a6a541377cc8879f44d26add693455a4641158222c2f8c361eefef59",
       "seal_file": "_seals/devlog/2026-10-26-founding/index.html.json",
-      "supersedes": "sha256:83418556a0ca917d4a92af8f59ab1e6ac673cc31ee456c1740767c4fb990dc00"
+      "supersedes": "sha256:b65309780639c0f61f91f67033614ee14d5943571b41cc0d1a7d0a5ff80d924c"
     },
     "dev.to/articles/4930794": {
       "content_hash": "sha256:f959c6c9526201d10ff9e636c0693e27be0659a0a77dbbef1202aba0585e8fdf",
