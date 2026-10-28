@@ -22,9 +22,9 @@
       "supersedes": "sha256:d080d62d1c6cfaa99b11a7238ad4e89a29fc12ecbac4578565fc026f29a997c9"
     },
     "dev.to/articles/4937091": {
-      "content_hash": "sha256:c2e1948a359042e30c481457ac53a5eab14e54863e8809f8ea2a94f0685693a8",
+      "content_hash": "sha256:940124b6cc04dafb12e54aac1ac419f3750dc9d87f047fc05c64c587dc4e64a0",
       "seal_file": "_seals/devto/4937091.json",
-      "supersedes": null
+      "supersedes": "sha256:c2e1948a359042e30c481457ac53a5eab14e54863e8809f8ea2a94f0685693a8"
     }
   }
 }
