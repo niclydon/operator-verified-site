@@ -76,8 +76,26 @@ const THEMES = {
   light: { bg: "#F4F6F7", border: "#4A7FA5", label: "#33617F", main: "#1C1C1E", sub: "#5A6B75", hash: "#33505F", mark: "#A8742A" },
 };
 
-function badgeSvg({ theme, title, line1, line2 }) {
+function badgeSvg({ theme, title, line1, line2, line2strip, layout }) {
   const t = THEMES[theme] ?? THEMES.dark;
+  if (layout === "strip") {
+    // Wide single-line strip for article footers: hosts like dev.to
+    // stretch article images to the text column, so a footer mark
+    // earns its place by aspect ratio, wide and short.
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="88" viewBox="0 0 1240 88" role="img" aria-label="${esc(title)}">
+  <defs>
+    <clipPath id="cut"><polygon points="12,0 1228,0 1240,12 1240,76 1228,88 12,88 0,76 0,12"/></clipPath>
+  </defs>
+  <g clip-path="url(#cut)">
+    <rect width="1240" height="88" fill="${t.bg}"/>
+    <rect width="1240" height="88" fill="none" stroke="${t.border}" stroke-width="3"/>
+    <path d="M30 26 L42 38 L60 18" fill="none" stroke="${t.mark}" stroke-width="6" stroke-linecap="square" transform="translate(0,8)"/>
+    <text x="82" y="54" font-family="Verdana, Geneva, sans-serif" font-size="21" letter-spacing="3" fill="${t.label}">OPERATOR VERIFIED</text>
+    <text x="468" y="55" font-family="Verdana, Geneva, sans-serif" font-size="25" font-weight="bold" fill="${t.main}">${esc(line1)}</text>
+    <text x="892" y="54" font-family="Verdana, Geneva, sans-serif" font-size="20" fill="${t.sub}">${esc(line2strip ?? line2)}</text>
+  </g>
+</svg>`;
+  }
   return `<svg xmlns="http://www.w3.org/2000/svg" width="560" height="96" viewBox="0 0 560 96" role="img" aria-label="${esc(title)}">
   <defs>
     <clipPath id="cut"><polygon points="14,0 546,0 560,14 560,82 546,96 14,96 0,82 0,14"/></clipPath>
@@ -156,5 +174,8 @@ module.exports = async (req, res) => {
   const line2 = anchor
     ? `Anchored on World Chain${when ? ` · ${when}` : ""}`
     : "Sealed · anchor pending";
-  await send(200, badgeSvg({ theme, title: `Provenance seal: ${line1}. ${line2}`, line1, line2 }));
+  const line2strip = anchor
+    ? `World Chain${when ? ` · ${when}` : ""}`
+    : line2;
+  await send(200, badgeSvg({ theme, title: `Provenance seal: ${line1}. ${line2}`, line1, line2, line2strip, layout: q.get("layout") === "strip" ? "strip" : "pill" }));
 };
