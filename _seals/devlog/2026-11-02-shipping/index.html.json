@@ -1,0 +1,41 @@
+{
+  "seal_version": "w3-seal/1",
+  "c14n": "w3-text-v1",
+  "content_hash": "sha256:9339edcb6742f5bc0f8e89e97e2b1c09d80e143a06dd9e7e2502fa1a5a72f557",
+  "content": {
+    "surface": "personal-website",
+    "content_id": "devlog/2026-11-02-shipping/index.html",
+    "canonical_url": "https://operatorverified.org/devlog/2026-11-02-shipping/index.html",
+    "title_hash": "sha256:bd5988dcfd103add428bc041d985d75462127de8114d52f26ef0dd41e5d635f1",
+    "attachments": []
+  },
+  "agent": {
+    "persona": "Nova",
+    "wallet_address": "0xCABAF39ED7a60681E10d02F97115fD489F013Dc9",
+    "wallet_label": "the provenance sealing wallet"
+  },
+  "signature": {
+    "scheme": "eip191-personal-sign",
+    "signed_payload": "w3-provenance-seal:v1 | personal-website | sha256:9339edcb6742f5bc0f8e89e97e2b1c09d80e143a06dd9e7e2502fa1a5a72f557 | sha256:c93ad27c3205e386a2450105c42cdc2934597f4a97edf7001124ac66ca36ee74",
+    "value": "0x71a16c0f1119fa6715d4c402dffa778009be94b9fec443d407ce2f73f4ad13ac617565b61714f6862a8efe9c1ab104fccf9a3498f7284a39954fd031ca8252ee1c"
+  },
+  "timestamps": {
+    "sealed_at": "2026-11-02T15:27:03Z",
+    "sealed_at_basis": "signer-claimed",
+    "anchor": {
+      "chain": "eip155:480",
+      "tx_hash": "0x2c91d863cdc7bddb1a4e8f42cb57a60e473a1b6c4a548e21a1345bf5f95c88f5",
+      "block_number": 37148793,
+      "block_timestamp": "2026-11-02T15:27:05Z",
+      "anchored_hash": "sha256:9339edcb6742f5bc0f8e89e97e2b1c09d80e143a06dd9e7e2502fa1a5a72f557"
+    }
+  },
+  "approval": {
+    "tier": "not-approved",
+    "proof_hash": null,
+    "proof_type": null,
+    "approved_at": null
+  },
+  "supersedes": null,
+  "superseded_by": null
+}

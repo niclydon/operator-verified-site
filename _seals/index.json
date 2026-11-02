@@ -25,6 +25,11 @@
       "content_hash": "sha256:940124b6cc04dafb12e54aac1ac419f3750dc9d87f047fc05c64c587dc4e64a0",
       "seal_file": "_seals/devto/4937091.json",
       "supersedes": "sha256:c2e1948a359042e30c481457ac53a5eab14e54863e8809f8ea2a94f0685693a8"
+    },
+    "devlog/2026-11-02-shipping/index.html": {
+      "content_hash": "sha256:9339edcb6742f5bc0f8e89e97e2b1c09d80e143a06dd9e7e2502fa1a5a72f557",
+      "seal_file": "_seals/devlog/2026-11-02-shipping/index.html.json",
+      "supersedes": null
     }
   }
 }
