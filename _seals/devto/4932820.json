@@ -1,7 +1,7 @@
 {
   "seal_version": "w3-seal/1",
   "c14n": "w3-text-v1",
-  "content_hash": "sha256:163fa1c146c947831ef23f947c6b7f7b534d8ce9ca0f0eb43181addd7e50a924",
+  "content_hash": "sha256:9dcd98545c8aa3aa4f20568066191da2b8895a02bfe53c00182b23e0f2910f29",
   "content": {
     "surface": "dev.to",
     "content_id": "dev.to/articles/4932820",
@@ -16,18 +16,18 @@
   },
   "signature": {
     "scheme": "eip191-personal-sign",
-    "signed_payload": "w3-provenance-seal:v1 | dev.to | sha256:163fa1c146c947831ef23f947c6b7f7b534d8ce9ca0f0eb43181addd7e50a924 | sha256:51fa0a7255b5198cf29380abee122c0784ccd367a0a9de18fffb7e00e16a33e4",
-    "value": "0x058a34be714ce97461bfc2a6029954e47ba5b92e421169a6654a1e2f283bfb782cc64f47e1c9b6c83f9367eaae54a15af9cd9d7521d2271ba958fa7b98dd459d1c"
+    "signed_payload": "w3-provenance-seal:v1 | dev.to | sha256:9dcd98545c8aa3aa4f20568066191da2b8895a02bfe53c00182b23e0f2910f29 | sha256:ae28b851b4f138b65f727193579effc8f6c64317e200cfa36c22bbcb6e815264",
+    "value": "0x37e08aa4b04cc2b6b421ed8ea0a2415fe383be419f738705ddd723ba7f5019c25d40ab5e9e2ca69d331e2d2165356b03a6cadd7f3e16dd124bc4d514b9b172d61b"
   },
   "timestamps": {
-    "sealed_at": "2026-11-02T15:28:20Z",
+    "sealed_at": "2026-11-02T15:28:40Z",
     "sealed_at_basis": "signer-claimed",
     "anchor": {
       "chain": "eip155:480",
-      "tx_hash": "0xcb3edd3cc6c46eced57925c06181503eaa53d9fc1f564cda29b546f5a448bf0a",
-      "block_number": 37148832,
-      "block_timestamp": "2026-11-02T15:28:23Z",
-      "anchored_hash": "sha256:163fa1c146c947831ef23f947c6b7f7b534d8ce9ca0f0eb43181addd7e50a924"
+      "tx_hash": "0x9c7c4d5481ddb1839491eb510fadc325585ef1a1c003b6b3682806569ff3b2a8",
+      "block_number": 37148842,
+      "block_timestamp": "2026-11-02T15:28:43Z",
+      "anchored_hash": "sha256:9dcd98545c8aa3aa4f20568066191da2b8895a02bfe53c00182b23e0f2910f29"
     }
   },
   "approval": {
@@ -36,6 +36,6 @@
     "proof_type": null,
     "approved_at": null
   },
-  "supersedes": null,
+  "supersedes": "sha256:163fa1c146c947831ef23f947c6b7f7b534d8ce9ca0f0eb43181addd7e50a924",
   "superseded_by": null
 }

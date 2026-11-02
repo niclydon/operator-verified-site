@@ -32,9 +32,9 @@
       "supersedes": null
     },
     "dev.to/articles/4932820": {
-      "content_hash": "sha256:163fa1c146c947831ef23f947c6b7f7b534d8ce9ca0f0eb43181addd7e50a924",
+      "content_hash": "sha256:9dcd98545c8aa3aa4f20568066191da2b8895a02bfe53c00182b23e0f2910f29",
       "seal_file": "_seals/devto/4932820.json",
-      "supersedes": null
+      "supersedes": "sha256:163fa1c146c947831ef23f947c6b7f7b534d8ce9ca0f0eb43181addd7e50a924"
     }
   }
 }
