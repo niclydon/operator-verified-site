@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Post 2: Shipped: two packages, a registry listing, and the first seals — Operator Verified</title>
+<meta name="description" content="Devlog post 2: Fiador's verify packages on npm and the MCP registry, Signet's first anchor and the founding post's seals, and the pre-release gates that caught a package which would have shipped empty.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Operator Verified">
+<meta property="og:title" content="Post 2: Shipped: two packages, a registry listing, and the first seals — Operator Verified">
+<meta property="og:description" content="Devlog post 2: Fiador's verify packages on npm and the MCP registry, Signet's first anchor and the founding post's seals, and the pre-release gates that caught a package which would have shipped empty.">
+<meta property="og:url" content="https://operatorverified.org/devlog/2026-11-02-shipping/">
+<meta property="og:image" content="https://operatorverified.org/assets/lead-lockup-dark.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EDEEF0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<link rel="icon" href="../../assets/ov-core-light.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../../assets/ov-core-dark.svg" media="(prefers-color-scheme: dark)">
+<script>
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('ov-mode'); } catch(e){}
+  var mode = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-mode', mode);
+  document.addEventListener('DOMContentLoaded', function(){
+    // Facts wiring: values printed inline are the no-JS fallback; when
+    // facts.json loads, its verified values replace them in place.
+    try {
+      var link = document.querySelector('link[rel="stylesheet"]');
+      var root = link ? link.getAttribute('href').replace(/assets\/style\.css$/, '') : '';
+      fetch(root + 'facts.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(data){
+        if (!data) return;
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        function fmt(iso){ var d = new Date(iso + 'T12:00:00'); return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+        data.facts.forEach(function(f){
+          document.querySelectorAll('[data-fact="' + f.id + '"]').forEach(function(el){ el.textContent = f.value; });
+          document.querySelectorAll('[data-fact-date="' + f.id + '"]').forEach(function(el){ el.textContent = fmt(f.verified_at); });
+        });
+        document.querySelectorAll('[data-fact="generated"]').forEach(function(el){ el.textContent = fmt(String(data.generated_at).slice(0,10)); });
+      }).catch(function(){});
+    } catch(e){}
+    function applyMode(m){
+      document.documentElement.setAttribute('data-mode', m);
+      document.querySelectorAll('img[data-dark-src]').forEach(function(im){
+        im.src = m === 'dark' ? im.getAttribute('data-dark-src') : im.getAttribute('data-light-src');
+      });
+      var b = document.getElementById('mode-toggle');
+      if (b) b.textContent = m === 'dark' ? '☀ Light' : '☾ Dark';
+    }
+    applyMode(document.documentElement.getAttribute('data-mode') || 'light');
+    var b = document.getElementById('mode-toggle');
+    if (b) b.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+      applyMode(cur);
+      try { localStorage.setItem('ov-mode', cur); } catch(e){}
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="../../">
+    <img class="only-light" src="../../assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <img class="only-dark" src="../../assets/ov-core-dark.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <span>Operator&nbsp;Verified</span></a>
+  <nav><a href="../../projects/">Projects</a><a href="../../fleet/">Fleet</a><a href="../../verify/">Verify</a><a href="../../resources/">Resources</a><a href="../../devlog/">Devlog</a><a href="../../about/">About</a><button class="toggle" id="mode-toggle" aria-label="Switch between light and dark mode">☾ Dark</button></nav>
+</div></header>
+<main class="wrap">
+
+<section style="padding-top:48px">
+  <div class="label"><b>—</b> / DEVLOG · POST 2</div>
+  <h2>Shipped: two packages, a registry listing, and the first seals</h2>
+  <h3>What happened</h3>
+  <p>Post 1 ended with a list: the verify package inside Fiador — human-backed attestation for Discord bots — its public verify surface, and this site's launch. In the week since, all of that shipped, and the week added a fourth thing the list did not promise: this program's writing is now sealed as it publishes. This post is the record of the shipping week, including the part that nearly shipped broken. It is the second post from Operator Verified, the program whose name is the claim it stands for: verified as a unique human.</p>
+  <h3>Fiador, on npm and in the registry</h3>
+  <p>Fiador's verification core is now a public package. <code>@fiador/verify</code> is at 0.3.1 on npm, and <code>@fiador/verify-mcp</code> is at 0.2.1 beside it: the MCP server that exposes the same checks to agents as tools. The registry listing followed on the MCP registry, where <code>io.github.niclydon/verify-mcp</code> stands at 0.2.1, verified live against the registry's own API.</p>
+  <p>These packages are the reusable form of a path that had already run once. On October 26, 2026, a World App proof verified against this program's 4.0 relying party, through the verification bot, and assigned the Verified Human role in a live Discord server. The bot was the demonstration; the packages are the demonstration made installable, so the next bot does not start from a blank file.</p>
+  <p>The listings kept going after the registry. On November 1, 2026, all three projects in this program were submitted to the AgentBook registry: Fiador, Operator Verified, and Signet, each as its own listing, each still open and awaiting upstream review as this post is drafted. That is a submission, not an acceptance, and the post records it as one. The matching world.org ecosystem listing has no such route at all: there is no pull request and no API for it, only a submission inside the logged-in World Developer Portal, so it is not claimed here.</p>
+  <h3>Signet's first anchor</h3>
+  <p>Signet is this program's provenance seal for published writing, and it is the second half of what shipped. A seal is a signed SHA-256 hash of a piece of writing. The hash is anchored on World Chain by a transaction whose data is exactly the hash bytes: no shared anchor contract to deploy, audit, or trust, just a dated public record that this hash existed at that block.</p>
+  <p>On October 27, 2026, a measurement anchor went first, so the cost in this post is a measurement and not an estimate: 0.0000000371 ETH, all in, per anchor. The same day, both editions of post 1 were sealed, this site's edition and its dev.to edition. The dev.to edition's first seal is sha256:43555f35…ae1f, anchored in transaction 0xc31cd305…, World Chain block 36902677.</p>
+  <p>A seal nobody can check is a claim, so the founding article also gained the checking surface. Its footer carries a badge drawn at request time from the public seal record: change the record and the badge already embedded in the article changes with it. That has now happened twice in the open. Adding the badge footer was itself an edit, sealed as the article's second edition, and the embedded badge flipped to the new fingerprint on its own. Moving the badge's link to the hosted verify page made a third edition, and it flipped again. The verify page, at operatorverified.org/seal/, re-runs every check — content hash, signature, anchor — in the reader's browser, against records anyone can fetch. Editions have continued to accumulate since; the badge and the verify page show the current one, which is the point of drawing them live instead of pasting a hash into the text.</p>
+  <p>Adoption since then is a matter of public record rather than intention. As this post is drafted, the public seals index lists five records: both editions of the founding post, a site post about a seal that fails, and two further dev.to articles, each sealed on October 28, 2026 as it published. New writing in this program is sealed when it appears, not in a later batch.</p>
+  <h3>The gates</h3>
+  <p>None of this shipped on its first draft. Releases in this program pass independent adversarial review rounds before they go out, and this week's rounds earned their keep. Across the fix passes they caught a residual gap in the replay-protection handling, a race in the badge service's revocation path, and, in the second language implementation of the same core, a failure path that failed open: under one condition it would have answered yes when it should have refused. That one was caught during the port itself, by holding the port to the same cases as the original. What passed is also part of the record: the two implementations produce byte-identical canonical results, confirmed by independent recomputation, and the release waited for the fix passes and their re-reviews rather than shipping around them.</p>
+  <h3>Evidence</h3>
+  <ul>
+  <li>npm, read November 1, 2026: registry.npmjs.org lists <code>@fiador/verify</code> latest at 0.3.1 and <code>@fiador/verify-mcp</code> latest at 0.2.1.</li>
+  <li>MCP registry API, read November 1, 2026: <code>io.github.niclydon/verify-mcp</code> version 0.2.1, status active, marked latest (0.2.0 remains listed beneath it).</li>
+  <li>AgentBook registry, submitted November 1, 2026: listings for Fiador, Operator Verified, and Signet, open and awaiting upstream review. The world.org ecosystem listing is not among them; it has no pull-request or API route.</li>
+  <li>Measurement anchor, October 27, 2026: transaction 0xcfe79c5c… on World Chain; all-in cost 0.0000000371 ETH.</li>
+  <li>Founding post, dev.to edition, first seal: content hash sha256:43555f35…ae1f; anchor transaction 0xc31cd305…, World Chain block 36902677; sealed October 27, 2026. The full public record lives in the seals index at operatorverified.org/_seals/, which lists five records as this post is drafted.</li>
+  <li>This post is queued for the same treatment after publication: sealed, badged, and checkable from its own footer.</li>
+  </ul>
+  <h3>What did not work</h3>
+  <p>The empty package. Both npm packages were missing a build step that runs before packing, so a publish from a clean tree would have produced tarballs containing no built code at all: a live, installable, empty package. The first publish attempt was stopped by an authentication refusal at the one-time-password step, and the defect was found in staging afterwards. The honest summary is that the thing that saved this release was not a gate; it was luck wearing a login prompt. The build step is in place now, and the check that replaced the luck — pack from a clean tree and inspect what is actually in the tarball — is the one that runs before the next release.</p>
+  <p>The registry listing nearly carried two defects of its own, caught in submission prep: a description of 232 characters against a 100-character cap, and a schema pointer aimed at a schema version that does not exist, at an address that returns 404. Both were fixed before the submission went in; the listing that is live carries the corrected metadata.</p>
+  <p>Getting the sealing wallet funded took most of a day and two wrong turns, and it is recorded here because the failure was in the checking, not the sending. The first funding arrived in a different asset than the one anchor fees are paid in, and the balance checks, which read only the fee asset, reported the wallet empty while the money sat in it in another form. Nothing was lost. All of the delay was avoidable, and it is why the anchor cost above comes from a measurement taken after the float finally landed, and not from the estimate that preceded it.</p>
+  <p>One smaller wrinkle, recorded so it is not rediscovered: dev.to stores an article's body without its final newline, so the founding article's seal signs a canonical form with exactly one newline restored. The sealed bytes are the written bytes plus that one character, and the seal record says so.</p>
+  <h3>Also: this site's own check is live</h3>
+  <p>The Verify page on this site has run a live check since October 26, 2026. A visitor can run a one-off check with World ID and be told, in the claim this program stands for, that they were verified as a unique human. Nothing is stored, no account is created, and the check grants nothing. It exists so the claim can be tried by anyone reading about it, not just described to them.</p>
+  <h3>What is next</h3>
+  <p>The devlog continues weekly. Signet's adoption continues at natural publication times: new posts are sealed as they publish, this one included. Fiador's packages are at their first public versions; their next releases will be staged the same way these were, and this log will report what the gates catch, including when the answer is embarrassing.</p>
+  <h3>Links</h3>
+  <ul>
+  <li>Fiador on GitHub: <a href="https://github.com/niclydon/fiador">https://github.com/niclydon/fiador</a></li>
+  <li><code>@fiador/verify</code> on npm: <a href="https://www.npmjs.com/package/@fiador/verify">https://www.npmjs.com/package/@fiador/verify</a></li>
+  <li><code>@fiador/verify-mcp</code> on npm: <a href="https://www.npmjs.com/package/@fiador/verify-mcp">https://www.npmjs.com/package/@fiador/verify-mcp</a></li>
+  <li>MCP registry: <a href="https://registry.modelcontextprotocol.io">https://registry.modelcontextprotocol.io</a> (listing <code>io.github.niclydon/verify-mcp</code>)</li>
+  <li>Post 1: <a href="https://operatorverified.org/devlog/2026-10-26-founding/">https://operatorverified.org/devlog/2026-10-26-founding/</a> and its dev.to edition: <a href="https://dev.to/niclydon/verified-renamed-and-founded-in-the-open-49im">https://dev.to/niclydon/verified-renamed-and-founded-in-the-open-49im</a></li>
+  <li>Seal verify page: <a href="https://operatorverified.org/seal/">https://operatorverified.org/seal/</a></li>
+  <li>Public seal records: <a href="https://operatorverified.org/_seals/">https://operatorverified.org/_seals/</a></li>
+  </ul>
+  <p>Operator Verified is an independent project by Nic Lydon. It is not affiliated with or endorsed by World, Worldcoin, Tools for Humanity, Okta, or Vercel; "World ID" and "AgentKit" are used descriptively to name the systems this software interoperates with.</p>
+</section>
+
+</main>
+<footer><div class="wrap"><div class="cols">
+  <div>Created by Nic Lydon. Copyright 2026 Nic Lydon, Apache-2.0.<br>Part of Operator Verified, an independent open-source program with no token.</div>
+  <div>Facts verified <span data-fact="generated">October 26, 2026</span> · <a href="../../snapshots/">Snapshot history</a><br>
+  More by Nic Lydon: <a href="https://www.niclydon.io/nexus">Nexus</a> · <a href="https://www.niclydon.io/aria">ARIA</a> · <a href="https://www.niclydon.io/gadgets">Gadgets</a></div>
+</div>
+<p style="margin-top:16px">Operator Verified is an independent project by Nic Lydon. It is not affiliated with or endorsed by World, Worldcoin, Tools for Humanity, Okta, or Vercel; “World ID” and “AgentKit” are used descriptively to name the systems this software interoperates with.</p>
+</div></footer>
+</body>
+</html>

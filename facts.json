@@ -1,6 +1,6 @@
 {
   "site": "operator-verified",
-  "generated_at": "2026-10-26T23:33:38Z",
+  "generated_at": "2026-11-02T14:11:35Z",
   "facts": [
     {
       "id": "registry.services.count",
@@ -208,6 +208,76 @@
       },
       "verified_at": "2026-10-28",
       "verified_by": "the build check (scripts/fleet-check.mjs)",
+      "publish": true
+    },
+    {
+      "id": "fiador.npm.verify.version",
+      "label": "@fiador/verify latest version on npm",
+      "value": "0.3.1",
+      "kind": "machine",
+      "source": {
+        "type": "web",
+        "ref": "https://www.npmjs.com/package/@fiador/verify",
+        "detail": "Read live from the npm registry on November 1, 2026"
+      },
+      "verified_at": "2026-11-01",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "fiador.npm.verify_mcp.version",
+      "label": "@fiador/verify-mcp latest version on npm",
+      "value": "0.2.1",
+      "kind": "machine",
+      "source": {
+        "type": "web",
+        "ref": "https://www.npmjs.com/package/@fiador/verify-mcp",
+        "detail": "Read live from the npm registry on November 1, 2026"
+      },
+      "verified_at": "2026-11-01",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "fiador.registry.listing",
+      "label": "MCP registry listing io.github.niclydon/verify-mcp",
+      "value": "0.2.1, active, marked latest",
+      "kind": "machine",
+      "source": {
+        "type": "web",
+        "ref": "https://registry.modelcontextprotocol.io",
+        "detail": "Read live from the registry API on November 1, 2026; 0.2.0 listed beneath"
+      },
+      "verified_at": "2026-11-01",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "signet.measurement_anchor",
+      "label": "Signet measurement anchor (World Chain)",
+      "value": "tx 0xcfe79c5c…; all-in cost 0.0000000371 ETH",
+      "kind": "machine",
+      "source": {
+        "type": "chain-read",
+        "ref": "World Chain transaction 0xcfe79c5c",
+        "detail": "Measurement anchor of October 27, 2026; the cost is measured, not estimated"
+      },
+      "verified_at": "2026-10-27",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "signet.founding_seals",
+      "label": "Founding post, dev.to edition, first seal",
+      "value": "sha256:43555f35…ae1f; anchor tx 0xc31cd305…, block 36902677",
+      "kind": "machine",
+      "source": {
+        "type": "web",
+        "ref": "https://operatorverified.org/_seals/",
+        "detail": "First seal, October 27, 2026; later editions accumulate in the public seals index"
+      },
+      "verified_at": "2026-10-27",
+      "verified_by": "the author",
       "publish": true
     }
   ]
