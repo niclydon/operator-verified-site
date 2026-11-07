@@ -4,6 +4,29 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-11-06 — Approval confirmation reads the published projections
+
+`/api/approval-confirm` no longer waits on a route to the Visto
+approval service that was ruled out on attack-surface grounds. It
+reads the signed record projections the service publishes to the
+public `visto-projections` Blob store (one object per record,
+reconciled every 60 seconds), verifies each projection's Ed25519
+envelope signature against the pinned issuer key with the
+requested proof hash bound into the signed contents, and reports
+`valid` / `revoked` / `unknown` from the verified contents only.
+Store failures and unsigned or tampered objects fail closed as
+502 `unreachable`, which the verify page shows as not re-checked,
+never as a pass. `checked_at` now carries the projection's
+`as_of` attestation time. The endpoint stays read-only and
+returns confirmation state only, never the record itself.
+
+Verified locally against the live store before deployment: the
+gate-1 publish record confirms valid and consumed; a forged
+object fails closed. First live-confirmed approval still awaits
+a publication that runs the standing approval-before-publish
+path end to end. See
+`docs/narrative/2026-11-06-approval-confirm-projections.md`.
+
 ## 2026-10-27 — World ID check wording published
 
 The approved shorter `/verify/` wording merged as `a0c2eb9`;
