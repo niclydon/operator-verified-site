@@ -4,6 +4,45 @@ Chronological record of landed changes to this repository. The
 long-form record lives in `docs/narrative/`; entries here point
 at it.
 
+## 2026-11-09 — Devlog post 3: the standing path's first publication
+
+Devlog post 3, "The standing path: approved before, sealed
+after," is published in both editions, and it is the first
+publication the standing approval path carried end to end. The
+operator approved the exact text that morning; the W2 lane's
+Tier 2 Visto request over the frozen payload (body sha256
+c8126d47…) expired once unproven and was re-raised; the proof
+landed at 12:14 ET and record sha256:fd662a4a… was reserved and
+consumed agent-only, the executor resolving the payload from the
+service read (the November 8 fix, first real use). The record
+confirmed valid and consumed through `/api/approval-confirm`
+before anything shipped. Site edition: commit `435131d`,
+https://operatorverified.org/devlog/2026-11-09-standing-path/.
+dev.to edition: article 4999584, published 2026-11-09T17:17:45Z
+with only its front-matter flag changed from the approved draft.
+
+The publication commit's build sync overwrote five lane-owned
+files that had advanced beyond the site builder (the founding
+and post 2 pages' Signet live seal-badge blocks, the verify
+page and its client bundle, the snapshots index). All five were
+restored byte-for-byte in commit `305cbcd` and verified live.
+Build syncs now permanently exclude every published devlog post
+directory, `verify/index.html`, `assets/verify-client.js`, and
+`snapshots/index.html`.
+
+The dev.to editions also gained covers, on the operator's style
+ruling: post 2's edition had gone out bare, against the style
+post 1 set. Generated plate-family covers are hosted at
+`assets/devlog-shipping-cover.png` (asset commit `0597c20`;
+post 2's sealed body verified byte-identical after the
+retrofit) and `assets/devlog-standing-path-cover.png`. Inline
+images return as a drafting standard from post 4; post 3's body
+was frozen under the approval, so it takes a cover only.
+
+Still pending: the sealing lane seals both post 3 editions with
+the approval embedded, the first seals to carry one. See
+`docs/narrative/2026-11-09-standing-path-first-publication.md`.
+
 ## 2026-11-06 — Approval confirmation reads the published projections
 
 `/api/approval-confirm` no longer waits on a route to the Visto
