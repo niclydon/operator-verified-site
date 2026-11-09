@@ -1,6 +1,6 @@
 {
   "site": "operator-verified",
-  "generated_at": "2026-11-02T14:11:35Z",
+  "generated_at": "2026-11-09T17:15:51Z",
   "facts": [
     {
       "id": "registry.services.count",
@@ -277,6 +277,76 @@
         "detail": "First seal, October 27, 2026; later editions accumulate in the public seals index"
       },
       "verified_at": "2026-10-27",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "signet.seals.count",
+      "label": "Public Signet seal records",
+      "value": 7,
+      "kind": "machine",
+      "source": {
+        "type": "web",
+        "ref": "https://operatorverified.org/_seals/",
+        "detail": "Counted live in the public seals index on November 8, 2026"
+      },
+      "verified_at": "2026-11-08",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "visto.standing_path.state",
+      "label": "Visto standing publish path",
+      "value": "live; devlog post 3 is its first real publication",
+      "kind": "machine",
+      "source": {
+        "type": "status-check",
+        "ref": "Program record, November 2026",
+        "detail": "Standing path completed November 7-8, 2026: fresh approver enrolment, dress rehearsal to a consumed record, execute fix deployed; the public confirmation endpoint is live"
+      },
+      "verified_at": "2026-11-08",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "agentbook.submissions.status",
+      "label": "AgentBook registry submissions (Fiador, Operator Verified, Signet)",
+      "value": "submitted November 1, 2026; open at the November 8, 2026 read",
+      "kind": "machine",
+      "source": {
+        "type": "web",
+        "ref": "https://github.com/andy-t-wang/agentbook",
+        "detail": "Pull requests #3, #4, and #5, read live on November 8, 2026"
+      },
+      "verified_at": "2026-11-08",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "visto.records.gate1",
+      "label": "Gate-1 approval record (October 28, 2026 note)",
+      "value": "sha256:84e45296…; valid, consumed",
+      "kind": "machine",
+      "source": {
+        "type": "web",
+        "ref": "https://operatorverified.org/api/approval-confirm",
+        "detail": "Read live through the public confirmation endpoint on November 8, 2026"
+      },
+      "verified_at": "2026-11-08",
+      "verified_by": "the author",
+      "publish": true
+    },
+    {
+      "id": "visto.records.rehearsal",
+      "label": "Standing-path rehearsal approval record (November 7, 2026)",
+      "value": "sha256:983fdaac…; valid, consumed",
+      "kind": "machine",
+      "source": {
+        "type": "web",
+        "ref": "https://operatorverified.org/api/approval-confirm",
+        "detail": "Read live through the public confirmation endpoint on November 8, 2026"
+      },
+      "verified_at": "2026-11-08",
       "verified_by": "the author",
       "publish": true
     }

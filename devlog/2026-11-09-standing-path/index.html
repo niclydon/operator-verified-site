@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Post 3: The standing path: approved before, sealed after — Operator Verified</title>
+<meta name="description" content="Devlog post 3: the standing publication path goes live (a Visto approval of the exact payload before anything executes, a Signet seal carrying that approval after), rehearsed, fixed, and used for this post first.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Operator Verified">
+<meta property="og:title" content="Post 3: The standing path: approved before, sealed after — Operator Verified">
+<meta property="og:description" content="Devlog post 3: the standing publication path goes live (a Visto approval of the exact payload before anything executes, a Signet seal carrying that approval after), rehearsed, fixed, and used for this post first.">
+<meta property="og:url" content="https://operatorverified.org/devlog/2026-11-09-standing-path/">
+<meta property="og:image" content="https://operatorverified.org/assets/lead-lockup-dark.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EDEEF0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214">
+<link rel="icon" href="../../assets/ov-core-light.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../../assets/ov-core-dark.svg" media="(prefers-color-scheme: dark)">
+<script>
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('ov-mode'); } catch(e){}
+  var mode = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-mode', mode);
+  document.addEventListener('DOMContentLoaded', function(){
+    // Facts wiring: values printed inline are the no-JS fallback; when
+    // facts.json loads, its verified values replace them in place.
+    try {
+      var link = document.querySelector('link[rel="stylesheet"]');
+      var root = link ? link.getAttribute('href').replace(/assets\/style\.css$/, '') : '';
+      fetch(root + 'facts.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(data){
+        if (!data) return;
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        function fmt(iso){ var d = new Date(iso + 'T12:00:00'); return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+        data.facts.forEach(function(f){
+          document.querySelectorAll('[data-fact="' + f.id + '"]').forEach(function(el){ el.textContent = f.value; });
+          document.querySelectorAll('[data-fact-date="' + f.id + '"]').forEach(function(el){ el.textContent = fmt(f.verified_at); });
+        });
+        document.querySelectorAll('[data-fact="generated"]').forEach(function(el){ el.textContent = fmt(String(data.generated_at).slice(0,10)); });
+      }).catch(function(){});
+    } catch(e){}
+    function applyMode(m){
+      document.documentElement.setAttribute('data-mode', m);
+      document.querySelectorAll('img[data-dark-src]').forEach(function(im){
+        im.src = m === 'dark' ? im.getAttribute('data-dark-src') : im.getAttribute('data-light-src');
+      });
+      var b = document.getElementById('mode-toggle');
+      if (b) b.textContent = m === 'dark' ? '☀ Light' : '☾ Dark';
+    }
+    applyMode(document.documentElement.getAttribute('data-mode') || 'light');
+    var b = document.getElementById('mode-toggle');
+    if (b) b.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+      applyMode(cur);
+      try { localStorage.setItem('ov-mode', cur); } catch(e){}
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="../../">
+    <img class="only-light" src="../../assets/ov-core-light.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <img class="only-dark" src="../../assets/ov-core-dark.svg" width="30" height="30" alt="Operator Verified OV mark (separate-letter core)">
+    <span>Operator&nbsp;Verified</span></a>
+  <nav><a href="../../projects/">Projects</a><a href="../../fleet/">Fleet</a><a href="../../verify/">Verify</a><a href="../../resources/">Resources</a><a href="../../devlog/">Devlog</a><a href="../../about/">About</a><button class="toggle" id="mode-toggle" aria-label="Switch between light and dark mode">☾ Dark</button></nav>
+</div></header>
+<main class="wrap">
+
+<section style="padding-top:48px">
+  <div class="label"><b>—</b> / DEVLOG · POST 3</div>
+  <h2>The standing path: approved before, sealed after</h2>
+  <h3>What happened</h3>
+  <p>Post 2 shipped on November 2, 2026, in both editions, and was sealed the same day; the public seal index stands at seven records. But its publication still ran the way the program's first approved note had run in October: the approval leg carried by hand, one piece at a time, by the people who built the pieces. That worked twice. It is not a way to run a weekly log.</p>
+  <p>So this week the program finished the standing path, and this post is its first real use. It is the third post from Operator Verified, the program whose name is the claim it stands for: verified as a unique human.</p>
+  <p>The path has two halves. Before anything executes, the operator approves the exact payload: not the topic, not a draft summary, the precise bytes that will be published, approved through Visto, this program's presence approval inbox, with a World ID proof at the tier the action requires. After publication, Signet — the program's provenance seal for published writing — seals the published text with that approval embedded in the seal record. An edit after approval changes the payload's hash, and execution refuses: approval of one text cannot be spent on another.</p>
+  <h3>The approval half</h3>
+  <p>Visto's records are the receipts. A request is created against the exact payload; the approver, verified as a unique human, approves it in the World App; the record is issued, then reserved by the executor, then consumed when the outcome is reported. Since November 6, 2026, anyone can re-check a record without asking the program: this site's confirmation endpoint reads the records' public projections and answers for a record hash, signature and freshness checked, whether the record is valid and whether it has been consumed. The October 28, 2026 gate-1 record, the hand-carried one, confirms through it today: valid, consumed.</p>
+  <p>The approver's side of the record is bound by a hash of the human identifier, set on November 7, 2026. The identifier itself never leaves the estate; the hash is what travels, and it is what the seal-time check compares, so a seal can show that the approval came from the same verified human the program's wallets and registrations resolve to, without publishing the identifier it resolves from.</p>
+  <h3>The seal half</h3>
+  <p>A seal, as post 2 described it, is a signed SHA-256 hash of a piece of writing, anchored on World Chain by a transaction whose data is the hash bytes. What is new is what a seal now carries. Signet accepts a validated approval claim at seal time and embeds it in the seal record, and its verification runs the approval checks alongside the content hash, the signature, and the anchor. The two halves meet there: the seal on a post no longer says only that these bytes existed at that block. It says a verified human approved these exact bytes before they were published, and the approval record it names can be re-confirmed by anyone through the public endpoint.</p>
+  <h3>The rehearsal, and what it caught</h3>
+  <p>The path was rehearsed before it was trusted, and the rehearsals failed first. Two attempts died on causes that had nothing to do with approval: the enrolled approver session lived on the operator's previous phone, so requests arrived where no session could answer them; and a client timeout silently killed the call that waits for an approval, twice, before the pattern was understood. A fresh enrolment from the current phone landed on November 7, 2026, and the rehearsal then ran end to end: proof settled, record reserved and consumed, the public projection confirming it.</p>
+  <p>The rehearsal also caught a defect in the path itself, which is what rehearsals are for. The execute step recomputes the action's hash over the service's canonical stored payload, and that payload carries fields the service owns, which the requesting agent never submits and, by design, cannot read back. An agent running the path alone could create a request and receive its approval, and then be unable to finish its own execute step. The rehearsal's execute leg was completed from the operator's side of the glass; the fix, deployed November 8, 2026, closes the gap, and the path now runs agent-only end to end. This post is published by that configuration: drafted by an agent, approved by the human it answers to, executed by the path, sealed with the approval inside.</p>
+  <h3>Evidence</h3>
+  <ul>
+  <li>Public seal index, read November 8, 2026: seven records at operatorverified.org/_seals/, post 2's two editions among them, sealed November 2, 2026.</li>
+  <li>Confirmation endpoint, read November 8, 2026: the gate-1 record sha256:84e45296… answers valid, consumed: true. The November 7, 2026 rehearsal record sha256:983fdaac… answers valid, consumed: true.</li>
+  <li>npm, read November 8, 2026: <code>@fiador/verify</code> latest still 0.3.1 and <code>@fiador/verify-mcp</code> latest still 0.2.1. Nothing in this post depends on a new release.</li>
+  <li>AgentBook registry, read November 8, 2026: the three listings submitted November 1, 2026 are still open pull requests. See the note below.</li>
+  <li>This post's own publication record will join the same public record set: its approval confirmable through the same endpoint, its seals in the same index.</li>
+  </ul>
+  <h3>What did not work</h3>
+  <p>The hand-carried pattern itself. Gate 1 proved the model on October 28, 2026, and post 2 proved it could be repeated, and both times the proof depended on a person relaying hashes and texts between lanes at the right moments. A mechanism that needs its builders in the room is a demonstration, not a path. Most of this week was spent turning the demonstration into the path, and the honest cost is that it took the better part of a week to publish a weekly post with it.</p>
+  <p>The rehearsal failures are recorded above rather than repeated here, with one addition: each of them looked, from the waiting side, like an approval that simply never came. The path now treats a silent wait as a state to diagnose, not a person to blame, because twice in a row the silence was the machinery's, not the approver's.</p>
+  <h3>Also: the registry listings are still open</h3>
+  <p>Post 2 reported that Fiador, Operator Verified, and Signet were submitted to the AgentBook registry on November 1, 2026, each as its own listing, and recorded the submissions as submissions, not acceptances. A week later all three are still open, awaiting upstream review. Nothing about that is unusual, and it is recorded here for the same reason the submissions were: so the log never lets a pending thing quietly read as a landed one.</p>
+  <h3>What is next</h3>
+  <p>The weekly log publishes on this path from here: approval before, seal after, receipts public at both ends. Fiador, human-backed attestation for Discord bots, stands at the versions post 2 shipped; its next steps are its own lane's to report. The external reviews the program is waiting on, the AgentBook listings among them, will be recorded as they move, in whichever direction they move.</p>
+  <h3>Links</h3>
+  <ul>
+  <li>Post 2: <a href="https://operatorverified.org/devlog/2026-11-02-shipping/">https://operatorverified.org/devlog/2026-11-02-shipping/</a> and its dev.to edition: <a href="https://dev.to/niclydon/shipped-two-packages-a-registry-listing-and-the-first-seals-40pl">https://dev.to/niclydon/shipped-two-packages-a-registry-listing-and-the-first-seals-40pl</a></li>
+  <li>Seal verify page: <a href="https://operatorverified.org/seal/">https://operatorverified.org/seal/</a></li>
+  <li>Public seal records: <a href="https://operatorverified.org/_seals/">https://operatorverified.org/_seals/</a></li>
+  <li>Approval confirmation endpoint: <a href="https://operatorverified.org/api/approval-confirm">https://operatorverified.org/api/approval-confirm</a> (answers for a record hash given as proof_hash)</li>
+  </ul>
+  <p>Operator Verified is an independent project by Nic Lydon. It is not affiliated with or endorsed by World, Worldcoin, Tools for Humanity, Okta, or Vercel; "World ID" and "AgentKit" are used descriptively to name the systems this software interoperates with.</p>
+</section>
+
+</main>
+<footer><div class="wrap"><div class="cols">
+  <div>Created by Nic Lydon. Copyright 2026 Nic Lydon, Apache-2.0.<br>Part of Operator Verified, an independent open-source program with no token.</div>
+  <div>Facts verified <span data-fact="generated">October 26, 2026</span> · <a href="../../snapshots/">Snapshot history</a><br>
+  More by Nic Lydon: <a href="https://www.niclydon.io/nexus">Nexus</a> · <a href="https://www.niclydon.io/aria">ARIA</a> · <a href="https://www.niclydon.io/gadgets">Gadgets</a></div>
+</div>
+<p style="margin-top:16px">Operator Verified is an independent project by Nic Lydon. It is not affiliated with or endorsed by World, Worldcoin, Tools for Humanity, Okta, or Vercel; “World ID” and “AgentKit” are used descriptively to name the systems this software interoperates with.</p>
+</div></footer>
+</body>
+</html>
