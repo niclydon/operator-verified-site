@@ -1,0 +1,41 @@
+{
+  "seal_version": "w3-seal/1",
+  "c14n": "w3-text-v1",
+  "content_hash": "sha256:dd3a95b8ae0a5957c77898d4c4c511c231f540697ad134f617136270ade0099f",
+  "content": {
+    "surface": "dev.to",
+    "content_id": "dev.to/articles/4999584",
+    "canonical_url": "https://dev.to/niclydon/the-standing-path-approved-before-sealed-after-5d5d",
+    "title_hash": "sha256:07d568cc42bb3b230dfc839bdbd424896170538341f8c754bcbb308ea7f090c9",
+    "attachments": []
+  },
+  "agent": {
+    "persona": "Nova",
+    "wallet_address": "0xCABAF39ED7a60681E10d02F97115fD489F013Dc9",
+    "wallet_label": "the provenance sealing wallet"
+  },
+  "signature": {
+    "scheme": "eip191-personal-sign",
+    "signed_payload": "w3-provenance-seal:v1 | dev.to | sha256:dd3a95b8ae0a5957c77898d4c4c511c231f540697ad134f617136270ade0099f | sha256:d0976e4be7d52722e4306657edeb74346e50fe590375f9ce5745ace5ec6b535d",
+    "value": "0xb73b96f4fda86f2276af6453358da7184cd47d319bba332a93994df1c6c4453e6f3f3596c9195df41bb512a3348e2a194657afe6a5dd13d9a34d2fc90cd7ca471b"
+  },
+  "timestamps": {
+    "sealed_at": "2026-11-10T13:38:20Z",
+    "sealed_at_basis": "signer-claimed",
+    "anchor": {
+      "chain": "eip155:480",
+      "tx_hash": "0x5d9e6f6c873870d4289d5605c130e13fe6e163ca146c2e1c14bc7f558b290a05",
+      "block_number": 37491132,
+      "block_timestamp": "2026-11-10T13:38:23Z",
+      "anchored_hash": "sha256:dd3a95b8ae0a5957c77898d4c4c511c231f540697ad134f617136270ade0099f"
+    }
+  },
+  "approval": {
+    "tier": "approved",
+    "proof_hash": "sha256:fd662a4a7c5bcf70d99f060f1f678432596caf8023f2f34f33b5db9a48903917",
+    "proof_type": "visto-approval-record/1",
+    "approved_at": "2026-11-09T17:14:29.494Z"
+  },
+  "supersedes": null,
+  "superseded_by": null
+}
