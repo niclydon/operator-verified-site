@@ -35,6 +35,16 @@
       "content_hash": "sha256:9dcd98545c8aa3aa4f20568066191da2b8895a02bfe53c00182b23e0f2910f29",
       "seal_file": "_seals/devto/4932820.json",
       "supersedes": "sha256:163fa1c146c947831ef23f947c6b7f7b534d8ce9ca0f0eb43181addd7e50a924"
+    },
+    "devlog/2026-11-09-standing-path/index.html": {
+      "content_hash": "sha256:58e4ad53f650feee1cc0636ab94b2774b2786f560ea4cecc69c91553084d7e38",
+      "seal_file": "_seals/devlog/2026-11-09-standing-path/index.html.json",
+      "supersedes": null
+    },
+    "dev.to/articles/4999584": {
+      "content_hash": "sha256:dd3a95b8ae0a5957c77898d4c4c511c231f540697ad134f617136270ade0099f",
+      "seal_file": "_seals/devto/4999584.json",
+      "supersedes": null
     }
   }
 }
